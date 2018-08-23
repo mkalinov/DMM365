@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="tabsPanel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="tabsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2444, 1333</value>
+  </data>
+  <data name="tabs.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 12pt, style=Bold</value>
+  </data>
+  <data name="tabs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2395, 1279</value>
+  </data>
+  <data name="tabConnections.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="tabConnections.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 48</value>
+  </data>
+  <data name="tabConnections.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2387, 1227</value>
+  </data>
+  <data name="gboxProject.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 18pt</value>
+  </data>
+  <data name="lblProject2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblProject2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>786, 32</value>
+  </data>
+  <data name="btnProject.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxProject.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>829, 39</value>
+  </data>
+  <data name="lblProject.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1120, 32</value>
+  </data>
+  <data name="groupConnectionTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 18pt</value>
+  </data>
+  <data name="lblTestConnTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblTestConnTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 32</value>
+  </data>
+  <data name="btnTestConnTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxIsSameCredentialsTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxIsSameCredentialsTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 36</value>
+  </data>
+  <data name="tbxPasswordTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxPasswordTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>474, 39</value>
+  </data>
+  <data name="lblPasswordTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblPasswordTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 32</value>
+  </data>
+  <data name="tbxUsernameTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxUsernameTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>474, 39</value>
+  </data>
+  <data name="tbxServerUrlTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxServerUrlTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>829, 39</value>
+  </data>
+  <data name="tbxOrgNameTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxOrgNameTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>478, 39</value>
+  </data>
+  <data name="lblUserTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUserTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 32</value>
+  </data>
+  <data name="lblServerUrlTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblServerUrlTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 32</value>
+  </data>
+  <data name="lblOrgNameTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblOrgNameTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 32</value>
+  </data>
+  <data name="groupConnectionSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 18pt</value>
+  </data>
+  <data name="lblTestConnSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblTestConnSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 32</value>
+  </data>
+  <data name="btnTestConnSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUrlPattenSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUrlPattenSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 32</value>
+  </data>
+  <data name="lblUniqueNamePathSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUniqueNamePathSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>849, 32</value>
+  </data>
+  <data name="tbxPasswordSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxPasswordSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>474, 39</value>
+  </data>
+  <data name="lblPasswordSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblPasswordSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 32</value>
+  </data>
+  <data name="tbxUsernameSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxUsernameSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>474, 39</value>
+  </data>
+  <data name="tbxServerUrlSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxServerUrlSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>829, 39</value>
+  </data>
+  <data name="tbxOrgNameSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="tbxOrgNameSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>478, 39</value>
+  </data>
+  <data name="lblUserSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUserSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 32</value>
+  </data>
+  <data name="lblServerUrlSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblServerUrlSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 32</value>
+  </data>
+  <data name="lblOrgNameSource.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblOrgNameSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 32</value>
+  </data>
+  <data name="tabModifySchema.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 48</value>
+  </data>
+  <data name="tabModifySchema.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2387, 1227</value>
+  </data>
+  <data name="btnLoadSchema.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="btnLoadSchema.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1312, 12</value>
+  </data>
+  <data name="btnLoadSchema.Size" type="System.Drawing.Size, System.Drawing">
+    <value>440, 42</value>
+  </data>
+  <data name="groupModifySchemaActions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 1109</value>
+  </data>
+  <data name="btnSchemaShowModified.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="btnSchemaShowPS.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="btnSchemaSaveExe.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="btnSchemaNext.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="tbxUpdateCompareFields.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lstSelectedEntityFields.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lstSelectedEntityFields.ItemHeight" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="lstSelectedEntityFields.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 324</value>
+  </data>
+  <data name="lblSelectedEntitiesAdvanced.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblSelectedEntitiesAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 32</value>
+  </data>
+  <data name="lblSelectedEntityFields.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblSelectedEntityFields.Size" type="System.Drawing.Size, System.Drawing">
+    <value>429, 32</value>
+  </data>
+  <data name="lstSelectedEntitiesAdvanced.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lstSelectedEntitiesAdvanced.ItemHeight" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="lstSelectedEntitiesAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 324</value>
+  </data>
+  <data name="tbxEntityFieldFilters.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUpdateCompareFields.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblUpdateCompareFields.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1367, 32</value>
+  </data>
+  <data name="cbxUpdateCompareFields.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxUpdateCompareFields.Size" type="System.Drawing.Size, System.Drawing">
+    <value>774, 36</value>
+  </data>
+  <data name="lblEntityFieldFilters.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblEntityFieldFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1339, 32</value>
+  </data>
+  <data name="cbxEntityFieldFilters.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxEntityFieldFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>774, 36</value>
+  </data>
+  <data name="lblSelectedEntityFields2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblSelectedEntityFields2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>459, 32</value>
+  </data>
+  <data name="lstSelectedEntities.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lstSelectedEntities.ItemHeight" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="lstSelectedEntities.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 324</value>
+  </data>
+  <data name="lstDefaultSchema.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lstDefaultSchema.ItemHeight" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="lstDefaultSchema.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 324</value>
+  </data>
+  <data name="btnFromDefaultToSelected.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblDefaultSchema.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblDefaultSchema.Size" type="System.Drawing.Size, System.Drawing">
+    <value>379, 32</value>
+  </data>
+  <data name="lblSelectedEntities.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblSelectedEntities.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 32</value>
+  </data>
+  <data name="btnReturnToDefaultFromSelected.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxAllPlugins.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxAllPlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 36</value>
+  </data>
+  <data name="ddlFieldFilter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="ddlFieldFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>262, 40</value>
+  </data>
+  <data name="cbxlistSelectedPlugins.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxlistComparePrimaryID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblComparePrimaryID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblComparePrimaryID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 32</value>
+  </data>
+  <data name="lblFieldFilter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblFieldFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 32</value>
+  </data>
+  <data name="cbxlistFieldFilter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblAllPlugins.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="lblAllPlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>366, 32</value>
+  </data>
+  <data name="cbxComparePrimaryID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxComparePrimaryID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 36</value>
+  </data>
+  <data name="cbxFieldFilter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="cbxFieldFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>576, 36</value>
+  </data>
+  <data name="lblAdvancedFilters.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 18pt, style=Bold</value>
+  </data>
+  <data name="lblAdvancedFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 40</value>
+  </data>
+  <data name="lblExportSettingsTitle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 18pt, style=Bold</value>
+  </data>
+  <data name="lblExportSettingsTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>321, 40</value>
+  </data>
+  <data name="tabModifyDataFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 48</value>
+  </data>
+  <data name="tabModifyDataFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2387, 1205</value>
+  </data>
+  <data name="lblConstruction2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>373, 29</value>
+  </data>
+  <data name="lblConstruction4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>373, 29</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>2520, 1365</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+</root>
