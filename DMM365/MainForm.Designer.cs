@@ -866,13 +866,11 @@
             // 
             // openFileDialogLoadSchema
             // 
-            this.openFileDialogLoadSchema.FileName = "openFileDialogLoadSchema";
             this.openFileDialogLoadSchema.Filter = "ZIP Files (*.zip)|*.zip";
             this.openFileDialogLoadSchema.Title = "Select a zip (by Configuration Migration tool)";
             // 
             // openFileLoadProject
             // 
-            this.openFileLoadProject.FileName = "openFileLoadProject";
             this.openFileLoadProject.Filter = "XML Files (*.xml)|*.xml";
             this.openFileLoadProject.Title = "Select a project xml to load";
             // 
