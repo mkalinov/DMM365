@@ -92,11 +92,9 @@ namespace DMM365.Helper
             return executeUserQueryResponse.String;
         }
 
-        internal static List<Entity> executeUseQueryFetchXml(CrmServiceClient service, Entity _userquery)
+        internal static List<Entity> executeFetchXml(CrmServiceClient service, string fetchxml)
         {
-            string fetch = _userquery.GetAttributeValue<string>("fetchxml");
-            if (GlobalHelper.isValidString(fetch)) return service.RetrieveMultiple(new FetchExpression(fetch)).Entities.ToList();
-            else return null;
+             return service.RetrieveMultiple(new FetchExpression(fetchxml)).Entities.ToList();
         }
 
         internal static List<Guid> getIdsFromViewsExecution(CrmServiceClient service, List<CrmEntityContainer> cont)
@@ -105,12 +103,77 @@ namespace DMM365.Helper
             List<Entity> views = convertEntityContainerToEntity(cont);
             foreach (Entity v in views)
             {
-                List<Entity> current =  executeUseQueryFetchXml(service, v);
-                //parse
-                result = current.Select(s=>s.Id).ToList();
+                string fetch = v.GetAttributeValue<string>("fetchxml");
+                if (!GlobalHelper.isValidString(fetch)) continue;
+
+                List<Entity> current = executeFetchXml(service, fetch);
+                if (!ReferenceEquals(current, null)) result = current.Select(s=>s.Id).ToList();
+
+                //get all lookups IDs from fetched fields. Aliesed values excepted
+                List<Guid> fromReferences = getAllReferencesIDs(service, current);
+                if(!ReferenceEquals(fromReferences, null) && fromReferences.Count > 0) result.AddRange(fromReferences);
+
+                //get all linked entities
+                List<Guid> fromLinked = linkedEntitiesIDs(service, fetch);
+                if (!ReferenceEquals(fromLinked, null) && fromLinked.Count > 0) result.AddRange(fromLinked);
             }
 
             return result.Distinct(new GuidEqualityComparer()).ToList();
+        }
+
+        internal static List<Guid> getAllReferencesIDs(CrmServiceClient service, List<Entity> current)
+        {
+            List<Guid> result = new List<Guid>();
+
+            foreach (Entity en in current)
+            {
+                foreach (KeyValuePair<string, object> atr in en.Attributes)
+                {
+                    EntityReference er = atr.Value as EntityReference;
+                    if (!ReferenceEquals(er, null)) result.Add(er.Id);
+                }
+            }
+
+            return result;
+        }
+
+
+        internal static List<Guid> linkedEntitiesIDs(CrmServiceClient service, string fetchxml = "", DataCollection<LinkEntity> _lEntities= null)
+        {
+            List<Guid> result = new List<Guid>();
+
+            QueryExpression exp = GlobalHelper.isValidString(fetchxml) ? fetchToQuery(service, fetchxml) : null;
+            DataCollection<LinkEntity> linkEntities = !ReferenceEquals(exp, null) ? exp.LinkEntities : _lEntities;
+
+            if ( ReferenceEquals(linkEntities, null) || linkEntities.Count == 0) return result;
+
+            foreach (LinkEntity le in linkEntities)
+            {
+                QueryExpression linkEntityQuiery = new QueryExpression(le.LinkToEntityName);
+                linkEntityQuiery.Criteria = le.LinkCriteria;
+
+                List<Entity> nextLevel = service.RetrieveMultiple(linkEntityQuiery).Entities.ToList();
+                if (!ReferenceEquals(nextLevel, null) && nextLevel.Count > 0)
+                {
+                    result.AddRange(nextLevel.Select(s => s.Id).ToList());
+                    List<Guid> fromReferences = getAllReferencesIDs(service, nextLevel);
+                    if (!ReferenceEquals(fromReferences, null) && fromReferences.Count > 0) result.AddRange(fromReferences);
+                }
+
+                //recursive call
+                if (ReferenceEquals(le.LinkEntities, null) || le.LinkEntities.Count == 0) continue;
+                List<Guid> lastLevel = linkedEntitiesIDs(service, "", le.LinkEntities);
+                if (!ReferenceEquals(lastLevel, null) && lastLevel.Count > 0) result.AddRange(lastLevel);
+            }
+
+            return result;
+        }
+
+        internal static QueryExpression fetchToQuery(CrmServiceClient service, string fetchxml)
+        {
+            if (!GlobalHelper.isValidString(fetchxml)) return null;
+            FetchXmlToQueryExpressionRequest request = new FetchXmlToQueryExpressionRequest { FetchXml = fetchxml};
+            return ((FetchXmlToQueryExpressionResponse)service.Execute(request)).Query;
         }
     }
 
