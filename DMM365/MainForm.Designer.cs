@@ -36,6 +36,7 @@
             this.lblProject3 = new System.Windows.Forms.Label();
             this.btnProjectLoad = new System.Windows.Forms.Button();
             this.groupConnectionSource = new System.Windows.Forms.GroupBox();
+            this.lblTestConnectionAwait = new System.Windows.Forms.Label();
             this.lblTemp1 = new System.Windows.Forms.Label();
             this.lblTestConnSource = new System.Windows.Forms.Label();
             this.lblAuthType = new System.Windows.Forms.Label();
@@ -59,7 +60,7 @@
             this.treeProject = new System.Windows.Forms.TreeView();
             this.tbxProject = new System.Windows.Forms.TextBox();
             this.groupProjectActions = new System.Windows.Forms.GroupBox();
-            this.button12 = new System.Windows.Forms.Button();
+            this.btnProjectSaveAndNext = new System.Windows.Forms.Button();
             this.tabModifyDataBasedOnSavedQueries = new System.Windows.Forms.TabPage();
             this.groupViewsAdvanced = new System.Windows.Forms.GroupBox();
             this.lblSorceDataFile = new System.Windows.Forms.Label();
@@ -191,6 +192,7 @@
             // 
             // groupConnectionSource
             // 
+            this.groupConnectionSource.Controls.Add(this.lblTestConnectionAwait);
             this.groupConnectionSource.Controls.Add(this.lblTemp1);
             this.groupConnectionSource.Controls.Add(this.lblTestConnSource);
             this.groupConnectionSource.Controls.Add(this.lblAuthType);
@@ -215,6 +217,18 @@
             this.groupConnectionSource.TabIndex = 0;
             this.groupConnectionSource.TabStop = false;
             this.groupConnectionSource.Text = "Source CRM instance";
+            // 
+            // lblTestConnectionAwait
+            // 
+            this.lblTestConnectionAwait.AutoSize = true;
+            this.lblTestConnectionAwait.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblTestConnectionAwait.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblTestConnectionAwait.Location = new System.Drawing.Point(738, 195);
+            this.lblTestConnectionAwait.Name = "lblTestConnectionAwait";
+            this.lblTestConnectionAwait.Size = new System.Drawing.Size(107, 17);
+            this.lblTestConnectionAwait.TabIndex = 14;
+            this.lblTestConnectionAwait.Text = "... connecting";
+            this.lblTestConnectionAwait.Visible = false;
             // 
             // lblTemp1
             // 
@@ -454,7 +468,7 @@
             // 
             // groupProjectActions
             // 
-            this.groupProjectActions.Controls.Add(this.button12);
+            this.groupProjectActions.Controls.Add(this.btnProjectSaveAndNext);
             this.groupProjectActions.Location = new System.Drawing.Point(24, 716);
             this.groupProjectActions.Margin = new System.Windows.Forms.Padding(4);
             this.groupProjectActions.Name = "groupProjectActions";
@@ -463,16 +477,16 @@
             this.groupProjectActions.TabIndex = 36;
             this.groupProjectActions.TabStop = false;
             // 
-            // button12
+            // btnProjectSaveAndNext
             // 
-            this.button12.Location = new System.Drawing.Point(856, 27);
-            this.button12.Margin = new System.Windows.Forms.Padding(4);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(267, 33);
-            this.button12.TabIndex = 4;
-            this.button12.Text = "Save and Next";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.btnNext_Click);
+            this.btnProjectSaveAndNext.Location = new System.Drawing.Point(856, 27);
+            this.btnProjectSaveAndNext.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProjectSaveAndNext.Name = "btnProjectSaveAndNext";
+            this.btnProjectSaveAndNext.Size = new System.Drawing.Size(267, 33);
+            this.btnProjectSaveAndNext.TabIndex = 4;
+            this.btnProjectSaveAndNext.Text = "Save and Next";
+            this.btnProjectSaveAndNext.UseVisualStyleBackColor = true;
+            this.btnProjectSaveAndNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // tabModifyDataBasedOnSavedQueries
             // 
@@ -644,11 +658,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(424, 180);
+            this.label5.Location = new System.Drawing.Point(398, 180);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(147, 17);
+            this.label5.Size = new System.Drawing.Size(239, 17);
             this.label5.TabIndex = 53;
-            this.label5.Text = "Selected Entities ( -in)";
+            this.label5.Text = "Selecte Entity to see its Saved Views";
             // 
             // label6
             // 
@@ -755,7 +769,7 @@
             this.btnViewsBack.Name = "btnViewsBack";
             this.btnViewsBack.Size = new System.Drawing.Size(267, 33);
             this.btnViewsBack.TabIndex = 6;
-            this.btnViewsBack.Text = "Back";
+            this.btnViewsBack.Text = "Save and Back";
             this.btnViewsBack.UseVisualStyleBackColor = true;
             this.btnViewsBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -860,7 +874,7 @@
             this.btnCopyToolBack.Name = "btnCopyToolBack";
             this.btnCopyToolBack.Size = new System.Drawing.Size(267, 33);
             this.btnCopyToolBack.TabIndex = 6;
-            this.btnCopyToolBack.Text = "Back";
+            this.btnCopyToolBack.Text = "Save And Back";
             this.btnCopyToolBack.UseVisualStyleBackColor = true;
             this.btnCopyToolBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -940,7 +954,7 @@
         private System.Windows.Forms.Button btnCopyToolBack;
         private System.Windows.Forms.TabPage tabProject;
         private System.Windows.Forms.GroupBox groupProjectActions;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button btnProjectSaveAndNext;
         private System.Windows.Forms.GroupBox groupCopyToolTips;
         private System.Windows.Forms.GroupBox groupViewsTips;
         private System.Windows.Forms.GroupBox groupProjectSchema;
@@ -981,6 +995,7 @@
         private System.Windows.Forms.Label lblViewsActionTypeOperatot;
         private System.Windows.Forms.Button btnCopyToolFromModified;
         private System.Windows.Forms.Button btnCopyToolFromSource;
+        private System.Windows.Forms.Label lblTestConnectionAwait;
     }
 }
 

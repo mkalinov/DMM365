@@ -15,7 +15,7 @@ namespace DMM365.Helper
 
         internal static CrmServiceClient  getOnLineConnection(string orgName, string serverName, string userName, string passowrd)
         {
-            CrmServiceClient crmConn = new CrmServiceClient(userName, CrmServiceClient.MakeSecureString(passowrd), string.Empty, orgName, false, false, null, true);
+            CrmServiceClient crmConn = new CrmServiceClient(userName, CrmServiceClient.MakeSecureString(passowrd), string.Empty, orgName, true, false, null, true);
             if (!crmConn.IsReady) {
                                 
                 //TO DO: log errors

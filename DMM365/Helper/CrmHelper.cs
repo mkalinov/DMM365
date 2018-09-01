@@ -107,7 +107,7 @@ namespace DMM365.Helper
                 if (!GlobalHelper.isValidString(fetch)) continue;
 
                 List<Entity> current = executeFetchXml(service, fetch);
-                if (!ReferenceEquals(current, null)) result = current.Select(s=>s.Id).ToList();
+                if (!ReferenceEquals(current, null)) result.AddRange(current.Select(s=>s.Id).ToList());
 
                 //get all lookups IDs from fetched fields. Aliesed values excepted
                 List<Guid> fromReferences = getAllReferencesIDs(service, current);
@@ -120,6 +120,7 @@ namespace DMM365.Helper
 
             return result.Distinct(new GuidEqualityComparer()).ToList();
         }
+
 
         internal static List<Guid> getAllReferencesIDs(CrmServiceClient service, List<Entity> current)
         {

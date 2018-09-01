@@ -12,6 +12,7 @@ using DMM365.Helper;
 using DMM365.DataContainers;
 using Microsoft.Xrm.Tooling.Connector;
 using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Query;
 //using xrm = Microsoft.Xrm.Sdk;
 //using System.Threading;
 
@@ -36,7 +37,7 @@ namespace DMM365
         //for drag and drop source
         List<SchemaField> SelectedFieldsAdvanced = new List<SchemaField>();
 
-
+        string[] buttons = new string[] { "btnProject", "btnProjectLoad", "btnLoadSchema", "btnProjectSaveAndNext", "btnTestConnSource", "btnCopyToolBack", "btnCopyToolFromSource", "btnCopyToolFromModified", "btnViewsBack", "btnSaveModifyViewsFile", "btnViewNext" };
 
 
 
@@ -118,14 +119,16 @@ namespace DMM365
             // start/keep connection and load crm dependent tabs
             var backgroundScheduler = TaskScheduler.Default;
             var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            lblConnectionAwaitViews.Visible = true;
+            //connection labels
+            connectionLabels(true);
+            enableAllButtons(false);
             //TO DO: check "no internet connection" situation
             Task.Factory.StartNew(delegate
             {
                 crmServiceClientSource =
                     ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
 
-            }, backgroundScheduler).ContinueWith(delegate { loadViewsConfiguration(); }, uiScheduler);
+            }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); loadViewsConfiguration(); enableAllButtons(true); }, uiScheduler);
         }
 
 
@@ -261,18 +264,38 @@ namespace DMM365
         {
             if (validateGroup(groupConnectionSource))
             {
-                crmServiceClientSource = ConnectionHelper.getOnLineConnection(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text);
-                setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady);
-                //allSettings
-                //set local credentials
-                if (CredentialsHelper.setLocalCredentials(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text))
+
+
+
+                // get connection 
+                var backgroundScheduler = TaskScheduler.Default;
+                var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+                connectionLabels(true);
+
+                //tabs.Enabled = false;
+                enableAllButtons(false);
+                //TO DO: check "no internet connection" situation
+                Task.Factory.StartNew(delegate
                 {
-                    //successefully saved
-                }
-                else
-                {
-                    //not saved
-                }
+
+                    crmServiceClientSource = ConnectionHelper.getOnLineConnection(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text);
+                    //set local credentials
+                    if (crmServiceClientSource.IsReady)
+                    {
+                        if (CredentialsHelper.setLocalCredentials(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text))
+                        {
+                            //successefully saved
+                        }
+                        else
+                        {
+                            //not saved
+                        }
+                    }
+
+
+                }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); enableAllButtons(true); }, uiScheduler);
+
+                //show load
             }
         }
 
@@ -333,6 +356,7 @@ namespace DMM365
                 //file create an object for transformation
                 DataEntities raw = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
 
+
                 foreach (DataEntity comparer in listOfData_DS.entities)
                 {
 
@@ -344,7 +368,7 @@ namespace DMM365
                                 raw.entities.RemoveAll(d => d.name == comparer.name);
                             else
                                 raw.entities.SingleOrDefault(d => d.name == comparer.name).RecordsCollection.RemoveAll(r => !ids.Contains(new Guid(r.id), new GuidEqualityComparer()));
-
+                            
                             break;
                         case "All Except Selected":
 
@@ -352,14 +376,15 @@ namespace DMM365
                                 raw.entities.RemoveAll(d => d.name == comparer.name);
                             else
                                 raw.entities.SingleOrDefault(d => d.name == comparer.name).RecordsCollection.RemoveAll(r => ids.Contains(new Guid(r.id), new GuidEqualityComparer()));
-
+                              
                             break;
 
                         default: break;
                     }
-
-
                 }
+
+                //clear DataFileByViews folder
+                IOHelper.clearDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByViews, fileName.pathToFolderFromProjectRoot));
 
                 //save file
                 IOHelper.SerializeObjectToXmlFile<DataEntities>(raw, IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByViews, fileName.dataFileXml));
@@ -434,7 +459,7 @@ namespace DMM365
                 if (ReferenceEquals(selected, null)) return;
                 else
                 {
-                    if (!SelectedSavedUserViews_DS.Contains(selected))
+                    if (!SelectedSavedUserViews_DS.Contains(selected, new CrmEntityContainerEqualityComparers()))
                     {
                         SelectedSavedUserViews_DS.Add(selected);
                         bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS;
@@ -471,6 +496,7 @@ namespace DMM365
 
         #endregion Saved Views Tab 
 
+
         #region Copy Tool
 
 
@@ -479,7 +505,7 @@ namespace DMM365
             try
             {
                 ReplaceIDHelper.replaceGuids(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml), IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByCopyTool, fileName.dataFileXml));
-                
+
                 //create import package
                 IOHelper.clearDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.ImportPackageZipByCopyToolFromOrigin, fileName.pathToFolderFromProjectRoot));
                 //clear temp folder
@@ -539,6 +565,20 @@ namespace DMM365
 
 
         #region Private methods
+        private void enableAllButtons(bool isEnabled)
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {   
+                Button current = Controls.Find(buttons[i], true).SingleOrDefault() as Button;
+                if (!ReferenceEquals(current, null)) current.Enabled = isEnabled;
+            }
+        }
+
+        private void connectionLabels(bool True_showWait_False_NoConnetion)
+        {
+            lblConnectionAwaitViews.Visible = lblTestConnectionAwait.Visible = True_showWait_False_NoConnetion;
+            lblTestConnSource.Visible = lblViewsNoConnection.Visible = !True_showWait_False_NoConnetion;
+        }
 
         private void copyFilesToImportZipPackage(subFolders dataFileToImportPath, subFolders tempFolder)
         {
@@ -632,7 +672,6 @@ namespace DMM365
 
         private void setStatusLabel(Label handler, bool isSuccess)
         {
-            lblViewsNoConnection.Visible = !isSuccess;
 
             if (isSuccess)
             {
@@ -641,10 +680,20 @@ namespace DMM365
             }
             else
             {
-                lblTestConnSource.Text = "FaileD";
-                lblTestConnSource.ForeColor = Color.Red;
+                handler.Text = "FaileD";
+                handler.ForeColor = Color.Red;
             }
         }
+
+        private void setConnectionStatusVisible(bool isSuccess)
+        {
+            lblViewsNoConnection.Visible = !isSuccess;
+            lblConnectionAwaitViews.Visible = false;
+            lblTestConnSource.Visible = !isSuccess;
+            lblTestConnectionAwait.Visible = false;
+        }
+
+
 
         #endregion Private methods
 
@@ -678,33 +727,31 @@ namespace DMM365
         private void loadViewsConfiguration()
         {
 
-        //connection to crm established
-        lblConnectionAwaitViews.Visible = false;
-            lblViewsNoConnection.Visible = !crmServiceClientSource.IsReady;
-
             reinitViewsData();
-
-            List<DataEntity> modifiedDataEntities = new List<DataEntity>();
-            //if modified schema exist - create a slash of the past 
-            string modifiedDataFilePath = IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByViews, fileName.dataFileXml);
-            if (File.Exists(modifiedDataFilePath))
-            {
-                modifiedDataEntities = IOHelper.DeserializeXmlFromFile<DataEntities>(modifiedDataFilePath).entities;
-            }
-            else return;
 
             lstDefaultSchemaDataByViews.ClearSelected();
             List<SchemaEntity> d = lstDefaultSchemaDataByViews.Items.Cast<SchemaEntity>().ToList();
 
-            
-            //set selected in default source
-            modifiedDataEntities.ForEach(e =>
-            {
+            bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS
+= CrmHelper.convertEntityToEntityContainer(CrmHelper.getUserQueryListByIds(crmServiceClientSource, allSettings.SelectedUserQueries));
+            lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
+            bindings_SelectedSavedUserViews_DS.ResetBindings(false);
 
-                int index = d.FindIndex(c => c.name == e.name);
-                if (index != -1)
-                    lstDefaultSchemaDataByViews.SetSelected(index, true);
-            });
+            //set selected in default source
+            if (!ReferenceEquals(SelectedSavedUserViews_DS, null) && SelectedSavedUserViews_DS.Count > 0)
+            {
+                foreach( CrmEntityContainer s in SelectedSavedUserViews_DS)
+                {
+                    string fetch = s.crmEntity.GetAttributeValue<string>("fetchxml");
+                    if (!GlobalHelper.isValidString(fetch)) continue;
+                    QueryExpression query = CrmHelper.fetchToQuery(crmServiceClientSource, fetch);
+                    int index = d.FindIndex(c => c.name == query.EntityName);
+                    if (index != -1)
+                        lstDefaultSchemaDataByViews.SetSelected(index, true);
+                }
+            }
+
+
             //remove selected entities from defaults to selected
             moveListBoxItems(lstDefaultSchemaDataByViews, DefaultViewsSchema_DS, bindings_DefaultViewsSchema, SelectedEntitiesViews_DS, bindings_SelectedEntitiesViews);
             //mimis lstSelectedSchemaDataByViews.SelectedIndexChanged
@@ -719,19 +766,7 @@ namespace DMM365
                 lstViewsPerEntity.DisplayMember = "name";
                 bindings_SavedUserViews.ResetBindings(false);
             }
-            ////
-            // add load of selected user views / filters: lstListOfViewsFilters
-            if (!ReferenceEquals(allSettings.SelectedUserQueries, null) && allSettings.SelectedUserQueries.Count > 0)
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS
-                    = CrmHelper.convertEntityToEntityContainer(CrmHelper.getUserQueryListByIds(crmServiceClientSource, allSettings.SelectedUserQueries));
-                    lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
-                    bindings_SelectedSavedUserViews_DS.ResetBindings(false);
-                });
-            }
-
+            
             //action operator set selected 
             if (GlobalHelper.isValidString(allSettings.SelectedViewsActionOperator))
             {
@@ -741,7 +776,6 @@ namespace DMM365
 
             //
             updateViewsTabDependencies();
-
         }
 
         private void updateViewsTabDependencies()

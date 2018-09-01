@@ -46,5 +46,16 @@ namespace DMM365.Helper
         }
     }
 
+    public class CrmEntityContainerEqualityComparers : IEqualityComparer<CrmEntityContainer>
+    {
+        public bool Equals(CrmEntityContainer x, CrmEntityContainer y)
+        {
+            return x.id == y.id;
+        }
 
+        public int GetHashCode(CrmEntityContainer obj)
+        {
+            return 0;
+        }
+    }
 }

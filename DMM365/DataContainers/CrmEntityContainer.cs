@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 
 namespace DMM365.DataContainers
 {
 
-    public class CrmEntityContainer
+    public class CrmEntityContainer 
     {
         /// <summary>
         /// Constractor will try to define custome entity name
@@ -37,7 +33,5 @@ namespace DMM365.DataContainers
         public string name { get { return crmEntity.GetAttributeValue<string>(customName); } }
         public string logicalName { get { return crmEntity.LogicalName; } }
         public EntityReference crmEntityRef { get { return crmEntity.ToEntityReference(); } }
-
-
     }
 }
