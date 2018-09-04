@@ -143,11 +143,17 @@ namespace DMM365
                 {
                     case "ProjectPath":
                         {
-
-                            //SettingsHelper.projectFileLoad(tbxProject.Text, allSettings);
-                            SettingsHelper.projectFileLoad(allSettings);
-                            bindings_Settings.ResetBindings(false);
-
+                            try
+                            {
+                                SettingsHelper.projectFileLoad(allSettings);
+                                bindings_Settings.ResetBindings(false);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                tbxProject.Text = string.Empty;
+                                return;
+                            }
                             //set directories if not there
                             IOHelper.setInnerProjectStructure(allSettings);
                             //

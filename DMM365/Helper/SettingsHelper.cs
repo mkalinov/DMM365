@@ -46,6 +46,9 @@ namespace DMM365.Helper
 
         internal static void saveProject(AllSettings allSettings)
         {
+            //clean previous project file to prevent corruption
+            IOHelper.deleteFile(IOHelper.getPathToProjectFile(allSettings));
+
             IOHelper.SerializeObjectToXmlFile<AllSettings>(allSettings, IOHelper.getPathToProjectFile(allSettings));
             allSettings.IsDirty = false;
         }

@@ -407,10 +407,10 @@
             this.lblProject2.Location = new System.Drawing.Point(555, 178);
             this.lblProject2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProject2.Name = "lblProject2";
-            this.lblProject2.Size = new System.Drawing.Size(509, 80);
+            this.lblProject2.Size = new System.Drawing.Size(620, 80);
             this.lblProject2.TabIndex = 9;
-            this.lblProject2.Text = "\r\n   2. Select location of Configuration Manager tool package \r\n   \r\n       to se" +
-    "t up source schema and data files. ";
+            this.lblProject2.Text = "\r\n   2. Select location of \"zip\" package created with Configuration Manager\r\n\r\n  " +
+    "     tool to add schema and data files to the project.";
             // 
             // lblProject
             // 

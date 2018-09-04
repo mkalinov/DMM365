@@ -48,6 +48,12 @@ namespace DMM365.Helper
             }
         }
 
+        internal static void deleteFile(string filePath)
+        {
+            FileInfo file = new FileInfo(filePath);
+            file.Delete();
+        }
+
 
         /// <summary>
         /// Creates/overrides file specified in the patch with new content
