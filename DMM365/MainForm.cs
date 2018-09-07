@@ -36,6 +36,7 @@ namespace DMM365
         List<SchemaField> FieldFilterList = new List<SchemaField>();
         //for drag and drop source
         List<SchemaField> SelectedFieldsAdvanced = new List<SchemaField>();
+        Dictionary<string, queryContainer> viewsContainers = new Dictionary<string, queryContainer>();
 
         string[] buttons = new string[] { "btnProject", "btnProjectLoad", "btnLoadSchema", "btnProjectSaveAndNext", "btnTestConnSource", "btnCopyToolBack", "btnCopyToolFromSource", "btnCopyToolFromModified", "btnViewsBack", "btnSaveModifyViewsFile", "btnViewNext" };
 
@@ -357,7 +358,7 @@ namespace DMM365
                     allSettings.SelectedUserQueries = SelectedSavedUserViews_DS.Select(s => s.id).ToList();
 
                 //execute views, get and merge all guids
-                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, SelectedSavedUserViews_DS);
+                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, SelectedSavedUserViews_DS, listOfEntities_DS);
 
                 //file create an object for transformation
                 DataEntities raw = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
@@ -699,9 +700,45 @@ namespace DMM365
             lblTestConnectionAwait.Visible = false;
         }
 
-
-
         #endregion Private methods
+
+        #region Views
+
+        private void deleteView(string viewName)
+        {
+            if (viewsContainers.Keys.Contains(viewName)) viewsContainers.Remove(viewName);
+        }
+
+        private queryContainer getView(string viewName)
+        {
+            if (!viewsContainers.Keys.Contains(viewName)) return null;
+
+            return viewsContainers[viewName];
+        }
+
+        private void createOrUpdateView(string viewName, string fetch, bool exequteAsSeparateLinkedQueries = false)
+        {
+
+            queryContainer current = getView(viewName);
+            if (ReferenceEquals(current, null))
+            {
+                viewsContainers.Add(viewName, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
+            }               
+            else
+            {
+                string existingFetch = CrmHelper.queryToFetch(crmServiceClientSource, current.expression);
+                if (fetch == existingFetch && current.exequteAsSeparateLinkedQueries == exequteAsSeparateLinkedQueries) return;
+                else
+                {
+                    deleteView(viewName);
+                    viewsContainers.Add(viewName, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
+                }
+            }
+        }
+
+
+
+        #endregion Views
 
 
         #region Saved Views Tab Management
@@ -846,5 +883,17 @@ namespace DMM365
 
         #endregion Helpers
 
+        private void lstListOfViewsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox current = sender as ListBox;
+            if (ReferenceEquals(current, null)) return;
+
+            CrmEntityContainer view = current.SelectedItem as CrmEntityContainer;
+            if (ReferenceEquals(view, null)) return;
+
+            createOrUpdateView(view.name, view.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
+
+            //viewsContainers
+        }
     }
 }

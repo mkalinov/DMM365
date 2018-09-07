@@ -158,6 +158,7 @@
     <Compile Include="DataContainers\DataEntities.cs" />
     <Compile Include="DataContainers\DataEntity.cs" />
     <Compile Include="DataContainers\DataField.cs" />
+    <Compile Include="DataContainers\queryContainer.cs" />
     <Compile Include="DataContainers\Record.cs" />
     <Compile Include="DataContainers\Records.cs" />
     <Compile Include="DataContainers\SchemaEntities.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Helper\enumToList.cs" />
     <Compile Include="Helper\equalityComparers.cs" />
     <Compile Include="Helper\GlobalHelper.cs" />
+    <Compile Include="Helper\queryTransformationHelper.cs" />
     <Compile Include="Helper\ReplaceIDHelper.cs" />
     <Compile Include="Helper\SettingsHelper.cs" />
     <Compile Include="Helper\IOHelper.cs" />

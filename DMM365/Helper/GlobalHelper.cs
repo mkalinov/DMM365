@@ -49,7 +49,7 @@ namespace DMM365.Helper
             {
                 if ((i + 1) == source.Count) break;
 
-                common = source[i].fields.Intersect(source[i + 1].fields, new FieldEqualityComparers());
+                common = source[i].fields.Intersect(source[i + 1].fields, new FieldSchemaEqualityComparers());
 
             }
             return common.ToList();
@@ -132,6 +132,17 @@ namespace DMM365.Helper
             });
             //delete last coma
             return result.Substring(0, result.Length - 1);
+        }
+
+        public static SchemaField getFieldFromSchema(SchemaEntities entities, string entityName, string fieldName)
+        {
+            SchemaEntity entity = entities.entities.FirstOrDefault(e => e.name == entityName);
+            if (ReferenceEquals(entity, null)) return null;
+
+            SchemaField field = entity.fields.FirstOrDefault(f => f.name == fieldName);
+            if (ReferenceEquals(field, null)) return null;
+
+            return field;
         }
     }
 }

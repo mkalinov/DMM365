@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DMM365.DataContainers;
+using Microsoft.Xrm.Sdk;
 
 namespace DMM365.Helper
 {
-    public class FieldEqualityComparers : IEqualityComparer<SchemaField>
+    public class FieldSchemaEqualityComparers : IEqualityComparer<SchemaField>
     {
         public bool Equals(SchemaField x, SchemaField y)
         {
@@ -20,7 +21,7 @@ namespace DMM365.Helper
         }
     }
 
-    public class EntityEqualityComparer : IEqualityComparer<SchemaEntity>
+    public class EntitySchemaEqualityComparer : IEqualityComparer<SchemaEntity>
     {
         public bool Equals(SchemaEntity x, SchemaEntity y)
         {
@@ -58,4 +59,18 @@ namespace DMM365.Helper
             return 0;
         }
     }
+
+    public class sdkEntityEqualityComparers : IEqualityComparer<Entity>
+    {
+        public bool Equals(Entity x, Entity y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(Entity obj)
+        {
+            return 0;
+        }
+    }
+
 }

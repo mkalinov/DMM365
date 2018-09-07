@@ -1,6 +1,6 @@
 ﻿
 
-enum subFolders
+public enum subFolders
 {
     SchemaFileSource = 1,
     SchemaFileModifiedByPS = 2,
@@ -24,7 +24,7 @@ enum subFolders
     TempFolder = 52
 }
 
-enum fileName
+public enum fileName
 {
     pathToFolderFromProjectRoot,
     appendFolderNameNoExt,
@@ -35,6 +35,12 @@ enum fileName
     dataSchemaXml,
     contentTypesXml
 
+}
+
+public enum relationShipType
+{
+   Lookup = 1,
+   Child = 2
 }
 
 
