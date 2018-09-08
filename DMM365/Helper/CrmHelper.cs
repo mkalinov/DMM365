@@ -119,7 +119,7 @@ namespace DMM365.Helper
         #region Execute Query
 
 
-        internal static List<Guid> getIdsFromViewsExecution(CrmServiceClient service, Dictionary<Guid, queryContainer> viewsContainers, bool collectAllReferences = false)
+        internal static List<Guid> getIdsFromViewsExecution(CrmServiceClient service, Dictionary<Guid, queryContainer> viewsContainers)
         {
             List<Guid> result = new List<Guid>();
 
@@ -129,7 +129,7 @@ namespace DMM365.Helper
                 foreach (Guid v in viewsContainers.Keys)
                 {
                     queryContainer current = viewsContainers[v];
-                    result.AddRange(topLevel(service, current, collectAllReferences));
+                    result.AddRange(topLevel(service, current));
                 }
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace DMM365.Helper
             return result.Distinct(new GuidEqualityComparer()).ToList();
         }
 
-        private static List<Guid> topLevel(CrmServiceClient service, queryContainer view,  bool collectAllReferences = false)
+        private static List<Guid> topLevel(CrmServiceClient service, queryContainer view)
         {
             List<Guid> result = new List<Guid>();
             List<Entity> currentEntitySet = new List<Entity>();
@@ -154,7 +154,7 @@ namespace DMM365.Helper
             foreach (Entity current in currentEntitySet)
             {
                 //get all lookups IDs from first level. Aliesed values excepted
-                if (collectAllReferences)
+                if (view.CollectAllReferences)
                 {
                     List<Guid> fromReferences = getAllReferencesIDs(current);
                     if (!ReferenceEquals(fromReferences, null) && fromReferences.Count > 0) result.AddRange(fromReferences);
@@ -169,13 +169,13 @@ namespace DMM365.Helper
                         //if link entity is a lookup (M:1) => recursive call
                         if (le.RelationShipType == relationShipType.Lookup)
                         {
-                            result.AddRange(topLevel(service, le, collectAllReferences));
+                            result.AddRange(topLevel(service, le));
                             continue;
                         }
                         //linked entity is a "child", 1:M
                         le.masterEntityLookUpID = current.Id;
                         //recursive call
-                        result.AddRange(topLevel(service, le, collectAllReferences));
+                        result.AddRange(topLevel(service, le));
                     }
 
                 }

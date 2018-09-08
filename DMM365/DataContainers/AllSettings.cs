@@ -150,7 +150,6 @@ namespace DMM365.DataContainers
 
         public string SelectedViewsActionOperator { get;set; }
 
-
         public List<Guid> SelectedUserQueries { get; set; }
 
 

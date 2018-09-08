@@ -358,7 +358,7 @@ namespace DMM365
                     allSettings.SelectedUserQueries = SelectedSavedUserViews_DS.Select(s => s.id).ToList();
 
                 //execute views, get and merge all guids
-                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, viewsContainers, cbxCollectAllReferences.Checked );
+                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, viewsContainers );
 
                 //file create an object for transformation
                 DataEntities raw = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
@@ -420,8 +420,7 @@ namespace DMM365
             }
 
         }
-
-
+        
 
         private void btnbtnViews_FromDefaultToSelected_Click(object sender, EventArgs e)
         {
@@ -436,6 +435,9 @@ namespace DMM365
         }
 
         #endregion buttons
+
+
+        #region ListBoxes
 
 
         private void lstSelectedSchemaDataByViews_SelectedIndexChanged(object sender, EventArgs e)
@@ -472,6 +474,8 @@ namespace DMM365
                         bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS;
                         lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
                         bindings_SelectedSavedUserViews_DS.ResetBindings(false);
+
+                        transformQueryAsync(selected);
                     }
                 }
             }
@@ -499,6 +503,39 @@ namespace DMM365
             enableActionsOperator();
 
         }
+
+        private void lstListOfViewsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox current = sender as ListBox;
+            if (ReferenceEquals(current, null)) return;
+
+            CrmEntityContainer view = current.SelectedItem as CrmEntityContainer;
+            if (ReferenceEquals(view, null)) return;
+
+            createOrUpdateView(view.id, view.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
+
+            //viewsContainers
+        }
+
+
+        #endregion ListBoxes
+
+
+        #region CheckBoxes
+
+
+        private void cbxExecuteAsListOfLinkedQueries_CheckedChanged(object sender, EventArgs e)
+        {
+            //update selected filter and query monitor
+        }
+
+        private void cbxCollectAllReferences_CheckedChanged(object sender, EventArgs e)
+        {
+            //update selected filter 
+
+        }
+
+        #endregion CheckBoxes
 
 
         #endregion Saved Views Tab 
@@ -702,6 +739,7 @@ namespace DMM365
 
         #endregion Private methods
 
+
         #region Views
 
         private void deleteView(Guid viewId)
@@ -727,7 +765,9 @@ namespace DMM365
             else
             {
                 string existingFetch = CrmHelper.queryToFetch(crmServiceClientSource, current.expression);
-                if (fetch == existingFetch && current.exequteAsSeparateLinkedQueries == exequteAsSeparateLinkedQueries) return;
+                if (fetch == existingFetch 
+                    && current.ExequteAsSeparateLinkedQueries == exequteAsSeparateLinkedQueries
+                    && current.ExequteAsSeparateLinkedQueries == cbxExecuteAsListOfLinkedQueries.Checked) return;
                 else
                 {
                     deleteView(viewId);
@@ -736,6 +776,26 @@ namespace DMM365
             }
         }
 
+        private void transformQueryAsync(CrmEntityContainer viewToProcess)
+        {
+            var backgroundScheduler = TaskScheduler.Default;
+            var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
+            queryContainer currentView = new queryContainer();
+
+            Task.Factory.StartNew(delegate
+            {
+
+                createOrUpdateView(viewToProcess.id, viewToProcess.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
+
+            }, backgroundScheduler);//.ContinueWith(delegate {  }, uiScheduler);
+
+        }
+
+        private void displaySelectedFilter()
+        {
+
+        }
 
 
         #endregion Views
@@ -879,21 +939,13 @@ namespace DMM365
             updateModifiedDataMonitorViewsTab();
         }
 
+
+
+
+
         #endregion Saved Views Tab Management
 
+
         #endregion Helpers
-
-        private void lstListOfViewsFilters_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListBox current = sender as ListBox;
-            if (ReferenceEquals(current, null)) return;
-
-            CrmEntityContainer view = current.SelectedItem as CrmEntityContainer;
-            if (ReferenceEquals(view, null)) return;
-
-            createOrUpdateView(view.id, view.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
-
-            //viewsContainers
-        }
     }
 }

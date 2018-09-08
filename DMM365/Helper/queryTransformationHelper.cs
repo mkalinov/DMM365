@@ -14,7 +14,7 @@ namespace DMM365.Helper
     internal static class queryTransformationHelper
     {
 
-        internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch, bool exequteAsSeparateLinkedQueries = false)
+        internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch, bool exequteAsSeparateLinkedQueries = false, bool collectAllReferences = false)
         {
             QueryExpression mainQuery = CrmHelper.fetchToQuery(service, fetch);
             queryContainer root = new queryContainer
@@ -22,7 +22,8 @@ namespace DMM365.Helper
                 isRoot = true,
                 expression = mainQuery,
                 entityLogicalName = mainQuery.EntityName,
-                exequteAsSeparateLinkedQueries = exequteAsSeparateLinkedQueries
+                ExequteAsSeparateLinkedQueries = exequteAsSeparateLinkedQueries,
+                CollectAllReferences = collectAllReferences
             };
             //return whole query
             if (!exequteAsSeparateLinkedQueries)
@@ -51,7 +52,8 @@ namespace DMM365.Helper
                 expression = _1stLevel,
                 entityLogicalName = exp.EntityName,
                 linkedExpressions = new List<queryContainer>(),
-                exequteAsSeparateLinkedQueries = mainQuery.exequteAsSeparateLinkedQueries,
+                ExequteAsSeparateLinkedQueries = mainQuery.ExequteAsSeparateLinkedQueries,
+                CollectAllReferences = mainQuery.CollectAllReferences,
                 masterEntityLogicalName = mainQuery.masterEntityLogicalName,
                 masterEntityLookUpName = mainQuery.masterEntityLookUpName,
                 RelationShipType = mainQuery.RelationShipType
@@ -77,9 +79,10 @@ namespace DMM365.Helper
                 {
                     isRoot = false,
                     masterEntityLogicalName = upper.entityLogicalName,
-                    entityLogicalName = le.LinkToEntityName
-                };
-                current.exequteAsSeparateLinkedQueries = upper.exequteAsSeparateLinkedQueries;
+                    entityLogicalName = le.LinkToEntityName,
+                    ExequteAsSeparateLinkedQueries = upper.ExequteAsSeparateLinkedQueries,
+                    CollectAllReferences = upper.CollectAllReferences
+            };
 
                 SchemaField attr = GlobalHelper.getFieldFromSchema(listOfEntities_DS, le.LinkToEntityName, le.LinkToAttributeName);
                 if (ReferenceEquals(attr, null)) throw new Exception("Entity '" + le.LinkToEntityName + "' and its attribute '" + le.LinkToEntityName + "' are absent in source schema file");

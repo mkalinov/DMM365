@@ -68,6 +68,7 @@
             this.treeResultDataFile = new System.Windows.Forms.TreeView();
             this.treeSorceDataFile = new System.Windows.Forms.TreeView();
             this.groupViewDataFilter = new System.Windows.Forms.GroupBox();
+            this.cbxCollectAllReferences = new System.Windows.Forms.CheckBox();
             this.cbxExecuteAsListOfLinkedQueries = new System.Windows.Forms.CheckBox();
             this.lblViewsNoConnection = new System.Windows.Forms.Label();
             this.lblConnectionAwaitViews = new System.Windows.Forms.Label();
@@ -97,7 +98,9 @@
             this.folderBrowserDialogLoadProject = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLoadSchema = new System.Windows.Forms.OpenFileDialog();
             this.openFileLoadProject = new System.Windows.Forms.OpenFileDialog();
-            this.cbxCollectAllReferences = new System.Windows.Forms.CheckBox();
+            this.treeTransformedQueryDisplay = new System.Windows.Forms.TreeView();
+            this.lblTransformedQueryDisplay = new System.Windows.Forms.Label();
+            this.lblAvailableTransformations = new System.Windows.Forms.Label();
             this.tabsPanel.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabProject.SuspendLayout();
@@ -117,7 +120,7 @@
             // 
             this.tabsPanel.Controls.Add(this.tabs);
             this.tabsPanel.Location = new System.Drawing.Point(16, 15);
-            this.tabsPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.tabsPanel.Name = "tabsPanel";
             this.tabsPanel.Size = new System.Drawing.Size(1899, 887);
             this.tabsPanel.TabIndex = 1;
@@ -129,7 +132,7 @@
             this.tabs.Controls.Add(this.tabReplaceIDs);
             this.tabs.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.tabs.Location = new System.Drawing.Point(4, 4);
-            this.tabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabs.Margin = new System.Windows.Forms.Padding(4);
             this.tabs.Name = "tabs";
             this.tabs.Padding = new System.Drawing.Point(10, 8);
             this.tabs.SelectedIndex = 0;
@@ -160,9 +163,9 @@
             this.gboxProject.Controls.Add(this.btnProject);
             this.gboxProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.gboxProject.Location = new System.Drawing.Point(24, 36);
-            this.gboxProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboxProject.Margin = new System.Windows.Forms.Padding(4);
             this.gboxProject.Name = "gboxProject";
-            this.gboxProject.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboxProject.Padding = new System.Windows.Forms.Padding(4);
             this.gboxProject.Size = new System.Drawing.Size(1192, 673);
             this.gboxProject.TabIndex = 39;
             this.gboxProject.TabStop = false;
@@ -184,7 +187,7 @@
             // 
             this.btnProjectLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnProjectLoad.Location = new System.Drawing.Point(37, 110);
-            this.btnProjectLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProjectLoad.Margin = new System.Windows.Forms.Padding(4);
             this.btnProjectLoad.Name = "btnProjectLoad";
             this.btnProjectLoad.Size = new System.Drawing.Size(200, 33);
             this.btnProjectLoad.TabIndex = 10;
@@ -212,9 +215,9 @@
             this.groupConnectionSource.Controls.Add(this.lblOrgNameSource);
             this.groupConnectionSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupConnectionSource.Location = new System.Drawing.Point(37, 359);
-            this.groupConnectionSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupConnectionSource.Margin = new System.Windows.Forms.Padding(4);
             this.groupConnectionSource.Name = "groupConnectionSource";
-            this.groupConnectionSource.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupConnectionSource.Padding = new System.Windows.Forms.Padding(4);
             this.groupConnectionSource.Size = new System.Drawing.Size(1121, 295);
             this.groupConnectionSource.TabIndex = 0;
             this.groupConnectionSource.TabStop = false;
@@ -268,7 +271,7 @@
             // 
             this.btnTestConnSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnTestConnSource.Location = new System.Drawing.Point(852, 187);
-            this.btnTestConnSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTestConnSource.Margin = new System.Windows.Forms.Padding(4);
             this.btnTestConnSource.Name = "btnTestConnSource";
             this.btnTestConnSource.Size = new System.Drawing.Size(217, 33);
             this.btnTestConnSource.TabIndex = 12;
@@ -281,7 +284,7 @@
             this.ddlAuthType.Enabled = false;
             this.ddlAuthType.FormattingEnabled = true;
             this.ddlAuthType.Location = new System.Drawing.Point(291, 33);
-            this.ddlAuthType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ddlAuthType.Margin = new System.Windows.Forms.Padding(4);
             this.ddlAuthType.Name = "ddlAuthType";
             this.ddlAuthType.Size = new System.Drawing.Size(264, 25);
             this.ddlAuthType.TabIndex = 4;
@@ -312,7 +315,7 @@
             // 
             this.tbxPasswordSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tbxPasswordSource.Location = new System.Drawing.Point(288, 228);
-            this.tbxPasswordSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxPasswordSource.Margin = new System.Windows.Forms.Padding(4);
             this.tbxPasswordSource.Name = "tbxPasswordSource";
             this.tbxPasswordSource.PasswordChar = '*';
             this.tbxPasswordSource.Size = new System.Drawing.Size(421, 23);
@@ -333,7 +336,7 @@
             // 
             this.tbxUsernameSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tbxUsernameSource.Location = new System.Drawing.Point(288, 192);
-            this.tbxUsernameSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxUsernameSource.Margin = new System.Windows.Forms.Padding(4);
             this.tbxUsernameSource.Name = "tbxUsernameSource";
             this.tbxUsernameSource.Size = new System.Drawing.Size(421, 23);
             this.tbxUsernameSource.TabIndex = 6;
@@ -342,7 +345,7 @@
             // 
             this.tbxServerUrlSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tbxServerUrlSource.Location = new System.Drawing.Point(287, 126);
-            this.tbxServerUrlSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxServerUrlSource.Margin = new System.Windows.Forms.Padding(4);
             this.tbxServerUrlSource.Name = "tbxServerUrlSource";
             this.tbxServerUrlSource.Size = new System.Drawing.Size(703, 23);
             this.tbxServerUrlSource.TabIndex = 5;
@@ -351,7 +354,7 @@
             // 
             this.tbxOrgNameSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tbxOrgNameSource.Location = new System.Drawing.Point(291, 73);
-            this.tbxOrgNameSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxOrgNameSource.Margin = new System.Windows.Forms.Padding(4);
             this.tbxOrgNameSource.Name = "tbxOrgNameSource";
             this.tbxOrgNameSource.Size = new System.Drawing.Size(425, 23);
             this.tbxOrgNameSource.TabIndex = 4;
@@ -394,7 +397,7 @@
             this.btnLoadSchema.Enabled = false;
             this.btnLoadSchema.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnLoadSchema.Location = new System.Drawing.Point(37, 207);
-            this.btnLoadSchema.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLoadSchema.Margin = new System.Windows.Forms.Padding(4);
             this.btnLoadSchema.Name = "btnLoadSchema";
             this.btnLoadSchema.Size = new System.Drawing.Size(403, 33);
             this.btnLoadSchema.TabIndex = 35;
@@ -429,7 +432,7 @@
             // 
             this.btnProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnProject.Location = new System.Drawing.Point(37, 53);
-            this.btnProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProject.Margin = new System.Windows.Forms.Padding(4);
             this.btnProject.Name = "btnProject";
             this.btnProject.Size = new System.Drawing.Size(200, 33);
             this.btnProject.TabIndex = 2;
@@ -453,7 +456,7 @@
             // treeProject
             // 
             this.treeProject.Location = new System.Drawing.Point(29, 82);
-            this.treeProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeProject.Margin = new System.Windows.Forms.Padding(4);
             this.treeProject.Name = "treeProject";
             this.treeProject.Size = new System.Drawing.Size(563, 658);
             this.treeProject.TabIndex = 0;
@@ -462,7 +465,7 @@
             // 
             this.tbxProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tbxProject.Location = new System.Drawing.Point(29, 31);
-            this.tbxProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxProject.Margin = new System.Windows.Forms.Padding(4);
             this.tbxProject.Name = "tbxProject";
             this.tbxProject.ReadOnly = true;
             this.tbxProject.Size = new System.Drawing.Size(563, 23);
@@ -472,9 +475,9 @@
             // 
             this.groupProjectActions.Controls.Add(this.btnProjectSaveAndNext);
             this.groupProjectActions.Location = new System.Drawing.Point(24, 716);
-            this.groupProjectActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupProjectActions.Margin = new System.Windows.Forms.Padding(4);
             this.groupProjectActions.Name = "groupProjectActions";
-            this.groupProjectActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupProjectActions.Padding = new System.Windows.Forms.Padding(4);
             this.groupProjectActions.Size = new System.Drawing.Size(1192, 82);
             this.groupProjectActions.TabIndex = 36;
             this.groupProjectActions.TabStop = false;
@@ -482,7 +485,7 @@
             // btnProjectSaveAndNext
             // 
             this.btnProjectSaveAndNext.Location = new System.Drawing.Point(856, 27);
-            this.btnProjectSaveAndNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProjectSaveAndNext.Margin = new System.Windows.Forms.Padding(4);
             this.btnProjectSaveAndNext.Name = "btnProjectSaveAndNext";
             this.btnProjectSaveAndNext.Size = new System.Drawing.Size(267, 33);
             this.btnProjectSaveAndNext.TabIndex = 4;
@@ -498,7 +501,7 @@
             this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupViewsTips);
             this.tabModifyDataBasedOnSavedQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabModifyDataBasedOnSavedQueries.Location = new System.Drawing.Point(4, 38);
-            this.tabModifyDataBasedOnSavedQueries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabModifyDataBasedOnSavedQueries.Margin = new System.Windows.Forms.Padding(4);
             this.tabModifyDataBasedOnSavedQueries.Name = "tabModifyDataBasedOnSavedQueries";
             this.tabModifyDataBasedOnSavedQueries.Size = new System.Drawing.Size(1883, 829);
             this.tabModifyDataBasedOnSavedQueries.TabIndex = 3;
@@ -560,6 +563,9 @@
             // 
             // groupViewDataFilter
             // 
+            this.groupViewDataFilter.Controls.Add(this.lblAvailableTransformations);
+            this.groupViewDataFilter.Controls.Add(this.lblTransformedQueryDisplay);
+            this.groupViewDataFilter.Controls.Add(this.treeTransformedQueryDisplay);
             this.groupViewDataFilter.Controls.Add(this.cbxCollectAllReferences);
             this.groupViewDataFilter.Controls.Add(this.cbxExecuteAsListOfLinkedQueries);
             this.groupViewDataFilter.Controls.Add(this.lblViewsNoConnection);
@@ -577,48 +583,60 @@
             this.groupViewDataFilter.Controls.Add(this.lblListOfViewsFilters);
             this.groupViewDataFilter.Controls.Add(this.lstSelectedSchemaDataByViews);
             this.groupViewDataFilter.Location = new System.Drawing.Point(20, 18);
-            this.groupViewDataFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupViewDataFilter.Margin = new System.Windows.Forms.Padding(4);
             this.groupViewDataFilter.Name = "groupViewDataFilter";
-            this.groupViewDataFilter.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupViewDataFilter.Padding = new System.Windows.Forms.Padding(4);
             this.groupViewDataFilter.Size = new System.Drawing.Size(1104, 724);
             this.groupViewDataFilter.TabIndex = 43;
             this.groupViewDataFilter.TabStop = false;
             this.groupViewDataFilter.Text = "Set Saved Views as Data Filters ";
             // 
+            // cbxCollectAllReferences
+            // 
+            this.cbxCollectAllReferences.AutoSize = true;
+            this.cbxCollectAllReferences.Location = new System.Drawing.Point(14, 481);
+            this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
+            this.cbxCollectAllReferences.Size = new System.Drawing.Size(240, 24);
+            this.cbxCollectAllReferences.TabIndex = 61;
+            this.cbxCollectAllReferences.Text = "Add Lookup Fields to import";
+            this.cbxCollectAllReferences.UseVisualStyleBackColor = true;
+            this.cbxCollectAllReferences.CheckedChanged += new System.EventHandler(this.cbxCollectAllReferences_CheckedChanged);
+            // 
             // cbxExecuteAsListOfLinkedQueries
             // 
             this.cbxExecuteAsListOfLinkedQueries.AutoSize = true;
-            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(111, 583);
-            this.cbxExecuteAsListOfLinkedQueries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(14, 450);
+            this.cbxExecuteAsListOfLinkedQueries.Margin = new System.Windows.Forms.Padding(4);
             this.cbxExecuteAsListOfLinkedQueries.Name = "cbxExecuteAsListOfLinkedQueries";
             this.cbxExecuteAsListOfLinkedQueries.Size = new System.Drawing.Size(290, 24);
             this.cbxExecuteAsListOfLinkedQueries.TabIndex = 60;
             this.cbxExecuteAsListOfLinkedQueries.Text = "Execute As List Of Linked Queries";
             this.cbxExecuteAsListOfLinkedQueries.UseVisualStyleBackColor = true;
+            this.cbxExecuteAsListOfLinkedQueries.CheckedChanged += new System.EventHandler(this.cbxExecuteAsListOfLinkedQueries_CheckedChanged);
             // 
             // lblViewsNoConnection
             // 
             this.lblViewsNoConnection.AutoSize = true;
-            this.lblViewsNoConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblViewsNoConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.lblViewsNoConnection.ForeColor = System.Drawing.Color.Red;
-            this.lblViewsNoConnection.Location = new System.Drawing.Point(125, 631);
+            this.lblViewsNoConnection.Location = new System.Drawing.Point(7, 632);
             this.lblViewsNoConnection.Name = "lblViewsNoConnection";
-            this.lblViewsNoConnection.Size = new System.Drawing.Size(457, 75);
+            this.lblViewsNoConnection.Size = new System.Drawing.Size(312, 72);
             this.lblViewsNoConnection.TabIndex = 58;
-            this.lblViewsNoConnection.Text = "Cannot connect to crm and download Saved view/s\r\n \r\n               Other tool\'s f" +
-    "eatures weren\'t affected";
+            this.lblViewsNoConnection.Text = "Cannot connect to crm \r\nto download Saved view/s .\r\nOther tool\'s features weren\'t" +
+    " affected";
             this.lblViewsNoConnection.Visible = false;
             // 
             // lblConnectionAwaitViews
             // 
             this.lblConnectionAwaitViews.AutoSize = true;
-            this.lblConnectionAwaitViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblConnectionAwaitViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.lblConnectionAwaitViews.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblConnectionAwaitViews.Location = new System.Drawing.Point(71, 52);
+            this.lblConnectionAwaitViews.Location = new System.Drawing.Point(10, 608);
             this.lblConnectionAwaitViews.Name = "lblConnectionAwaitViews";
-            this.lblConnectionAwaitViews.Size = new System.Drawing.Size(460, 29);
+            this.lblConnectionAwaitViews.Size = new System.Drawing.Size(322, 24);
             this.lblConnectionAwaitViews.TabIndex = 57;
-            this.lblConnectionAwaitViews.Text = "... loading, waiting for crm connection ...";
+            this.lblConnectionAwaitViews.Text = "... loading, waiting for crm connection";
             this.lblConnectionAwaitViews.Visible = false;
             // 
             // lblViewsActionTypeOperatot
@@ -640,7 +658,7 @@
             "Selected Only",
             "All Except Selected"});
             this.ddlViewsActionOperator.Location = new System.Drawing.Point(872, 427);
-            this.ddlViewsActionOperator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ddlViewsActionOperator.Margin = new System.Windows.Forms.Padding(4);
             this.ddlViewsActionOperator.Name = "ddlViewsActionOperator";
             this.ddlViewsActionOperator.Size = new System.Drawing.Size(208, 25);
             this.ddlViewsActionOperator.TabIndex = 10;
@@ -651,9 +669,9 @@
             this.lstListOfViewsFilters.FormattingEnabled = true;
             this.lstListOfViewsFilters.ItemHeight = 17;
             this.lstListOfViewsFilters.Location = new System.Drawing.Point(697, 460);
-            this.lstListOfViewsFilters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstListOfViewsFilters.Margin = new System.Windows.Forms.Padding(4);
             this.lstListOfViewsFilters.Name = "lstListOfViewsFilters";
-            this.lstListOfViewsFilters.Size = new System.Drawing.Size(383, 225);
+            this.lstListOfViewsFilters.Size = new System.Drawing.Size(383, 242);
             this.lstListOfViewsFilters.Sorted = true;
             this.lstListOfViewsFilters.TabIndex = 55;
             this.lstListOfViewsFilters.SelectedIndexChanged += new System.EventHandler(this.lstListOfViewsFilters_SelectedIndexChanged);
@@ -674,7 +692,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(397, 180);
+            this.label5.Location = new System.Drawing.Point(394, 35);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(239, 17);
             this.label5.TabIndex = 53;
@@ -684,7 +702,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(56, 180);
+            this.label6.Location = new System.Drawing.Point(53, 35);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(188, 17);
             this.label6.TabIndex = 52;
@@ -695,11 +713,11 @@
             this.lstDefaultSchemaDataByViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstDefaultSchemaDataByViews.FormattingEnabled = true;
             this.lstDefaultSchemaDataByViews.ItemHeight = 17;
-            this.lstDefaultSchemaDataByViews.Location = new System.Drawing.Point(17, 223);
+            this.lstDefaultSchemaDataByViews.Location = new System.Drawing.Point(14, 78);
             this.lstDefaultSchemaDataByViews.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstDefaultSchemaDataByViews.Name = "lstDefaultSchemaDataByViews";
             this.lstDefaultSchemaDataByViews.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstDefaultSchemaDataByViews.Size = new System.Drawing.Size(273, 327);
+            this.lstDefaultSchemaDataByViews.Size = new System.Drawing.Size(273, 293);
             this.lstDefaultSchemaDataByViews.Sorted = true;
             this.lstDefaultSchemaDataByViews.TabIndex = 42;
             // 
@@ -709,7 +727,7 @@
             this.lstViewsPerEntity.FormattingEnabled = true;
             this.lstViewsPerEntity.ItemHeight = 17;
             this.lstViewsPerEntity.Location = new System.Drawing.Point(697, 94);
-            this.lstViewsPerEntity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstViewsPerEntity.Margin = new System.Windows.Forms.Padding(4);
             this.lstViewsPerEntity.Name = "lstViewsPerEntity";
             this.lstViewsPerEntity.Size = new System.Drawing.Size(384, 225);
             this.lstViewsPerEntity.Sorted = true;
@@ -719,8 +737,8 @@
             // btnbtnViews_FromDefaultToSelected
             // 
             this.btnbtnViews_FromDefaultToSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnbtnViews_FromDefaultToSelected.Location = new System.Drawing.Point(317, 350);
-            this.btnbtnViews_FromDefaultToSelected.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnbtnViews_FromDefaultToSelected.Location = new System.Drawing.Point(309, 157);
+            this.btnbtnViews_FromDefaultToSelected.Margin = new System.Windows.Forms.Padding(4);
             this.btnbtnViews_FromDefaultToSelected.Name = "btnbtnViews_FromDefaultToSelected";
             this.btnbtnViews_FromDefaultToSelected.Size = new System.Drawing.Size(52, 28);
             this.btnbtnViews_FromDefaultToSelected.TabIndex = 49;
@@ -731,8 +749,8 @@
             // btnViews_ReturnToDefaultFromSelected
             // 
             this.btnViews_ReturnToDefaultFromSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnViews_ReturnToDefaultFromSelected.Location = new System.Drawing.Point(317, 436);
-            this.btnViews_ReturnToDefaultFromSelected.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnViews_ReturnToDefaultFromSelected.Location = new System.Drawing.Point(309, 243);
+            this.btnViews_ReturnToDefaultFromSelected.Margin = new System.Windows.Forms.Padding(4);
             this.btnViews_ReturnToDefaultFromSelected.Name = "btnViews_ReturnToDefaultFromSelected";
             this.btnViews_ReturnToDefaultFromSelected.Size = new System.Drawing.Size(52, 28);
             this.btnViews_ReturnToDefaultFromSelected.TabIndex = 50;
@@ -744,22 +762,22 @@
             // 
             this.lblListOfViewsFilters.AutoSize = true;
             this.lblListOfViewsFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblListOfViewsFilters.Location = new System.Drawing.Point(693, 356);
+            this.lblListOfViewsFilters.Location = new System.Drawing.Point(694, 330);
             this.lblListOfViewsFilters.Name = "lblListOfViewsFilters";
-            this.lblListOfViewsFilters.Size = new System.Drawing.Size(282, 51);
+            this.lblListOfViewsFilters.Size = new System.Drawing.Size(282, 85);
             this.lblListOfViewsFilters.TabIndex = 47;
-            this.lblListOfViewsFilters.Text = "Saved views selected for filters\r\n\r\nDouble click a view to remove it from the lis" +
-    "t";
+            this.lblListOfViewsFilters.Text = "Saved views selected for filters\r\n\r\nSelect a view to select a transformation or\r\n" +
+    "\r\nDouble click a view to remove it from the list";
             // 
             // lstSelectedSchemaDataByViews
             // 
             this.lstSelectedSchemaDataByViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstSelectedSchemaDataByViews.FormattingEnabled = true;
             this.lstSelectedSchemaDataByViews.ItemHeight = 17;
-            this.lstSelectedSchemaDataByViews.Location = new System.Drawing.Point(385, 223);
-            this.lstSelectedSchemaDataByViews.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstSelectedSchemaDataByViews.Location = new System.Drawing.Point(382, 78);
+            this.lstSelectedSchemaDataByViews.Margin = new System.Windows.Forms.Padding(4);
             this.lstSelectedSchemaDataByViews.Name = "lstSelectedSchemaDataByViews";
-            this.lstSelectedSchemaDataByViews.Size = new System.Drawing.Size(273, 327);
+            this.lstSelectedSchemaDataByViews.Size = new System.Drawing.Size(273, 293);
             this.lstSelectedSchemaDataByViews.Sorted = true;
             this.lstSelectedSchemaDataByViews.TabIndex = 41;
             this.lstSelectedSchemaDataByViews.SelectedIndexChanged += new System.EventHandler(this.lstSelectedSchemaDataByViews_SelectedIndexChanged);
@@ -770,9 +788,9 @@
             this.groupBox5.Controls.Add(this.btnSaveModifyViewsFile);
             this.groupBox5.Controls.Add(this.btnViewNext);
             this.groupBox5.Location = new System.Drawing.Point(20, 750);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(1457, 64);
             this.groupBox5.TabIndex = 42;
             this.groupBox5.TabStop = false;
@@ -781,7 +799,7 @@
             // 
             this.btnViewsBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnViewsBack.Location = new System.Drawing.Point(20, 23);
-            this.btnViewsBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnViewsBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnViewsBack.Name = "btnViewsBack";
             this.btnViewsBack.Size = new System.Drawing.Size(267, 33);
             this.btnViewsBack.TabIndex = 6;
@@ -793,7 +811,7 @@
             // 
             this.btnSaveModifyViewsFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnSaveModifyViewsFile.Location = new System.Drawing.Point(593, 23);
-            this.btnSaveModifyViewsFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveModifyViewsFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveModifyViewsFile.Name = "btnSaveModifyViewsFile";
             this.btnSaveModifyViewsFile.Size = new System.Drawing.Size(267, 33);
             this.btnSaveModifyViewsFile.TabIndex = 5;
@@ -805,7 +823,7 @@
             // 
             this.btnViewNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.btnViewNext.Location = new System.Drawing.Point(1167, 23);
-            this.btnViewNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnViewNext.Margin = new System.Windows.Forms.Padding(4);
             this.btnViewNext.Name = "btnViewNext";
             this.btnViewNext.Size = new System.Drawing.Size(267, 33);
             this.btnViewNext.TabIndex = 4;
@@ -841,7 +859,7 @@
             // btnCopyToolFromModified
             // 
             this.btnCopyToolFromModified.Location = new System.Drawing.Point(80, 281);
-            this.btnCopyToolFromModified.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCopyToolFromModified.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyToolFromModified.Name = "btnCopyToolFromModified";
             this.btnCopyToolFromModified.Size = new System.Drawing.Size(859, 92);
             this.btnCopyToolFromModified.TabIndex = 41;
@@ -852,7 +870,7 @@
             // btnCopyToolFromSource
             // 
             this.btnCopyToolFromSource.Location = new System.Drawing.Point(80, 87);
-            this.btnCopyToolFromSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCopyToolFromSource.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyToolFromSource.Name = "btnCopyToolFromSource";
             this.btnCopyToolFromSource.Size = new System.Drawing.Size(859, 92);
             this.btnCopyToolFromSource.TabIndex = 40;
@@ -875,9 +893,9 @@
             // 
             this.groupBox4.Controls.Add(this.btnCopyToolBack);
             this.groupBox4.Location = new System.Drawing.Point(21, 726);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(1459, 82);
             this.groupBox4.TabIndex = 36;
             this.groupBox4.TabStop = false;
@@ -886,7 +904,7 @@
             // 
             this.btnCopyToolBack.Enabled = false;
             this.btnCopyToolBack.Location = new System.Drawing.Point(59, 25);
-            this.btnCopyToolBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCopyToolBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyToolBack.Name = "btnCopyToolBack";
             this.btnCopyToolBack.Size = new System.Drawing.Size(267, 33);
             this.btnCopyToolBack.TabIndex = 6;
@@ -904,15 +922,32 @@
             this.openFileLoadProject.Filter = "XML Files (*.xml)|*.xml";
             this.openFileLoadProject.Title = "Select a project xml to load";
             // 
-            // cbxCollectAllReferences
+            // treeTransformedQueryDisplay
             // 
-            this.cbxCollectAllReferences.AutoSize = true;
-            this.cbxCollectAllReferences.Location = new System.Drawing.Point(31, 616);
-            this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
-            this.cbxCollectAllReferences.Size = new System.Drawing.Size(240, 24);
-            this.cbxCollectAllReferences.TabIndex = 61;
-            this.cbxCollectAllReferences.Text = "Add Lookup Fields to import";
-            this.cbxCollectAllReferences.UseVisualStyleBackColor = true;
+            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(330, 428);
+            this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
+            this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(349, 274);
+            this.treeTransformedQueryDisplay.TabIndex = 62;
+            // 
+            // lblTransformedQueryDisplay
+            // 
+            this.lblTransformedQueryDisplay.AutoSize = true;
+            this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(394, 398);
+            this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
+            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(197, 17);
+            this.lblTransformedQueryDisplay.TabIndex = 63;
+            this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
+            // 
+            // lblAvailableTransformations
+            // 
+            this.lblAvailableTransformations.AutoSize = true;
+            this.lblAvailableTransformations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblAvailableTransformations.Location = new System.Drawing.Point(11, 398);
+            this.lblAvailableTransformations.Name = "lblAvailableTransformations";
+            this.lblAvailableTransformations.Size = new System.Drawing.Size(286, 17);
+            this.lblAvailableTransformations.TabIndex = 64;
+            this.lblAvailableTransformations.Text = "List of Available Transformations per Query ";
             // 
             // MainForm
             // 
@@ -926,7 +961,7 @@
             this.Controls.Add(this.tabsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Migration Management tool";
@@ -1024,6 +1059,9 @@
         private System.Windows.Forms.Label lblTestConnectionAwait;
         private System.Windows.Forms.CheckBox cbxExecuteAsListOfLinkedQueries;
         private System.Windows.Forms.CheckBox cbxCollectAllReferences;
+        private System.Windows.Forms.TreeView treeTransformedQueryDisplay;
+        private System.Windows.Forms.Label lblTransformedQueryDisplay;
+        private System.Windows.Forms.Label lblAvailableTransformations;
     }
 }
 

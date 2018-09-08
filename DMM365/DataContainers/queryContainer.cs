@@ -15,7 +15,11 @@ namespace DMM365.DataContainers
         public relationShipType RelationShipType { get; set; }
 
         public string entityLogicalName { get; set; }
-        public bool exequteAsSeparateLinkedQueries { get; set; }
+
+        public bool ExequteAsSeparateLinkedQueries { get; set; }
+
+        public bool CollectAllReferences { get; set; }
+
         public bool isRoot { get; set; }
         /// <summary>
         /// LogicalName of entity this one is linked to
