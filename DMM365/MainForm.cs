@@ -36,7 +36,7 @@ namespace DMM365
         List<SchemaField> FieldFilterList = new List<SchemaField>();
         //for drag and drop source
         List<SchemaField> SelectedFieldsAdvanced = new List<SchemaField>();
-        Dictionary<string, queryContainer> viewsContainers = new Dictionary<string, queryContainer>();
+        Dictionary<Guid, queryContainer> viewsContainers = new Dictionary<Guid, queryContainer>();
 
         string[] buttons = new string[] { "btnProject", "btnProjectLoad", "btnLoadSchema", "btnProjectSaveAndNext", "btnTestConnSource", "btnCopyToolBack", "btnCopyToolFromSource", "btnCopyToolFromModified", "btnViewsBack", "btnSaveModifyViewsFile", "btnViewNext" };
 
@@ -358,7 +358,7 @@ namespace DMM365
                     allSettings.SelectedUserQueries = SelectedSavedUserViews_DS.Select(s => s.id).ToList();
 
                 //execute views, get and merge all guids
-                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, SelectedSavedUserViews_DS, listOfEntities_DS);
+                List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, viewsContainers, cbxCollectAllReferences.Checked );
 
                 //file create an object for transformation
                 DataEntities raw = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
@@ -704,25 +704,25 @@ namespace DMM365
 
         #region Views
 
-        private void deleteView(string viewName)
+        private void deleteView(Guid viewId)
         {
-            if (viewsContainers.Keys.Contains(viewName)) viewsContainers.Remove(viewName);
+            if (viewsContainers.Keys.Contains(viewId)) viewsContainers.Remove(viewId);
         }
 
-        private queryContainer getView(string viewName)
+        private queryContainer getView(Guid viewId)
         {
-            if (!viewsContainers.Keys.Contains(viewName)) return null;
+            if (!viewsContainers.Keys.Contains(viewId)) return null;
 
-            return viewsContainers[viewName];
+            return viewsContainers[viewId];
         }
 
-        private void createOrUpdateView(string viewName, string fetch, bool exequteAsSeparateLinkedQueries = false)
+        private void createOrUpdateView(Guid viewId, string fetch, bool exequteAsSeparateLinkedQueries = false)
         {
 
-            queryContainer current = getView(viewName);
+            queryContainer current = getView(viewId);
             if (ReferenceEquals(current, null))
             {
-                viewsContainers.Add(viewName, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
+                viewsContainers.Add(viewId, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
             }               
             else
             {
@@ -730,8 +730,8 @@ namespace DMM365
                 if (fetch == existingFetch && current.exequteAsSeparateLinkedQueries == exequteAsSeparateLinkedQueries) return;
                 else
                 {
-                    deleteView(viewName);
-                    viewsContainers.Add(viewName, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
+                    deleteView(viewId);
+                    viewsContainers.Add(viewId, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, exequteAsSeparateLinkedQueries));
                 }
             }
         }
@@ -891,7 +891,7 @@ namespace DMM365
             CrmEntityContainer view = current.SelectedItem as CrmEntityContainer;
             if (ReferenceEquals(view, null)) return;
 
-            createOrUpdateView(view.name, view.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
+            createOrUpdateView(view.id, view.crmEntity["fetchxml"].ToString(), cbxExecuteAsListOfLinkedQueries.Checked);
 
             //viewsContainers
         }

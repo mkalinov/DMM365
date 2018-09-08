@@ -105,7 +105,7 @@ namespace DMM365.Helper
                     current.masterEntityLookUpName = attr.name;
 
                     QueryExpression linkEntityQuiery = new QueryExpression(le.LinkToEntityName);
-                    ConditionExpression cond = new ConditionExpression(attr.name, ConditionOperator.Equal, "{masterid}");
+                    ConditionExpression cond = new ConditionExpression(attr.name, ConditionOperator.Equal, current.masterEntityLookUpID);
                     FilterExpression filter = new FilterExpression(LogicalOperator.And);
                     filter.AddCondition(cond);
                     linkEntityQuiery.ColumnSet = le.Columns;

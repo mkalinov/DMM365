@@ -24,7 +24,7 @@ namespace DMM365.DataContainers
 
         public string masterEntityLookUpName { get; set; }
 
-        public string masterEntityLookUpID { get; set; }
+        public Guid masterEntityLookUpID { get; set; }
 
 
         public QueryExpression expression { get; set; }
