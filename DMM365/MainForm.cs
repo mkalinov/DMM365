@@ -117,21 +117,30 @@ namespace DMM365
             listOfEntities_DS = IOHelper.DeserializeXmlFromFile<SchemaEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.SchemaFileSource, fileName.dataSchemaXml));
             //deserialise source data file
             listOfData_DS = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
-            // start/keep connection and load crm dependent tabs
-            var backgroundScheduler = TaskScheduler.Default;
-            var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            //connection labels
-            connectionLabels(true);
-            enableAllButtons(false);
-            //TO DO: check "no internet connection" situation
-            Task.Factory.StartNew(delegate
+
+            if (GlobalHelper.isValidString(allSettings.OrgUniqueNameSource)
+                && GlobalHelper.isValidString(allSettings.ServerUrlSource)
+                && GlobalHelper.isValidString(allSettings.UsernameSource))
             {
-                crmServiceClientSource =
-                    ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
 
-            }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); loadViewsConfiguration(); enableAllButtons(true); }, uiScheduler);
+
+                // start/keep connection and load crm dependent tabs
+                var backgroundScheduler = TaskScheduler.Default;
+                var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+                //connection labels
+                connectionLabels(true);
+                enableAllButtons(false);
+                //TO DO: check "no internet connection" situation
+                Task.Factory.StartNew(delegate
+                {
+                    crmServiceClientSource =
+                        ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
+
+                }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); loadViewsConfiguration(); enableAllButtons(true); }, uiScheduler);
+            }
+            else loadViewsConfiguration();
         }
-
+    
 
         #endregion Form Global
 
@@ -351,11 +360,32 @@ namespace DMM365
 
             try
             {
+                allSettings.SelectedUserQueries = new List<selectedQuery>();
+                //get selected queries
+                if (lstListOfViewsFilters.Items.Count > 0)
+                {
+                    foreach (CrmEntityContainer item in lstListOfViewsFilters.Items)
+                    {
+                        queryContainer current = viewsContainers[item.id];
+                        if (ReferenceEquals(current, null))
+                        {
+                            MessageBox.Show("Cannot find '" + item.name + "' view");
+                            return;
+                        }
+
+                        selectedQuery userQuery = SelectedSavedUserViews_DS.Select(s => new selectedQuery
+                        { id = s.id
+                        , CollectAllReferences = current.CollectAllReferences
+                        , ExecuteAsListOfLinkedQueries = current.ExequteAsSeparateLinkedQueries
+                        }).FirstOrDefault(s => s.id == item.id);
+                        allSettings.SelectedUserQueries.Add(userQuery);
+
+                    }                     
+                }
+
                 //save tab
                 SettingsHelper.saveProject(allSettings);
 
-                if (lstListOfViewsFilters.Items.Count > 0)
-                    allSettings.SelectedUserQueries = SelectedSavedUserViews_DS.Select(s => s.id).ToList();
 
                 //execute views, get and merge all guids
                 List<Guid> ids = CrmHelper.getIdsFromViewsExecution(crmServiceClientSource, viewsContainers );
@@ -526,13 +556,28 @@ namespace DMM365
 
         private void cbxExecuteAsListOfLinkedQueries_CheckedChanged(object sender, EventArgs e)
         {
-            //update selected filter and query monitor
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            CrmEntityContainer view = lstListOfViewsFilters.SelectedItem as CrmEntityContainer;
+            if (!ReferenceEquals(view, null))
+            {
+                queryContainer qc = getView(view.id);
+                if(!ReferenceEquals(qc, null)) qc.ExequteAsSeparateLinkedQueries = cb.Checked;
+            }
         }
 
         private void cbxCollectAllReferences_CheckedChanged(object sender, EventArgs e)
         {
-            //update selected filter 
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
 
+            CrmEntityContainer view = lstListOfViewsFilters.SelectedItem as CrmEntityContainer;
+            if (!ReferenceEquals(view, null))
+            {
+                queryContainer qc = getView(view.id);
+                if (!ReferenceEquals(qc, null)) qc.CollectAllReferences = cb.Checked;
+            }
         }
 
         #endregion CheckBoxes
@@ -834,6 +879,8 @@ namespace DMM365
 
             lstDefaultSchemaDataByViews.ClearSelected();
             List<SchemaEntity> d = lstDefaultSchemaDataByViews.Items.Cast<SchemaEntity>().ToList();
+
+            //if(!ReferenceEquals(allSettings.SelectedUserQueries, null) && allSettings.SelectedUserQueries.Count > 0)
 
             bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS
 = CrmHelper.convertEntityToEntityContainer(CrmHelper.getUserQueryListByIds(crmServiceClientSource, allSettings.SelectedUserQueries));

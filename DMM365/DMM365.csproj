@@ -164,6 +164,7 @@
     <Compile Include="DataContainers\SchemaEntities.cs" />
     <Compile Include="DataContainers\SchemaEntity.cs" />
     <Compile Include="DataContainers\SchemaField.cs" />
+    <Compile Include="DataContainers\selectedQuery.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\ArchiveHelper.cs" />
     <Compile Include="Helper\ConnectionHelper.cs" />

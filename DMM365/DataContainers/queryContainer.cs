@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace DMM365.DataContainers
@@ -28,7 +25,15 @@ namespace DMM365.DataContainers
 
         public string masterEntityLookUpName { get; set; }
 
+        public string primaryKeyName { get; set; }
+
+
         public Guid masterEntityLookUpID { get; set; }
+
+        /// <summary>
+        /// logical name, id
+        /// </summary>
+        public Dictionary<string, Guid> references { get; set; }
 
 
         public QueryExpression expression { get; set; }

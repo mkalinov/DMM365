@@ -56,7 +56,11 @@ namespace DMM365.Helper
                 CollectAllReferences = mainQuery.CollectAllReferences,
                 masterEntityLogicalName = mainQuery.masterEntityLogicalName,
                 masterEntityLookUpName = mainQuery.masterEntityLookUpName,
-                RelationShipType = mainQuery.RelationShipType
+                RelationShipType = mainQuery.RelationShipType,
+                references = mainQuery.references,
+                primaryKeyName = mainQuery.primaryKeyName
+
+                
             };
 
             //check  link entities presence
@@ -93,10 +97,23 @@ namespace DMM365.Helper
                 {
                     current.RelationShipType = relationShipType.Lookup;
                     //recurse to first level
+                    FilterExpression filter = new FilterExpression(LogicalOperator.And);
+                    filter.AddFilter(le.LinkCriteria);
+
+                    ////move to crm helprer to query
+                    //ConditionExpression cond = new ConditionExpression(attr.name, ConditionOperator.Equal, upper.references[le.LinkToAttributeName] - is null);
+
                     current.expression = transformLinkToQueryExpression(le);
+                    //update filter
+                    current.expression.Criteria = filter;
+
+                    //add a column to get lookup in resultset
+                    upper.expression.ColumnSet.AddColumn(le.LinkFromAttributeName);
+
                     current.masterEntityLogicalName = le.LinkFromEntityName;
                     current.entityLogicalName = le.LinkToEntityName;
                     current.masterEntityLookUpName = le.LinkFromAttributeName;
+                    current.primaryKeyName = le.LinkToAttributeName;
 
                     result.Add(transformToSeparateQueries(service, listOfEntities_DS, current));
 
@@ -108,9 +125,10 @@ namespace DMM365.Helper
                     current.masterEntityLookUpName = attr.name;
 
                     QueryExpression linkEntityQuiery = new QueryExpression(le.LinkToEntityName);
-                    ConditionExpression cond = new ConditionExpression(attr.name, ConditionOperator.Equal, current.masterEntityLookUpID);
+                    ////move to crm helprer to query
+                    //ConditionExpression cond = new ConditionExpression(attr.name, ConditionOperator.Equal, current.masterEntityLookUpID);
                     FilterExpression filter = new FilterExpression(LogicalOperator.And);
-                    filter.AddCondition(cond);
+                    //filter.AddCondition(cond);
                     linkEntityQuiery.ColumnSet = le.Columns;
                     filter.AddFilter(le.LinkCriteria);
                     linkEntityQuiery.Criteria = filter;

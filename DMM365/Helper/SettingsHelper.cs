@@ -35,7 +35,7 @@ namespace DMM365.Helper
                 //else create/update settings object,create DirectoryName.xml and write settings there
                 else
                 {
-                    saveProject(allSettings);
+                    saveProject(allSettings, true);
                     return;
                 }
             }
@@ -44,10 +44,10 @@ namespace DMM365.Helper
         }
 
 
-        internal static void saveProject(AllSettings allSettings)
+        internal static void saveProject(AllSettings allSettings, bool isCreate = false)
         {
             //clean previous project file to prevent corruption
-            IOHelper.deleteFile(IOHelper.getPathToProjectFile(allSettings));
+            if(!isCreate) IOHelper.deleteFile(IOHelper.getPathToProjectFile(allSettings));
 
             IOHelper.SerializeObjectToXmlFile<AllSettings>(allSettings, IOHelper.getPathToProjectFile(allSettings));
             allSettings.IsDirty = false;

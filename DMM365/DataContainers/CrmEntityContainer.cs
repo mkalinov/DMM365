@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using Microsoft.Xrm.Sdk;
 
 namespace DMM365.DataContainers

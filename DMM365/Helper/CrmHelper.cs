@@ -60,12 +60,12 @@ namespace DMM365.Helper
             return coll.Entities.ToList<Entity>();
         }
 
-        internal static List<Entity> getUserQueryListByIds(CrmServiceClient service, List<Guid> ids)
+        internal static List<Entity> getUserQueryListByIds(CrmServiceClient service, List<selectedQuery> ids)
         {
-
+            if (ReferenceEquals(ids, null) || ids.Count == 0) return new List<Entity>();
             QueryExpression uq = new QueryExpression("userquery");
             uq.ColumnSet = new ColumnSet(true);
-            uq.Criteria.AddCondition(new ConditionExpression("userqueryid", ConditionOperator.In, ids.ToArray()));
+            uq.Criteria.AddCondition(new ConditionExpression("userqueryid", ConditionOperator.In, ids.Select(s=>s.id).ToArray()));
 
             EntityCollection coll = service.RetrieveMultiple(uq);
             return coll.Entities.ToList<Entity>();
@@ -150,14 +150,21 @@ namespace DMM365.Helper
             //result ids
             result.AddRange(currentEntitySet.Select(s => s.Id).ToList());
 
-
+            //looping entities
             foreach (Entity current in currentEntitySet)
             {
                 //get all lookups IDs from first level. Aliesed values excepted
+                view.references = getAllReferencesIDs(current);
+                //Add to result if flag is set
                 if (view.CollectAllReferences)
                 {
-                    List<Guid> fromReferences = getAllReferencesIDs(current);
-                    if (!ReferenceEquals(fromReferences, null) && fromReferences.Count > 0) result.AddRange(fromReferences);
+                    if (!ReferenceEquals(view.references, null) && view.references.Count > 0)
+                    {
+                        foreach (string k in view.references.Keys)
+                        {
+                            result.Add(view.references[k]);
+                        }                       
+                    }
                 }
 
                 //execute linked expressions
@@ -165,13 +172,24 @@ namespace DMM365.Helper
                 {
                     foreach (queryContainer le in view.linkedExpressions)
                     {
-                        
+
                         //if link entity is a lookup (M:1) => recursive call
                         if (le.RelationShipType == relationShipType.Lookup)
                         {
-                            result.AddRange(topLevel(service, le));
-                            continue;
+                            //if refence not exist then this barnch is empty
+                            if (!view.references.Keys.Contains(le.masterEntityLookUpName)) continue;
+                            //add condition to keep link between parent and sub
+                            ConditionExpression cond = new ConditionExpression(le.primaryKeyName, ConditionOperator.Equal, view.references[le.masterEntityLookUpName]);
+                            le.expression.Criteria.AddCondition(cond);
                         }
+                        if (le.RelationShipType == relationShipType.Child)
+                        {
+                            //add condition to keep link between parent and sub
+                            ConditionExpression cond = new ConditionExpression(le.masterEntityLookUpName, ConditionOperator.Equal, current.Id);
+                            le.expression.Criteria.AddCondition(cond);
+                        }
+
+
                         //linked entity is a "child", 1:M
                         le.masterEntityLookUpID = current.Id;
                         //recursive call
@@ -181,7 +199,7 @@ namespace DMM365.Helper
                 }
             }
 
-            return result;
+             return result;
         } 
 
         private static List<Entity> singleExpression(CrmServiceClient service, QueryBase view)
@@ -194,14 +212,14 @@ namespace DMM365.Helper
             return result.Entities.ToList();
         }
 
-        private static List<Guid> getAllReferencesIDs(Entity current)
+        private static Dictionary<string, Guid> getAllReferencesIDs(Entity current)
         {
-            List<Guid> result = new List<Guid>();
+            Dictionary<string, Guid> result = new Dictionary<string, Guid>();
 
             foreach (KeyValuePair<string, object> atr in current.Attributes)
             {
                 EntityReference er = atr.Value as EntityReference;
-                if (!ReferenceEquals(er, null)) result.Add(er.Id);
+                if (!ReferenceEquals(er, null)) result.Add(er.LogicalName, er.Id);
             }
 
             return result;
