@@ -68,6 +68,9 @@
             this.treeResultDataFile = new System.Windows.Forms.TreeView();
             this.treeSorceDataFile = new System.Windows.Forms.TreeView();
             this.groupViewDataFilter = new System.Windows.Forms.GroupBox();
+            this.lblAvailableTransformations = new System.Windows.Forms.Label();
+            this.lblTransformedQueryDisplay = new System.Windows.Forms.Label();
+            this.treeTransformedQueryDisplay = new System.Windows.Forms.TreeView();
             this.cbxCollectAllReferences = new System.Windows.Forms.CheckBox();
             this.cbxExecuteAsListOfLinkedQueries = new System.Windows.Forms.CheckBox();
             this.lblViewsNoConnection = new System.Windows.Forms.Label();
@@ -98,9 +101,7 @@
             this.folderBrowserDialogLoadProject = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLoadSchema = new System.Windows.Forms.OpenFileDialog();
             this.openFileLoadProject = new System.Windows.Forms.OpenFileDialog();
-            this.treeTransformedQueryDisplay = new System.Windows.Forms.TreeView();
-            this.lblTransformedQueryDisplay = new System.Windows.Forms.Label();
-            this.lblAvailableTransformations = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabsPanel.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabProject.SuspendLayout();
@@ -563,6 +564,7 @@
             // 
             // groupViewDataFilter
             // 
+            this.groupViewDataFilter.Controls.Add(this.checkBox1);
             this.groupViewDataFilter.Controls.Add(this.lblAvailableTransformations);
             this.groupViewDataFilter.Controls.Add(this.lblTransformedQueryDisplay);
             this.groupViewDataFilter.Controls.Add(this.treeTransformedQueryDisplay);
@@ -591,10 +593,37 @@
             this.groupViewDataFilter.TabStop = false;
             this.groupViewDataFilter.Text = "Set Saved Views as Data Filters ";
             // 
+            // lblAvailableTransformations
+            // 
+            this.lblAvailableTransformations.AutoSize = true;
+            this.lblAvailableTransformations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblAvailableTransformations.Location = new System.Drawing.Point(11, 398);
+            this.lblAvailableTransformations.Name = "lblAvailableTransformations";
+            this.lblAvailableTransformations.Size = new System.Drawing.Size(286, 17);
+            this.lblAvailableTransformations.TabIndex = 64;
+            this.lblAvailableTransformations.Text = "List of Available Transformations per Query ";
+            // 
+            // lblTransformedQueryDisplay
+            // 
+            this.lblTransformedQueryDisplay.AutoSize = true;
+            this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(394, 398);
+            this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
+            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(197, 17);
+            this.lblTransformedQueryDisplay.TabIndex = 63;
+            this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
+            // 
+            // treeTransformedQueryDisplay
+            // 
+            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(330, 428);
+            this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
+            this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(349, 274);
+            this.treeTransformedQueryDisplay.TabIndex = 62;
+            // 
             // cbxCollectAllReferences
             // 
             this.cbxCollectAllReferences.AutoSize = true;
-            this.cbxCollectAllReferences.Location = new System.Drawing.Point(14, 481);
+            this.cbxCollectAllReferences.Location = new System.Drawing.Point(11, 481);
             this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
             this.cbxCollectAllReferences.Size = new System.Drawing.Size(240, 24);
             this.cbxCollectAllReferences.TabIndex = 61;
@@ -605,7 +634,7 @@
             // cbxExecuteAsListOfLinkedQueries
             // 
             this.cbxExecuteAsListOfLinkedQueries.AutoSize = true;
-            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(14, 450);
+            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(11, 450);
             this.cbxExecuteAsListOfLinkedQueries.Margin = new System.Windows.Forms.Padding(4);
             this.cbxExecuteAsListOfLinkedQueries.Name = "cbxExecuteAsListOfLinkedQueries";
             this.cbxExecuteAsListOfLinkedQueries.Size = new System.Drawing.Size(290, 24);
@@ -922,32 +951,15 @@
             this.openFileLoadProject.Filter = "XML Files (*.xml)|*.xml";
             this.openFileLoadProject.Title = "Select a project xml to load";
             // 
-            // treeTransformedQueryDisplay
+            // checkBox1
             // 
-            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(330, 428);
-            this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
-            this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(349, 274);
-            this.treeTransformedQueryDisplay.TabIndex = 62;
-            // 
-            // lblTransformedQueryDisplay
-            // 
-            this.lblTransformedQueryDisplay.AutoSize = true;
-            this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(394, 398);
-            this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
-            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(197, 17);
-            this.lblTransformedQueryDisplay.TabIndex = 63;
-            this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
-            // 
-            // lblAvailableTransformations
-            // 
-            this.lblAvailableTransformations.AutoSize = true;
-            this.lblAvailableTransformations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblAvailableTransformations.Location = new System.Drawing.Point(11, 398);
-            this.lblAvailableTransformations.Name = "lblAvailableTransformations";
-            this.lblAvailableTransformations.Size = new System.Drawing.Size(286, 17);
-            this.lblAvailableTransformations.TabIndex = 64;
-            this.lblAvailableTransformations.Text = "List of Available Transformations per Query ";
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(11, 512);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(307, 24);
+            this.checkBox1.TabIndex = 65;
+            this.checkBox1.Text = "Reverse (Exclude Selected Records)";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1062,6 +1074,7 @@
         private System.Windows.Forms.TreeView treeTransformedQueryDisplay;
         private System.Windows.Forms.Label lblTransformedQueryDisplay;
         private System.Windows.Forms.Label lblAvailableTransformations;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -65,7 +65,7 @@ namespace DMM365.Helper
             if (ReferenceEquals(ids, null) || ids.Count == 0) return new List<Entity>();
             QueryExpression uq = new QueryExpression("userquery");
             uq.ColumnSet = new ColumnSet(true);
-            uq.Criteria.AddCondition(new ConditionExpression("userqueryid", ConditionOperator.In, ids.Select(s=>s.id).ToArray()));
+            uq.Criteria.AddCondition(new ConditionExpression("userqueryid", ConditionOperator.In, ids.Select(s => s.id).ToArray()));
 
             EntityCollection coll = service.RetrieveMultiple(uq);
             return coll.Entities.ToList<Entity>();
@@ -163,7 +163,7 @@ namespace DMM365.Helper
                         foreach (string k in view.references.Keys)
                         {
                             result.Add(view.references[k]);
-                        }                       
+                        }
                     }
                 }
 
@@ -199,8 +199,8 @@ namespace DMM365.Helper
                 }
             }
 
-             return result;
-        } 
+            return result;
+        }
 
         private static List<Entity> singleExpression(CrmServiceClient service, QueryBase view)
         {
@@ -227,6 +227,106 @@ namespace DMM365.Helper
 
 
         #endregion Execute Query
+
+
+        #region Annotation
+
+        /* execution
+                    DataEntities entities = Helper.DeserializeXmlFromFile<DataEntities>(datafilePath); //web files
+            foreach (DataEntity de in entities.entities)
+            {
+                //get attachment per entity record, files only, get lates
+                foreach (Record rec in de.RecordsCollection)
+                {
+                    Entity latestAttacnment = Helper.getLattestAttachmentByEntity(source, new Guid(rec.id), de.name, true);
+                    if (ReferenceEquals(latestAttacnment, null)) continue;
+
+                    //check is target has same entity
+                    Entity targetMaster = target.Retrieve(de.name, new Guid(rec.id), new ColumnSet());
+                    if (ReferenceEquals(targetMaster, null)) continue;
+
+                    //copy to target
+                    Helper.cloneAnnotation(target, latestAttacnment);
+                }
+            }
+
+        */
+
+        public static Entity getLattestAttachmentByEntity(CrmServiceClient service, Guid masterId, string masterLogicalName, bool documentOnly)
+        {
+            QueryExpression query = new QueryExpression("annotation");
+            FilterExpression filter = new FilterExpression(LogicalOperator.And);
+            ConditionExpression cond1 = new ConditionExpression("objectid", ConditionOperator.Equal, masterId);
+            ConditionExpression cond2 = new ConditionExpression("objecttypecode", ConditionOperator.Equal, masterLogicalName);
+            ConditionExpression cond3 = new ConditionExpression("isdocument", ConditionOperator.Equal, "1");
+            filter.AddCondition(cond1);
+            filter.AddCondition(cond2);
+            if (documentOnly) filter.AddCondition(cond3);
+
+            query.Criteria = filter;
+            query.NoLock = true;
+            query.ColumnSet = new ColumnSet(true);
+            OrderExpression order = new OrderExpression("createdon", OrderType.Descending);
+            query.Orders.Add(order);
+
+            EntityCollection result = service.RetrieveMultiple(query);
+            if (!ReferenceEquals(result, null) && result.Entities.Count > 0)
+                return result.Entities.First();
+
+            return null;
+        }
+
+
+        public static Guid? cloneAnnotation(CrmServiceClient service, Entity noteSource)
+        {
+            Guid clonedEntityGuid;
+            Entity noteClone = new Entity("annotation");
+
+            if (noteSource.Contains("documentbody"))
+                noteClone["documentbody"] = noteSource["documentbody"];
+            if (noteSource.Contains("filename"))
+                noteClone["filename"] = noteSource["filename"];
+            if (noteSource.Contains("isdocument"))
+                noteClone["isdocument"] = noteSource["isdocument"];
+            if (noteSource.Contains("langid"))
+                noteClone["langid"] = noteSource["langid"];
+            if (noteSource.Contains("mimetype"))
+                noteClone["mimetype"] = noteSource["mimetype"];
+            if (noteSource.Contains("notetext"))
+                noteClone["notetext"] = noteSource["notetext"];
+            if (noteSource.Contains("objectid"))
+                noteClone["objectid"] = noteSource["objectid"];
+            if (noteSource.Contains("objecttypecode"))
+                noteClone["objecttypecode"] = noteSource["objecttypecode"];
+            if (noteSource.Contains("stepid"))
+                noteClone["stepid"] = noteSource["stepid"];
+            if (noteSource.Contains("subject"))
+                noteClone["subject"] = noteSource["subject"];
+
+            //for data migration tools only, integer
+            //noteClone["importsequencenumber"] = noteSource["importsequencenumber"];
+
+            //for migration only, use for update
+            //noteClone["overriddencreatedon"] = noteSource["overriddencreatedon"];
+
+            //leave auto
+            //noteClone["ownerid"] = noteSource["ownerid"];
+            //noteClone["owneridtype"] = noteSource["owneridtype"];
+
+            try
+            {
+                clonedEntityGuid = service.Create(noteClone);
+            }
+            catch (Exception ex)
+            {
+                //TO DO: log
+                return null;
+            }
+            return clonedEntityGuid;
+        }
+
+
+        #endregion Annotation
 
     }
 
