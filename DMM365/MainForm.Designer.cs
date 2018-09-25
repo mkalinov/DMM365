@@ -59,7 +59,7 @@
             this.groupProjectSchema = new System.Windows.Forms.GroupBox();
             this.treeProject = new System.Windows.Forms.TreeView();
             this.tbxProject = new System.Windows.Forms.TextBox();
-            this.groupProjectActions = new System.Windows.Forms.GroupBox();
+            this.groupProjectActionsFooter = new System.Windows.Forms.GroupBox();
             this.btnProjectSaveAndNext = new System.Windows.Forms.Button();
             this.tabModifyDataBasedOnSavedQueries = new System.Windows.Forms.TabPage();
             this.groupViewsAdvanced = new System.Windows.Forms.GroupBox();
@@ -68,15 +68,12 @@
             this.treeResultDataFile = new System.Windows.Forms.TreeView();
             this.treeSorceDataFile = new System.Windows.Forms.TreeView();
             this.groupViewDataFilter = new System.Windows.Forms.GroupBox();
-            this.lblAvailableTransformations = new System.Windows.Forms.Label();
+            this.lblTransformationSettings = new System.Windows.Forms.Label();
             this.lblTransformedQueryDisplay = new System.Windows.Forms.Label();
+            this.cbxExcludeFromResult = new System.Windows.Forms.CheckBox();
             this.treeTransformedQueryDisplay = new System.Windows.Forms.TreeView();
-            this.cbxCollectAllReferences = new System.Windows.Forms.CheckBox();
             this.cbxExecuteAsListOfLinkedQueries = new System.Windows.Forms.CheckBox();
-            this.lblViewsNoConnection = new System.Windows.Forms.Label();
-            this.lblConnectionAwaitViews = new System.Windows.Forms.Label();
-            this.lblViewsActionTypeOperatot = new System.Windows.Forms.Label();
-            this.ddlViewsActionOperator = new System.Windows.Forms.ComboBox();
+            this.cbxCollectAllReferences = new System.Windows.Forms.CheckBox();
             this.lstListOfViewsFilters = new System.Windows.Forms.ListBox();
             this.lblViewsByEntity = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -87,40 +84,90 @@
             this.btnViews_ReturnToDefaultFromSelected = new System.Windows.Forms.Button();
             this.lblListOfViewsFilters = new System.Windows.Forms.Label();
             this.lstSelectedSchemaDataByViews = new System.Windows.Forms.ListBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupSavedViewsFooter = new System.Windows.Forms.GroupBox();
             this.btnViewsBack = new System.Windows.Forms.Button();
             this.btnSaveModifyViewsFile = new System.Windows.Forms.Button();
             this.btnViewNext = new System.Windows.Forms.Button();
             this.groupViewsTips = new System.Windows.Forms.GroupBox();
+            this.lblAvailableTransformations = new System.Windows.Forms.Label();
             this.tabReplaceIDs = new System.Windows.Forms.TabPage();
+            this.groupCopyToolContent = new System.Windows.Forms.GroupBox();
             this.btnCopyToolFromModified = new System.Windows.Forms.Button();
             this.btnCopyToolFromSource = new System.Windows.Forms.Button();
             this.groupCopyToolTips = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupCopyToolFooter = new System.Windows.Forms.GroupBox();
             this.btnCopyToolBack = new System.Windows.Forms.Button();
+            this.tabAttchmentsMigration = new System.Windows.Forms.TabPage();
+            this.groupAttachmentsContent = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbxFromPortalToPortal = new System.Windows.Forms.CheckBox();
+            this.cbxBasedOnFiles = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupAttachmentsCopySettings = new System.Windows.Forms.GroupBox();
+            this.cbxAttachmentsLeepRBlist = new System.Windows.Forms.CheckBox();
+            this.cbxIncludeTextNotes = new System.Windows.Forms.CheckBox();
+            this.btnStartAttachmentsCopy = new System.Windows.Forms.Button();
+            this.tbxAttachmentsMastersLocation = new System.Windows.Forms.TextBox();
+            this.btnAttachmentsLoadMasters = new System.Windows.Forms.Button();
+            this.groupConnectionTarget = new System.Windows.Forms.GroupBox();
+            this.lblTestConnTarget = new System.Windows.Forms.Label();
+            this.btnTestConnTarget = new System.Windows.Forms.Button();
+            this.tbxPasswordTarget = new System.Windows.Forms.TextBox();
+            this.lblPasswordTarget = new System.Windows.Forms.Label();
+            this.tbxUsernameTarget = new System.Windows.Forms.TextBox();
+            this.tbxServerUrlTarget = new System.Windows.Forms.TextBox();
+            this.tbxOrgNameTarget = new System.Windows.Forms.TextBox();
+            this.lblUserTarget = new System.Windows.Forms.Label();
+            this.lblServerUrlTarget = new System.Windows.Forms.Label();
+            this.lblOrgNameTarget = new System.Windows.Forms.Label();
+            this.lblViewsNoConnection = new System.Windows.Forms.Label();
+            this.lblConnectionAwaitViews = new System.Windows.Forms.Label();
             this.folderBrowserDialogLoadProject = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLoadSchema = new System.Windows.Forms.OpenFileDialog();
             this.openFileLoadProject = new System.Windows.Forms.OpenFileDialog();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.openFileAttachmentsMaterEntities = new System.Windows.Forms.OpenFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabsPanel.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabProject.SuspendLayout();
             this.gboxProject.SuspendLayout();
             this.groupConnectionSource.SuspendLayout();
             this.groupProjectSchema.SuspendLayout();
-            this.groupProjectActions.SuspendLayout();
+            this.groupProjectActionsFooter.SuspendLayout();
             this.tabModifyDataBasedOnSavedQueries.SuspendLayout();
             this.groupViewsAdvanced.SuspendLayout();
             this.groupViewDataFilter.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.groupSavedViewsFooter.SuspendLayout();
+            this.groupViewsTips.SuspendLayout();
             this.tabReplaceIDs.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.groupCopyToolContent.SuspendLayout();
+            this.groupCopyToolFooter.SuspendLayout();
+            this.tabAttchmentsMigration.SuspendLayout();
+            this.groupAttachmentsContent.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupAttachmentsCopySettings.SuspendLayout();
+            this.groupConnectionTarget.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabsPanel
             // 
             this.tabsPanel.Controls.Add(this.tabs);
-            this.tabsPanel.Location = new System.Drawing.Point(16, 15);
+            this.tabsPanel.Location = new System.Drawing.Point(15, 94);
             this.tabsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.tabsPanel.Name = "tabsPanel";
             this.tabsPanel.Size = new System.Drawing.Size(1899, 887);
@@ -131,6 +178,7 @@
             this.tabs.Controls.Add(this.tabProject);
             this.tabs.Controls.Add(this.tabModifyDataBasedOnSavedQueries);
             this.tabs.Controls.Add(this.tabReplaceIDs);
+            this.tabs.Controls.Add(this.tabAttchmentsMigration);
             this.tabs.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.tabs.Location = new System.Drawing.Point(4, 4);
             this.tabs.Margin = new System.Windows.Forms.Padding(4);
@@ -144,7 +192,7 @@
             // 
             this.tabProject.Controls.Add(this.gboxProject);
             this.tabProject.Controls.Add(this.groupProjectSchema);
-            this.tabProject.Controls.Add(this.groupProjectActions);
+            this.tabProject.Controls.Add(this.groupProjectActionsFooter);
             this.tabProject.Location = new System.Drawing.Point(4, 38);
             this.tabProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabProject.Name = "tabProject";
@@ -472,16 +520,16 @@
             this.tbxProject.Size = new System.Drawing.Size(563, 23);
             this.tbxProject.TabIndex = 1;
             // 
-            // groupProjectActions
+            // groupProjectActionsFooter
             // 
-            this.groupProjectActions.Controls.Add(this.btnProjectSaveAndNext);
-            this.groupProjectActions.Location = new System.Drawing.Point(24, 716);
-            this.groupProjectActions.Margin = new System.Windows.Forms.Padding(4);
-            this.groupProjectActions.Name = "groupProjectActions";
-            this.groupProjectActions.Padding = new System.Windows.Forms.Padding(4);
-            this.groupProjectActions.Size = new System.Drawing.Size(1192, 82);
-            this.groupProjectActions.TabIndex = 36;
-            this.groupProjectActions.TabStop = false;
+            this.groupProjectActionsFooter.Controls.Add(this.btnProjectSaveAndNext);
+            this.groupProjectActionsFooter.Location = new System.Drawing.Point(24, 716);
+            this.groupProjectActionsFooter.Margin = new System.Windows.Forms.Padding(4);
+            this.groupProjectActionsFooter.Name = "groupProjectActionsFooter";
+            this.groupProjectActionsFooter.Padding = new System.Windows.Forms.Padding(4);
+            this.groupProjectActionsFooter.Size = new System.Drawing.Size(1192, 82);
+            this.groupProjectActionsFooter.TabIndex = 36;
+            this.groupProjectActionsFooter.TabStop = false;
             // 
             // btnProjectSaveAndNext
             // 
@@ -498,7 +546,7 @@
             // 
             this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupViewsAdvanced);
             this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupViewDataFilter);
-            this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupBox5);
+            this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupSavedViewsFooter);
             this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupViewsTips);
             this.tabModifyDataBasedOnSavedQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabModifyDataBasedOnSavedQueries.Location = new System.Drawing.Point(4, 38);
@@ -564,16 +612,12 @@
             // 
             // groupViewDataFilter
             // 
-            this.groupViewDataFilter.Controls.Add(this.checkBox1);
-            this.groupViewDataFilter.Controls.Add(this.lblAvailableTransformations);
+            this.groupViewDataFilter.Controls.Add(this.lblTransformationSettings);
             this.groupViewDataFilter.Controls.Add(this.lblTransformedQueryDisplay);
+            this.groupViewDataFilter.Controls.Add(this.cbxExcludeFromResult);
             this.groupViewDataFilter.Controls.Add(this.treeTransformedQueryDisplay);
-            this.groupViewDataFilter.Controls.Add(this.cbxCollectAllReferences);
             this.groupViewDataFilter.Controls.Add(this.cbxExecuteAsListOfLinkedQueries);
-            this.groupViewDataFilter.Controls.Add(this.lblViewsNoConnection);
-            this.groupViewDataFilter.Controls.Add(this.lblConnectionAwaitViews);
-            this.groupViewDataFilter.Controls.Add(this.lblViewsActionTypeOperatot);
-            this.groupViewDataFilter.Controls.Add(this.ddlViewsActionOperator);
+            this.groupViewDataFilter.Controls.Add(this.cbxCollectAllReferences);
             this.groupViewDataFilter.Controls.Add(this.lstListOfViewsFilters);
             this.groupViewDataFilter.Controls.Add(this.lblViewsByEntity);
             this.groupViewDataFilter.Controls.Add(this.label5);
@@ -593,114 +637,76 @@
             this.groupViewDataFilter.TabStop = false;
             this.groupViewDataFilter.Text = "Set Saved Views as Data Filters ";
             // 
-            // lblAvailableTransformations
+            // lblTransformationSettings
             // 
-            this.lblAvailableTransformations.AutoSize = true;
-            this.lblAvailableTransformations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblAvailableTransformations.Location = new System.Drawing.Point(11, 398);
-            this.lblAvailableTransformations.Name = "lblAvailableTransformations";
-            this.lblAvailableTransformations.Size = new System.Drawing.Size(286, 17);
-            this.lblAvailableTransformations.TabIndex = 64;
-            this.lblAvailableTransformations.Text = "List of Available Transformations per Query ";
+            this.lblTransformationSettings.AutoSize = true;
+            this.lblTransformationSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lblTransformationSettings.Location = new System.Drawing.Point(378, 428);
+            this.lblTransformationSettings.Name = "lblTransformationSettings";
+            this.lblTransformationSettings.Size = new System.Drawing.Size(264, 18);
+            this.lblTransformationSettings.TabIndex = 66;
+            this.lblTransformationSettings.Text = "Selected Query transformation settings";
             // 
             // lblTransformedQueryDisplay
             // 
             this.lblTransformedQueryDisplay.AutoSize = true;
             this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(394, 398);
+            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(71, 398);
             this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
             this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(197, 17);
             this.lblTransformedQueryDisplay.TabIndex = 63;
             this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
             // 
+            // cbxExcludeFromResult
+            // 
+            this.cbxExcludeFromResult.AutoSize = true;
+            this.cbxExcludeFromResult.Location = new System.Drawing.Point(362, 580);
+            this.cbxExcludeFromResult.Name = "cbxExcludeFromResult";
+            this.cbxExcludeFromResult.Size = new System.Drawing.Size(231, 24);
+            this.cbxExcludeFromResult.TabIndex = 65;
+            this.cbxExcludeFromResult.Text = "Reverse (Exclude Results)";
+            this.cbxExcludeFromResult.UseVisualStyleBackColor = true;
+            this.cbxExcludeFromResult.CheckedChanged += new System.EventHandler(this.transformationSettings_CheckedChanged);
+            // 
             // treeTransformedQueryDisplay
             // 
-            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(330, 428);
+            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(7, 428);
             this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
             this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(349, 274);
             this.treeTransformedQueryDisplay.TabIndex = 62;
             // 
-            // cbxCollectAllReferences
-            // 
-            this.cbxCollectAllReferences.AutoSize = true;
-            this.cbxCollectAllReferences.Location = new System.Drawing.Point(11, 481);
-            this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
-            this.cbxCollectAllReferences.Size = new System.Drawing.Size(240, 24);
-            this.cbxCollectAllReferences.TabIndex = 61;
-            this.cbxCollectAllReferences.Text = "Add Lookup Fields to import";
-            this.cbxCollectAllReferences.UseVisualStyleBackColor = true;
-            this.cbxCollectAllReferences.CheckedChanged += new System.EventHandler(this.cbxCollectAllReferences_CheckedChanged);
-            // 
             // cbxExecuteAsListOfLinkedQueries
             // 
             this.cbxExecuteAsListOfLinkedQueries.AutoSize = true;
-            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(11, 450);
+            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(362, 518);
             this.cbxExecuteAsListOfLinkedQueries.Margin = new System.Windows.Forms.Padding(4);
             this.cbxExecuteAsListOfLinkedQueries.Name = "cbxExecuteAsListOfLinkedQueries";
             this.cbxExecuteAsListOfLinkedQueries.Size = new System.Drawing.Size(290, 24);
             this.cbxExecuteAsListOfLinkedQueries.TabIndex = 60;
             this.cbxExecuteAsListOfLinkedQueries.Text = "Execute As List Of Linked Queries";
             this.cbxExecuteAsListOfLinkedQueries.UseVisualStyleBackColor = true;
-            this.cbxExecuteAsListOfLinkedQueries.CheckedChanged += new System.EventHandler(this.cbxExecuteAsListOfLinkedQueries_CheckedChanged);
+            this.cbxExecuteAsListOfLinkedQueries.CheckedChanged += new System.EventHandler(this.transformationSettings_CheckedChanged);
             // 
-            // lblViewsNoConnection
+            // cbxCollectAllReferences
             // 
-            this.lblViewsNoConnection.AutoSize = true;
-            this.lblViewsNoConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.lblViewsNoConnection.ForeColor = System.Drawing.Color.Red;
-            this.lblViewsNoConnection.Location = new System.Drawing.Point(7, 632);
-            this.lblViewsNoConnection.Name = "lblViewsNoConnection";
-            this.lblViewsNoConnection.Size = new System.Drawing.Size(312, 72);
-            this.lblViewsNoConnection.TabIndex = 58;
-            this.lblViewsNoConnection.Text = "Cannot connect to crm \r\nto download Saved view/s .\r\nOther tool\'s features weren\'t" +
-    " affected";
-            this.lblViewsNoConnection.Visible = false;
-            // 
-            // lblConnectionAwaitViews
-            // 
-            this.lblConnectionAwaitViews.AutoSize = true;
-            this.lblConnectionAwaitViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.lblConnectionAwaitViews.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblConnectionAwaitViews.Location = new System.Drawing.Point(10, 608);
-            this.lblConnectionAwaitViews.Name = "lblConnectionAwaitViews";
-            this.lblConnectionAwaitViews.Size = new System.Drawing.Size(322, 24);
-            this.lblConnectionAwaitViews.TabIndex = 57;
-            this.lblConnectionAwaitViews.Text = "... loading, waiting for crm connection";
-            this.lblConnectionAwaitViews.Visible = false;
-            // 
-            // lblViewsActionTypeOperatot
-            // 
-            this.lblViewsActionTypeOperatot.AutoSize = true;
-            this.lblViewsActionTypeOperatot.Location = new System.Drawing.Point(696, 427);
-            this.lblViewsActionTypeOperatot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblViewsActionTypeOperatot.Name = "lblViewsActionTypeOperatot";
-            this.lblViewsActionTypeOperatot.Size = new System.Drawing.Size(149, 20);
-            this.lblViewsActionTypeOperatot.TabIndex = 59;
-            this.lblViewsActionTypeOperatot.Text = "Select Action Type";
-            // 
-            // ddlViewsActionOperator
-            // 
-            this.ddlViewsActionOperator.Enabled = false;
-            this.ddlViewsActionOperator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ddlViewsActionOperator.FormattingEnabled = true;
-            this.ddlViewsActionOperator.Items.AddRange(new object[] {
-            "Selected Only",
-            "All Except Selected"});
-            this.ddlViewsActionOperator.Location = new System.Drawing.Point(872, 427);
-            this.ddlViewsActionOperator.Margin = new System.Windows.Forms.Padding(4);
-            this.ddlViewsActionOperator.Name = "ddlViewsActionOperator";
-            this.ddlViewsActionOperator.Size = new System.Drawing.Size(208, 25);
-            this.ddlViewsActionOperator.TabIndex = 10;
+            this.cbxCollectAllReferences.AutoSize = true;
+            this.cbxCollectAllReferences.Location = new System.Drawing.Point(362, 549);
+            this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
+            this.cbxCollectAllReferences.Size = new System.Drawing.Size(240, 24);
+            this.cbxCollectAllReferences.TabIndex = 61;
+            this.cbxCollectAllReferences.Text = "Add Lookup Fields to import";
+            this.cbxCollectAllReferences.UseVisualStyleBackColor = true;
+            this.cbxCollectAllReferences.CheckedChanged += new System.EventHandler(this.transformationSettings_CheckedChanged);
             // 
             // lstListOfViewsFilters
             // 
             this.lstListOfViewsFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstListOfViewsFilters.FormattingEnabled = true;
             this.lstListOfViewsFilters.ItemHeight = 17;
-            this.lstListOfViewsFilters.Location = new System.Drawing.Point(697, 460);
+            this.lstListOfViewsFilters.Location = new System.Drawing.Point(697, 426);
             this.lstListOfViewsFilters.Margin = new System.Windows.Forms.Padding(4);
             this.lstListOfViewsFilters.Name = "lstListOfViewsFilters";
-            this.lstListOfViewsFilters.Size = new System.Drawing.Size(383, 242);
+            this.lstListOfViewsFilters.Size = new System.Drawing.Size(383, 276);
             this.lstListOfViewsFilters.Sorted = true;
             this.lstListOfViewsFilters.TabIndex = 55;
             this.lstListOfViewsFilters.SelectedIndexChanged += new System.EventHandler(this.lstListOfViewsFilters_SelectedIndexChanged);
@@ -811,18 +817,18 @@
             this.lstSelectedSchemaDataByViews.TabIndex = 41;
             this.lstSelectedSchemaDataByViews.SelectedIndexChanged += new System.EventHandler(this.lstSelectedSchemaDataByViews_SelectedIndexChanged);
             // 
-            // groupBox5
+            // groupSavedViewsFooter
             // 
-            this.groupBox5.Controls.Add(this.btnViewsBack);
-            this.groupBox5.Controls.Add(this.btnSaveModifyViewsFile);
-            this.groupBox5.Controls.Add(this.btnViewNext);
-            this.groupBox5.Location = new System.Drawing.Point(20, 750);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(1457, 64);
-            this.groupBox5.TabIndex = 42;
-            this.groupBox5.TabStop = false;
+            this.groupSavedViewsFooter.Controls.Add(this.btnViewsBack);
+            this.groupSavedViewsFooter.Controls.Add(this.btnSaveModifyViewsFile);
+            this.groupSavedViewsFooter.Controls.Add(this.btnViewNext);
+            this.groupSavedViewsFooter.Location = new System.Drawing.Point(20, 750);
+            this.groupSavedViewsFooter.Margin = new System.Windows.Forms.Padding(4);
+            this.groupSavedViewsFooter.Name = "groupSavedViewsFooter";
+            this.groupSavedViewsFooter.Padding = new System.Windows.Forms.Padding(4);
+            this.groupSavedViewsFooter.Size = new System.Drawing.Size(1457, 64);
+            this.groupSavedViewsFooter.TabIndex = 42;
+            this.groupSavedViewsFooter.TabStop = false;
             // 
             // btnViewsBack
             // 
@@ -862,6 +868,7 @@
             // 
             // groupViewsTips
             // 
+            this.groupViewsTips.Controls.Add(this.lblAvailableTransformations);
             this.groupViewsTips.Location = new System.Drawing.Point(1503, 11);
             this.groupViewsTips.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupViewsTips.Name = "groupViewsTips";
@@ -871,12 +878,21 @@
             this.groupViewsTips.TabStop = false;
             this.groupViewsTips.Text = "Tips";
             // 
+            // lblAvailableTransformations
+            // 
+            this.lblAvailableTransformations.AutoSize = true;
+            this.lblAvailableTransformations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblAvailableTransformations.Location = new System.Drawing.Point(32, 256);
+            this.lblAvailableTransformations.Name = "lblAvailableTransformations";
+            this.lblAvailableTransformations.Size = new System.Drawing.Size(286, 17);
+            this.lblAvailableTransformations.TabIndex = 64;
+            this.lblAvailableTransformations.Text = "List of Available Transformations per Query ";
+            // 
             // tabReplaceIDs
             // 
-            this.tabReplaceIDs.Controls.Add(this.btnCopyToolFromModified);
-            this.tabReplaceIDs.Controls.Add(this.btnCopyToolFromSource);
+            this.tabReplaceIDs.Controls.Add(this.groupCopyToolContent);
             this.tabReplaceIDs.Controls.Add(this.groupCopyToolTips);
-            this.tabReplaceIDs.Controls.Add(this.groupBox4);
+            this.tabReplaceIDs.Controls.Add(this.groupCopyToolFooter);
             this.tabReplaceIDs.Location = new System.Drawing.Point(4, 38);
             this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabReplaceIDs.Name = "tabReplaceIDs";
@@ -885,9 +901,19 @@
             this.tabReplaceIDs.Text = "Copy Tool";
             this.tabReplaceIDs.UseVisualStyleBackColor = true;
             // 
+            // groupCopyToolContent
+            // 
+            this.groupCopyToolContent.Controls.Add(this.btnCopyToolFromModified);
+            this.groupCopyToolContent.Controls.Add(this.btnCopyToolFromSource);
+            this.groupCopyToolContent.Location = new System.Drawing.Point(21, 30);
+            this.groupCopyToolContent.Name = "groupCopyToolContent";
+            this.groupCopyToolContent.Size = new System.Drawing.Size(1258, 667);
+            this.groupCopyToolContent.TabIndex = 42;
+            this.groupCopyToolContent.TabStop = false;
+            // 
             // btnCopyToolFromModified
             // 
-            this.btnCopyToolFromModified.Location = new System.Drawing.Point(80, 281);
+            this.btnCopyToolFromModified.Location = new System.Drawing.Point(59, 261);
             this.btnCopyToolFromModified.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyToolFromModified.Name = "btnCopyToolFromModified";
             this.btnCopyToolFromModified.Size = new System.Drawing.Size(859, 92);
@@ -898,7 +924,7 @@
             // 
             // btnCopyToolFromSource
             // 
-            this.btnCopyToolFromSource.Location = new System.Drawing.Point(80, 87);
+            this.btnCopyToolFromSource.Location = new System.Drawing.Point(59, 81);
             this.btnCopyToolFromSource.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyToolFromSource.Name = "btnCopyToolFromSource";
             this.btnCopyToolFromSource.Size = new System.Drawing.Size(859, 92);
@@ -909,25 +935,25 @@
             // 
             // groupCopyToolTips
             // 
-            this.groupCopyToolTips.Location = new System.Drawing.Point(1505, 14);
+            this.groupCopyToolTips.Location = new System.Drawing.Point(1320, 14);
             this.groupCopyToolTips.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupCopyToolTips.Name = "groupCopyToolTips";
             this.groupCopyToolTips.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupCopyToolTips.Size = new System.Drawing.Size(353, 795);
+            this.groupCopyToolTips.Size = new System.Drawing.Size(538, 795);
             this.groupCopyToolTips.TabIndex = 39;
             this.groupCopyToolTips.TabStop = false;
             this.groupCopyToolTips.Text = "Tips";
             // 
-            // groupBox4
+            // groupCopyToolFooter
             // 
-            this.groupBox4.Controls.Add(this.btnCopyToolBack);
-            this.groupBox4.Location = new System.Drawing.Point(21, 726);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(1459, 82);
-            this.groupBox4.TabIndex = 36;
-            this.groupBox4.TabStop = false;
+            this.groupCopyToolFooter.Controls.Add(this.btnCopyToolBack);
+            this.groupCopyToolFooter.Location = new System.Drawing.Point(21, 726);
+            this.groupCopyToolFooter.Margin = new System.Windows.Forms.Padding(4);
+            this.groupCopyToolFooter.Name = "groupCopyToolFooter";
+            this.groupCopyToolFooter.Padding = new System.Windows.Forms.Padding(4);
+            this.groupCopyToolFooter.Size = new System.Drawing.Size(1258, 82);
+            this.groupCopyToolFooter.TabIndex = 36;
+            this.groupCopyToolFooter.TabStop = false;
             // 
             // btnCopyToolBack
             // 
@@ -941,6 +967,440 @@
             this.btnCopyToolBack.UseVisualStyleBackColor = true;
             this.btnCopyToolBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // tabAttchmentsMigration
+            // 
+            this.tabAttchmentsMigration.Controls.Add(this.groupAttachmentsContent);
+            this.tabAttchmentsMigration.Location = new System.Drawing.Point(4, 38);
+            this.tabAttchmentsMigration.Name = "tabAttchmentsMigration";
+            this.tabAttchmentsMigration.Size = new System.Drawing.Size(1883, 829);
+            this.tabAttchmentsMigration.TabIndex = 6;
+            this.tabAttchmentsMigration.Text = "Attchments (Notes) Migration";
+            this.tabAttchmentsMigration.UseVisualStyleBackColor = true;
+            // 
+            // groupAttachmentsContent
+            // 
+            this.groupAttachmentsContent.Controls.Add(this.label9);
+            this.groupAttachmentsContent.Controls.Add(this.comboBox2);
+            this.groupAttachmentsContent.Controls.Add(this.label8);
+            this.groupAttachmentsContent.Controls.Add(this.comboBox1);
+            this.groupAttachmentsContent.Controls.Add(this.groupBox1);
+            this.groupAttachmentsContent.Controls.Add(this.cbxFromPortalToPortal);
+            this.groupAttachmentsContent.Controls.Add(this.cbxBasedOnFiles);
+            this.groupAttachmentsContent.Controls.Add(this.button1);
+            this.groupAttachmentsContent.Controls.Add(this.groupAttachmentsCopySettings);
+            this.groupAttachmentsContent.Controls.Add(this.btnStartAttachmentsCopy);
+            this.groupAttachmentsContent.Controls.Add(this.tbxAttachmentsMastersLocation);
+            this.groupAttachmentsContent.Controls.Add(this.btnAttachmentsLoadMasters);
+            this.groupAttachmentsContent.Controls.Add(this.groupConnectionTarget);
+            this.groupAttachmentsContent.Location = new System.Drawing.Point(21, 13);
+            this.groupAttachmentsContent.Name = "groupAttachmentsContent";
+            this.groupAttachmentsContent.Size = new System.Drawing.Size(1840, 795);
+            this.groupAttachmentsContent.TabIndex = 41;
+            this.groupAttachmentsContent.TabStop = false;
+            this.groupAttachmentsContent.Text = "  ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1293, 438);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(164, 19);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Select Target Portal";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(950, 438);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(308, 27);
+            this.comboBox2.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(1293, 380);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(170, 19);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Select Source Portal";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(950, 380);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(308, 27);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.groupBox1.Location = new System.Drawing.Point(17, 27);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(875, 224);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Source CRM Instance";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label1.Location = new System.Drawing.Point(602, 124);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 17);
+            this.label1.TabIndex = 24;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.button2.Location = new System.Drawing.Point(605, 154);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(217, 33);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "Test Connection";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox1.Location = new System.Drawing.Point(153, 167);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PasswordChar = '*';
+            this.textBox1.Size = new System.Drawing.Size(421, 23);
+            this.textBox1.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label2.Location = new System.Drawing.Point(15, 170);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Password";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox2.Location = new System.Drawing.Point(153, 124);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(421, 23);
+            this.textBox2.TabIndex = 17;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox3.Location = new System.Drawing.Point(153, 80);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(677, 23);
+            this.textBox3.TabIndex = 16;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox4.Location = new System.Drawing.Point(153, 41);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(425, 23);
+            this.textBox4.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label3.Location = new System.Drawing.Point(15, 127);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 17);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "User";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label4.Location = new System.Drawing.Point(15, 83);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Server Url";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label7.Location = new System.Drawing.Point(15, 44);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(130, 17);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Organization Name";
+            // 
+            // cbxFromPortalToPortal
+            // 
+            this.cbxFromPortalToPortal.AutoSize = true;
+            this.cbxFromPortalToPortal.Location = new System.Drawing.Point(950, 294);
+            this.cbxFromPortalToPortal.Name = "cbxFromPortalToPortal";
+            this.cbxFromPortalToPortal.Size = new System.Drawing.Size(390, 42);
+            this.cbxFromPortalToPortal.TabIndex = 12;
+            this.cbxFromPortalToPortal.Text = "Web Files from Selected Portal in Source \r\nto Selected Poratl in Target (based on" +
+    " names)";
+            this.cbxFromPortalToPortal.UseVisualStyleBackColor = true;
+            // 
+            // cbxBasedOnFiles
+            // 
+            this.cbxBasedOnFiles.AutoSize = true;
+            this.cbxBasedOnFiles.Location = new System.Drawing.Point(21, 294);
+            this.cbxBasedOnFiles.Name = "cbxBasedOnFiles";
+            this.cbxBasedOnFiles.Size = new System.Drawing.Size(181, 23);
+            this.cbxBasedOnFiles.TabIndex = 11;
+            this.cbxBasedOnFiles.Text = "Based On Data File";
+            this.cbxBasedOnFiles.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(501, 720);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(364, 33);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Roll Back. Delete created Note";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // groupAttachmentsCopySettings
+            // 
+            this.groupAttachmentsCopySettings.Controls.Add(this.cbxAttachmentsLeepRBlist);
+            this.groupAttachmentsCopySettings.Controls.Add(this.cbxIncludeTextNotes);
+            this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(31, 629);
+            this.groupAttachmentsCopySettings.Name = "groupAttachmentsCopySettings";
+            this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(407, 124);
+            this.groupAttachmentsCopySettings.TabIndex = 6;
+            this.groupAttachmentsCopySettings.TabStop = false;
+            this.groupAttachmentsCopySettings.Text = "Copy Settings";
+            // 
+            // cbxAttachmentsLeepRBlist
+            // 
+            this.cbxAttachmentsLeepRBlist.AutoSize = true;
+            this.cbxAttachmentsLeepRBlist.Location = new System.Drawing.Point(17, 79);
+            this.cbxAttachmentsLeepRBlist.Name = "cbxAttachmentsLeepRBlist";
+            this.cbxAttachmentsLeepRBlist.Size = new System.Drawing.Size(340, 23);
+            this.cbxAttachmentsLeepRBlist.TabIndex = 7;
+            this.cbxAttachmentsLeepRBlist.Text = "Keep List Of Created Notes for rollback";
+            this.cbxAttachmentsLeepRBlist.UseVisualStyleBackColor = true;
+            // 
+            // cbxIncludeTextNotes
+            // 
+            this.cbxIncludeTextNotes.AutoSize = true;
+            this.cbxIncludeTextNotes.Location = new System.Drawing.Point(17, 36);
+            this.cbxIncludeTextNotes.Name = "cbxIncludeTextNotes";
+            this.cbxIncludeTextNotes.Size = new System.Drawing.Size(180, 23);
+            this.cbxIncludeTextNotes.TabIndex = 6;
+            this.cbxIncludeTextNotes.Text = "Include Text Nodes";
+            this.cbxIncludeTextNotes.UseVisualStyleBackColor = true;
+            // 
+            // btnStartAttachmentsCopy
+            // 
+            this.btnStartAttachmentsCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnStartAttachmentsCopy.Location = new System.Drawing.Point(501, 641);
+            this.btnStartAttachmentsCopy.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStartAttachmentsCopy.Name = "btnStartAttachmentsCopy";
+            this.btnStartAttachmentsCopy.Size = new System.Drawing.Size(364, 33);
+            this.btnStartAttachmentsCopy.TabIndex = 5;
+            this.btnStartAttachmentsCopy.Text = "Copy Attachments";
+            this.btnStartAttachmentsCopy.UseVisualStyleBackColor = true;
+            // 
+            // tbxAttachmentsMastersLocation
+            // 
+            this.tbxAttachmentsMastersLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxAttachmentsMastersLocation.Location = new System.Drawing.Point(309, 338);
+            this.tbxAttachmentsMastersLocation.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxAttachmentsMastersLocation.Name = "tbxAttachmentsMastersLocation";
+            this.tbxAttachmentsMastersLocation.ReadOnly = true;
+            this.tbxAttachmentsMastersLocation.Size = new System.Drawing.Size(530, 23);
+            this.tbxAttachmentsMastersLocation.TabIndex = 4;
+            // 
+            // btnAttachmentsLoadMasters
+            // 
+            this.btnAttachmentsLoadMasters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAttachmentsLoadMasters.Location = new System.Drawing.Point(309, 288);
+            this.btnAttachmentsLoadMasters.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttachmentsLoadMasters.Name = "btnAttachmentsLoadMasters";
+            this.btnAttachmentsLoadMasters.Size = new System.Drawing.Size(530, 33);
+            this.btnAttachmentsLoadMasters.TabIndex = 3;
+            this.btnAttachmentsLoadMasters.Text = "Load Data File with Attachments Master entities";
+            this.btnAttachmentsLoadMasters.UseVisualStyleBackColor = true;
+            // 
+            // groupConnectionTarget
+            // 
+            this.groupConnectionTarget.Controls.Add(this.lblTestConnTarget);
+            this.groupConnectionTarget.Controls.Add(this.btnTestConnTarget);
+            this.groupConnectionTarget.Controls.Add(this.tbxPasswordTarget);
+            this.groupConnectionTarget.Controls.Add(this.lblPasswordTarget);
+            this.groupConnectionTarget.Controls.Add(this.tbxUsernameTarget);
+            this.groupConnectionTarget.Controls.Add(this.tbxServerUrlTarget);
+            this.groupConnectionTarget.Controls.Add(this.tbxOrgNameTarget);
+            this.groupConnectionTarget.Controls.Add(this.lblUserTarget);
+            this.groupConnectionTarget.Controls.Add(this.lblServerUrlTarget);
+            this.groupConnectionTarget.Controls.Add(this.lblOrgNameTarget);
+            this.groupConnectionTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.groupConnectionTarget.Location = new System.Drawing.Point(950, 27);
+            this.groupConnectionTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.groupConnectionTarget.Name = "groupConnectionTarget";
+            this.groupConnectionTarget.Padding = new System.Windows.Forms.Padding(4);
+            this.groupConnectionTarget.Size = new System.Drawing.Size(866, 224);
+            this.groupConnectionTarget.TabIndex = 2;
+            this.groupConnectionTarget.TabStop = false;
+            this.groupConnectionTarget.Text = "Target CRM Instance";
+            // 
+            // lblTestConnTarget
+            // 
+            this.lblTestConnTarget.AutoSize = true;
+            this.lblTestConnTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTestConnTarget.Location = new System.Drawing.Point(602, 124);
+            this.lblTestConnTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTestConnTarget.Name = "lblTestConnTarget";
+            this.lblTestConnTarget.Size = new System.Drawing.Size(0, 17);
+            this.lblTestConnTarget.TabIndex = 24;
+            // 
+            // btnTestConnTarget
+            // 
+            this.btnTestConnTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnTestConnTarget.Location = new System.Drawing.Point(605, 154);
+            this.btnTestConnTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.btnTestConnTarget.Name = "btnTestConnTarget";
+            this.btnTestConnTarget.Size = new System.Drawing.Size(217, 33);
+            this.btnTestConnTarget.TabIndex = 23;
+            this.btnTestConnTarget.Text = "Test Connection";
+            this.btnTestConnTarget.UseVisualStyleBackColor = true;
+            // 
+            // tbxPasswordTarget
+            // 
+            this.tbxPasswordTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxPasswordTarget.Location = new System.Drawing.Point(153, 167);
+            this.tbxPasswordTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxPasswordTarget.Name = "tbxPasswordTarget";
+            this.tbxPasswordTarget.PasswordChar = '*';
+            this.tbxPasswordTarget.Size = new System.Drawing.Size(421, 23);
+            this.tbxPasswordTarget.TabIndex = 19;
+            // 
+            // lblPasswordTarget
+            // 
+            this.lblPasswordTarget.AutoSize = true;
+            this.lblPasswordTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPasswordTarget.Location = new System.Drawing.Point(15, 170);
+            this.lblPasswordTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPasswordTarget.Name = "lblPasswordTarget";
+            this.lblPasswordTarget.Size = new System.Drawing.Size(69, 17);
+            this.lblPasswordTarget.TabIndex = 18;
+            this.lblPasswordTarget.Text = "Password";
+            // 
+            // tbxUsernameTarget
+            // 
+            this.tbxUsernameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxUsernameTarget.Location = new System.Drawing.Point(153, 124);
+            this.tbxUsernameTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxUsernameTarget.Name = "tbxUsernameTarget";
+            this.tbxUsernameTarget.Size = new System.Drawing.Size(421, 23);
+            this.tbxUsernameTarget.TabIndex = 17;
+            // 
+            // tbxServerUrlTarget
+            // 
+            this.tbxServerUrlTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxServerUrlTarget.Location = new System.Drawing.Point(153, 80);
+            this.tbxServerUrlTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxServerUrlTarget.Name = "tbxServerUrlTarget";
+            this.tbxServerUrlTarget.Size = new System.Drawing.Size(677, 23);
+            this.tbxServerUrlTarget.TabIndex = 16;
+            // 
+            // tbxOrgNameTarget
+            // 
+            this.tbxOrgNameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxOrgNameTarget.Location = new System.Drawing.Point(153, 41);
+            this.tbxOrgNameTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxOrgNameTarget.Name = "tbxOrgNameTarget";
+            this.tbxOrgNameTarget.Size = new System.Drawing.Size(425, 23);
+            this.tbxOrgNameTarget.TabIndex = 15;
+            // 
+            // lblUserTarget
+            // 
+            this.lblUserTarget.AutoSize = true;
+            this.lblUserTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblUserTarget.Location = new System.Drawing.Point(15, 127);
+            this.lblUserTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUserTarget.Name = "lblUserTarget";
+            this.lblUserTarget.Size = new System.Drawing.Size(38, 17);
+            this.lblUserTarget.TabIndex = 14;
+            this.lblUserTarget.Text = "User";
+            // 
+            // lblServerUrlTarget
+            // 
+            this.lblServerUrlTarget.AutoSize = true;
+            this.lblServerUrlTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblServerUrlTarget.Location = new System.Drawing.Point(15, 83);
+            this.lblServerUrlTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblServerUrlTarget.Name = "lblServerUrlTarget";
+            this.lblServerUrlTarget.Size = new System.Drawing.Size(72, 17);
+            this.lblServerUrlTarget.TabIndex = 13;
+            this.lblServerUrlTarget.Text = "Server Url";
+            // 
+            // lblOrgNameTarget
+            // 
+            this.lblOrgNameTarget.AutoSize = true;
+            this.lblOrgNameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblOrgNameTarget.Location = new System.Drawing.Point(15, 44);
+            this.lblOrgNameTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblOrgNameTarget.Name = "lblOrgNameTarget";
+            this.lblOrgNameTarget.Size = new System.Drawing.Size(130, 17);
+            this.lblOrgNameTarget.TabIndex = 12;
+            this.lblOrgNameTarget.Text = "Organization Name";
+            // 
+            // lblViewsNoConnection
+            // 
+            this.lblViewsNoConnection.AutoSize = true;
+            this.lblViewsNoConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblViewsNoConnection.ForeColor = System.Drawing.Color.White;
+            this.lblViewsNoConnection.Location = new System.Drawing.Point(573, 24);
+            this.lblViewsNoConnection.Name = "lblViewsNoConnection";
+            this.lblViewsNoConnection.Size = new System.Drawing.Size(999, 29);
+            this.lblViewsNoConnection.TabIndex = 58;
+            this.lblViewsNoConnection.Text = "Cannot connect to crm to download Saved view/s . Other tool\'s features weren\'t af" +
+    "fected";
+            this.lblViewsNoConnection.Visible = false;
+            // 
+            // lblConnectionAwaitViews
+            // 
+            this.lblConnectionAwaitViews.AutoSize = true;
+            this.lblConnectionAwaitViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblConnectionAwaitViews.ForeColor = System.Drawing.Color.White;
+            this.lblConnectionAwaitViews.Location = new System.Drawing.Point(867, 24);
+            this.lblConnectionAwaitViews.Name = "lblConnectionAwaitViews";
+            this.lblConnectionAwaitViews.Size = new System.Drawing.Size(432, 29);
+            this.lblConnectionAwaitViews.TabIndex = 57;
+            this.lblConnectionAwaitViews.Text = "... loading, waiting for crm connection";
+            this.lblConnectionAwaitViews.Visible = false;
+            // 
             // openFileDialogLoadSchema
             // 
             this.openFileDialogLoadSchema.Filter = "ZIP Files (*.zip)|*.zip";
@@ -951,15 +1411,21 @@
             this.openFileLoadProject.Filter = "XML Files (*.xml)|*.xml";
             this.openFileLoadProject.Title = "Select a project xml to load";
             // 
-            // checkBox1
+            // openFileAttachmentsMaterEntities
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 512);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(307, 24);
-            this.checkBox1.TabIndex = 65;
-            this.checkBox1.Text = "Reverse (Exclude Selected Records)";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.openFileAttachmentsMaterEntities.FileName = "Data XML file (from Configuration Manager)";
+            this.openFileAttachmentsMaterEntities.Filter = "XML files (*.xml)|*.xnl";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Controls.Add(this.lblConnectionAwaitViews);
+            this.panel1.Controls.Add(this.lblViewsNoConnection);
+            this.panel1.ForeColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(15, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1899, 78);
+            this.panel1.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -969,7 +1435,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1931, 905);
+            this.ClientSize = new System.Drawing.Size(1931, 1005);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
@@ -988,15 +1455,29 @@
             this.groupConnectionSource.PerformLayout();
             this.groupProjectSchema.ResumeLayout(false);
             this.groupProjectSchema.PerformLayout();
-            this.groupProjectActions.ResumeLayout(false);
+            this.groupProjectActionsFooter.ResumeLayout(false);
             this.tabModifyDataBasedOnSavedQueries.ResumeLayout(false);
             this.groupViewsAdvanced.ResumeLayout(false);
             this.groupViewsAdvanced.PerformLayout();
             this.groupViewDataFilter.ResumeLayout(false);
             this.groupViewDataFilter.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
+            this.groupSavedViewsFooter.ResumeLayout(false);
+            this.groupViewsTips.ResumeLayout(false);
+            this.groupViewsTips.PerformLayout();
             this.tabReplaceIDs.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
+            this.groupCopyToolContent.ResumeLayout(false);
+            this.groupCopyToolFooter.ResumeLayout(false);
+            this.tabAttchmentsMigration.ResumeLayout(false);
+            this.groupAttachmentsContent.ResumeLayout(false);
+            this.groupAttachmentsContent.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupAttachmentsCopySettings.ResumeLayout(false);
+            this.groupAttachmentsCopySettings.PerformLayout();
+            this.groupConnectionTarget.ResumeLayout(false);
+            this.groupConnectionTarget.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1018,15 +1499,14 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogLoadProject;
         private System.Windows.Forms.Label lblTestConnSource;
         private System.Windows.Forms.Button btnTestConnSource;
-        private System.Windows.Forms.ComboBox ddlViewsActionOperator;
         private System.Windows.Forms.OpenFileDialog openFileDialogLoadSchema;
         private System.Windows.Forms.Button btnLoadSchema;
         private System.Windows.Forms.TabPage tabModifyDataBasedOnSavedQueries;
         private System.Windows.Forms.TabPage tabReplaceIDs;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupCopyToolFooter;
         private System.Windows.Forms.Button btnCopyToolBack;
         private System.Windows.Forms.TabPage tabProject;
-        private System.Windows.Forms.GroupBox groupProjectActions;
+        private System.Windows.Forms.GroupBox groupProjectActionsFooter;
         private System.Windows.Forms.Button btnProjectSaveAndNext;
         private System.Windows.Forms.GroupBox groupCopyToolTips;
         private System.Windows.Forms.GroupBox groupViewsTips;
@@ -1057,7 +1537,7 @@
         private System.Windows.Forms.Button btnViews_ReturnToDefaultFromSelected;
         private System.Windows.Forms.Label lblListOfViewsFilters;
         private System.Windows.Forms.ListBox lstSelectedSchemaDataByViews;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupSavedViewsFooter;
         private System.Windows.Forms.Button btnViewsBack;
         private System.Windows.Forms.Button btnSaveModifyViewsFile;
         private System.Windows.Forms.Button btnViewNext;
@@ -1065,7 +1545,6 @@
         private System.Windows.Forms.Label lblConnectionAwaitViews;
         private System.Windows.Forms.Label lblViewsNoConnection;
         private System.Windows.Forms.Label lblProject3;
-        private System.Windows.Forms.Label lblViewsActionTypeOperatot;
         private System.Windows.Forms.Button btnCopyToolFromModified;
         private System.Windows.Forms.Button btnCopyToolFromSource;
         private System.Windows.Forms.Label lblTestConnectionAwait;
@@ -1074,7 +1553,48 @@
         private System.Windows.Forms.TreeView treeTransformedQueryDisplay;
         private System.Windows.Forms.Label lblTransformedQueryDisplay;
         private System.Windows.Forms.Label lblAvailableTransformations;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbxExcludeFromResult;
+        private System.Windows.Forms.TabPage tabAttchmentsMigration;
+        private System.Windows.Forms.OpenFileDialog openFileAttachmentsMaterEntities;
+        private System.Windows.Forms.GroupBox groupCopyToolContent;
+        private System.Windows.Forms.GroupBox groupAttachmentsContent;
+        private System.Windows.Forms.GroupBox groupConnectionTarget;
+        private System.Windows.Forms.Label lblTestConnTarget;
+        private System.Windows.Forms.Button btnTestConnTarget;
+        private System.Windows.Forms.TextBox tbxPasswordTarget;
+        private System.Windows.Forms.Label lblPasswordTarget;
+        private System.Windows.Forms.TextBox tbxUsernameTarget;
+        private System.Windows.Forms.TextBox tbxServerUrlTarget;
+        private System.Windows.Forms.TextBox tbxOrgNameTarget;
+        private System.Windows.Forms.Label lblUserTarget;
+        private System.Windows.Forms.Label lblServerUrlTarget;
+        private System.Windows.Forms.Label lblOrgNameTarget;
+        private System.Windows.Forms.GroupBox groupAttachmentsCopySettings;
+        private System.Windows.Forms.CheckBox cbxAttachmentsLeepRBlist;
+        private System.Windows.Forms.CheckBox cbxIncludeTextNotes;
+        private System.Windows.Forms.Button btnStartAttachmentsCopy;
+        private System.Windows.Forms.TextBox tbxAttachmentsMastersLocation;
+        private System.Windows.Forms.Button btnAttachmentsLoadMasters;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblTransformationSettings;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox cbxFromPortalToPortal;
+        private System.Windows.Forms.CheckBox cbxBasedOnFiles;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

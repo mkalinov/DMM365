@@ -17,6 +17,8 @@ namespace DMM365.DataContainers
 
         public bool CollectAllReferences { get; set; }
 
+        public bool ExcludeFromResults { get; set; }
+
         public bool isRoot { get; set; }
         /// <summary>
         /// LogicalName of entity this one is linked to

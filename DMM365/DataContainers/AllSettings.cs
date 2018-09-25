@@ -147,9 +147,6 @@ namespace DMM365.DataContainers
 
         #region Views Settings
 
-
-        public string SelectedViewsActionOperator { get;set; }
-
         public List<selectedQuery> SelectedUserQueries { get; set; }
 
 

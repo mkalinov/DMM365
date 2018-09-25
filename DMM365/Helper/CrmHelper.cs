@@ -122,6 +122,7 @@ namespace DMM365.Helper
         internal static List<Guid> getIdsFromViewsExecution(CrmServiceClient service, Dictionary<Guid, queryContainer> viewsContainers)
         {
             List<Guid> result = new List<Guid>();
+            List<Guid> resultExcluded = new List<Guid>();
 
             try
             {
@@ -129,6 +130,11 @@ namespace DMM365.Helper
                 foreach (Guid v in viewsContainers.Keys)
                 {
                     queryContainer current = viewsContainers[v];
+                    if (current.ExcludeFromResults)
+                    {
+                        resultExcluded.AddRange(topLevel(service, current));
+                        continue;
+                    }
                     result.AddRange(topLevel(service, current));
                 }
             }
@@ -138,7 +144,11 @@ namespace DMM365.Helper
                 throw new Exception(ex.Message);
             }
 
-            return result.Distinct(new GuidEqualityComparer()).ToList();
+            var responce = result.Distinct(new GuidEqualityComparer()).ToList();
+            //check and remove excluded guids
+            responce.RemoveAll(g => resultExcluded.Contains(g, new GuidEqualityComparer()));
+
+            return responce;
         }
 
         private static List<Guid> topLevel(CrmServiceClient service, queryContainer view)
@@ -219,7 +229,7 @@ namespace DMM365.Helper
             foreach (KeyValuePair<string, object> atr in current.Attributes)
             {
                 EntityReference er = atr.Value as EntityReference;
-                if (!ReferenceEquals(er, null)) result.Add(er.LogicalName, er.Id);
+                if (!ReferenceEquals(er, null) && !result.Keys.Contains(er.LogicalName)) result.Add(er.LogicalName, er.Id);
             }
 
             return result;

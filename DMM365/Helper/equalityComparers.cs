@@ -73,4 +73,17 @@ namespace DMM365.Helper
         }
     }
 
+    public class selectedQueryEqualityComparer : IEqualityComparer<selectedQuery>
+    {
+        public bool Equals(selectedQuery x, selectedQuery y)
+        {
+            return x.id == y.id;
+        }
+
+        public int GetHashCode(selectedQuery id)
+        {
+            return id.GetHashCode();
+        }
+    }
+
 }

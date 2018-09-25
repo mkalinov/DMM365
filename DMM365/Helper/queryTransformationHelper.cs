@@ -13,8 +13,8 @@ namespace DMM365.Helper
 {
     internal static class queryTransformationHelper
     {
-
-        internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch, bool exequteAsSeparateLinkedQueries = false, bool collectAllReferences = false)
+        
+        internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch, bool exequteAsSeparateLinkedQueries, bool collectAllReferences, bool excludeFromResults)
         {
             QueryExpression mainQuery = CrmHelper.fetchToQuery(service, fetch);
             queryContainer root = new queryContainer
@@ -23,13 +23,15 @@ namespace DMM365.Helper
                 expression = mainQuery,
                 entityLogicalName = mainQuery.EntityName,
                 ExequteAsSeparateLinkedQueries = exequteAsSeparateLinkedQueries,
-                CollectAllReferences = collectAllReferences
+                CollectAllReferences = collectAllReferences,
+                ExcludeFromResults = excludeFromResults
             };
             //return whole query
             if (!exequteAsSeparateLinkedQueries)
             {
                 return root;
             }
+
 
             return transformToSeparateQueries(service, listOfEntities_DS, root);
         }
@@ -54,6 +56,7 @@ namespace DMM365.Helper
                 linkedExpressions = new List<queryContainer>(),
                 ExequteAsSeparateLinkedQueries = mainQuery.ExequteAsSeparateLinkedQueries,
                 CollectAllReferences = mainQuery.CollectAllReferences,
+                ExcludeFromResults = mainQuery.ExcludeFromResults,
                 masterEntityLogicalName = mainQuery.masterEntityLogicalName,
                 masterEntityLookUpName = mainQuery.masterEntityLookUpName,
                 RelationShipType = mainQuery.RelationShipType,
@@ -163,7 +166,6 @@ namespace DMM365.Helper
 
             return result;
         }
-
-
+        
     }
 }

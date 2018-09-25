@@ -12,6 +12,8 @@ namespace DMM365.DataContainers
         public Guid id { get; set; }
         public bool ExecuteAsListOfLinkedQueries { get; set; }
         public bool CollectAllReferences { get; set; }
+        public bool ExcludeFromResults { get; set; }
+
 
     }
 }
