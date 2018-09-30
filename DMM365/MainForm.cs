@@ -13,8 +13,12 @@ using DMM365.DataContainers;
 using Microsoft.Xrm.Tooling.Connector;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
-//using xrm = Microsoft.Xrm.Sdk;
-//using System.Threading;
+using Microsoft.Xrm.Tooling.CrmConnectControl;
+
+
+//using System.Windows;
+//using System.Windows.Forms.Integration;
+//using System.Windows.Media;
 
 namespace DMM365
 {
@@ -40,6 +44,12 @@ namespace DMM365
 
         string[] buttons = new string[] { "btnProject", "btnProjectLoad", "btnLoadSchema", "btnProjectSaveAndNext", "btnTestConnSource", "btnCopyToolBack", "btnCopyToolFromSource", "btnCopyToolFromModified", "btnViewsBack", "btnSaveModifyViewsFile", "btnViewNext" };
 
+        #region Attachments
+
+        CrmServiceClient crmSource;
+        CrmServiceClient crmTarget;
+
+        #endregion Attachments
 
 
         #region Saved Views
@@ -92,7 +102,10 @@ namespace DMM365
         {
             //property changed notification
             allSettings.PropertyChanged += AllSettings_PropertyChanged;
+
+
         }
+
 
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -1006,6 +1019,80 @@ namespace DMM365
         #endregion Saved Views Tab Management
 
         #endregion Helpers
+
+
+        #region Attachments
+
+        private void cbxBasedOnFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            groupAttachmentsMasters.Visible = cb.Checked;
+            cbxAttachmentsRollback.Enabled = cbxFromPortalToPortal.Enabled = !cb.Checked;
+        }
+
+        private void cbxFromPortalToPortal_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            groupPortalsSources.Visible = cb.Checked;
+            cbxAttachmentsRollback.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+        }
+
+        private void cbxAttachmentsRollback_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            cbxAttachmentsKeepIDs.Checked = false;
+            groupAttachmentsRollBack.Visible = btnAttachmentsRollback.Visible = cb.Checked;            
+            btnStartAttachmentsCopy.Visible = groupAttachmentsCopySettings.Visible = cbxFromPortalToPortal.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+        }
+
+        private void cbxAttachmentsKeepIDs_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            groupAttachmentsRollBack.Visible = cb.Checked;
+            btnAttachmentsRollback.Visible = !cb.Checked;
+        }
+
+
+        private void btnStartAttachmentsCopy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAtachmentsIdsForBackup_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAttachmentsRollback_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAttachmentsLoadMasters_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btmAttachmentsSource_Click(object sender, EventArgs e)
+        {
+            crmSource = ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
+        }
+
+        private void btnTestConnTarget_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion Attachments
 
     }
 }

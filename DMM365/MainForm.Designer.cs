@@ -99,13 +99,24 @@
             this.btnCopyToolBack = new System.Windows.Forms.Button();
             this.tabAttchmentsMigration = new System.Windows.Forms.TabPage();
             this.groupAttachmentsContent = new System.Windows.Forms.GroupBox();
+            this.cbxSameAsSourceUser = new System.Windows.Forms.CheckBox();
+            this.cbxAttachmentsRollback = new System.Windows.Forms.CheckBox();
+            this.cbxSameConnectionAsSource = new System.Windows.Forms.CheckBox();
+            this.groupAttachmentsMasters = new System.Windows.Forms.GroupBox();
+            this.btnAttachmentsLoadMasters = new System.Windows.Forms.Button();
+            this.tbxAttachmentsMastersLocation = new System.Windows.Forms.TextBox();
+            this.groupAttachmentsRollBack = new System.Windows.Forms.GroupBox();
+            this.tctAtachmentsIdsForBackup = new System.Windows.Forms.TextBox();
+            this.btnAttachmentsIdsForBackup = new System.Windows.Forms.Button();
+            this.btnAttachmentsRollback = new System.Windows.Forms.Button();
+            this.groupPortalsSources = new System.Windows.Forms.GroupBox();
+            this.ddlSourcePortal = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ddlTargetPortal = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btmAttachmentsSource = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -116,13 +127,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbxFromPortalToPortal = new System.Windows.Forms.CheckBox();
             this.cbxBasedOnFiles = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupAttachmentsCopySettings = new System.Windows.Forms.GroupBox();
-            this.cbxAttachmentsLeepRBlist = new System.Windows.Forms.CheckBox();
+            this.cbxAttachmentsKeepIDs = new System.Windows.Forms.CheckBox();
             this.cbxIncludeTextNotes = new System.Windows.Forms.CheckBox();
             this.btnStartAttachmentsCopy = new System.Windows.Forms.Button();
-            this.tbxAttachmentsMastersLocation = new System.Windows.Forms.TextBox();
-            this.btnAttachmentsLoadMasters = new System.Windows.Forms.Button();
             this.groupConnectionTarget = new System.Windows.Forms.GroupBox();
             this.lblTestConnTarget = new System.Windows.Forms.Label();
             this.btnTestConnTarget = new System.Windows.Forms.Button();
@@ -139,8 +147,9 @@
             this.folderBrowserDialogLoadProject = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLoadSchema = new System.Windows.Forms.OpenFileDialog();
             this.openFileLoadProject = new System.Windows.Forms.OpenFileDialog();
-            this.openFileAttachmentsMaterEntities = new System.Windows.Forms.OpenFileDialog();
+            this.openFileAttachmentsObjectEntities = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabsPanel.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabProject.SuspendLayout();
@@ -158,6 +167,9 @@
             this.groupCopyToolFooter.SuspendLayout();
             this.tabAttchmentsMigration.SuspendLayout();
             this.groupAttachmentsContent.SuspendLayout();
+            this.groupAttachmentsMasters.SuspendLayout();
+            this.groupAttachmentsRollBack.SuspendLayout();
+            this.groupPortalsSources.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupAttachmentsCopySettings.SuspendLayout();
             this.groupConnectionTarget.SuspendLayout();
@@ -974,23 +986,22 @@
             this.tabAttchmentsMigration.Name = "tabAttchmentsMigration";
             this.tabAttchmentsMigration.Size = new System.Drawing.Size(1883, 829);
             this.tabAttchmentsMigration.TabIndex = 6;
-            this.tabAttchmentsMigration.Text = "Attchments (Notes) Migration";
+            this.tabAttchmentsMigration.Text = "Attachments (Notes) Migration";
             this.tabAttchmentsMigration.UseVisualStyleBackColor = true;
             // 
             // groupAttachmentsContent
             // 
-            this.groupAttachmentsContent.Controls.Add(this.label9);
-            this.groupAttachmentsContent.Controls.Add(this.comboBox2);
-            this.groupAttachmentsContent.Controls.Add(this.label8);
-            this.groupAttachmentsContent.Controls.Add(this.comboBox1);
+            this.groupAttachmentsContent.Controls.Add(this.cbxSameAsSourceUser);
+            this.groupAttachmentsContent.Controls.Add(this.cbxAttachmentsRollback);
+            this.groupAttachmentsContent.Controls.Add(this.cbxSameConnectionAsSource);
+            this.groupAttachmentsContent.Controls.Add(this.groupAttachmentsMasters);
+            this.groupAttachmentsContent.Controls.Add(this.groupAttachmentsRollBack);
+            this.groupAttachmentsContent.Controls.Add(this.groupPortalsSources);
             this.groupAttachmentsContent.Controls.Add(this.groupBox1);
             this.groupAttachmentsContent.Controls.Add(this.cbxFromPortalToPortal);
             this.groupAttachmentsContent.Controls.Add(this.cbxBasedOnFiles);
-            this.groupAttachmentsContent.Controls.Add(this.button1);
             this.groupAttachmentsContent.Controls.Add(this.groupAttachmentsCopySettings);
             this.groupAttachmentsContent.Controls.Add(this.btnStartAttachmentsCopy);
-            this.groupAttachmentsContent.Controls.Add(this.tbxAttachmentsMastersLocation);
-            this.groupAttachmentsContent.Controls.Add(this.btnAttachmentsLoadMasters);
             this.groupAttachmentsContent.Controls.Add(this.groupConnectionTarget);
             this.groupAttachmentsContent.Location = new System.Drawing.Point(21, 13);
             this.groupAttachmentsContent.Name = "groupAttachmentsContent";
@@ -999,44 +1010,171 @@
             this.groupAttachmentsContent.TabStop = false;
             this.groupAttachmentsContent.Text = "  ";
             // 
+            // cbxSameAsSourceUser
+            // 
+            this.cbxSameAsSourceUser.AutoSize = true;
+            this.cbxSameAsSourceUser.Location = new System.Drawing.Point(549, 26);
+            this.cbxSameAsSourceUser.Name = "cbxSameAsSourceUser";
+            this.cbxSameAsSourceUser.Size = new System.Drawing.Size(256, 23);
+            this.cbxSameAsSourceUser.TabIndex = 26;
+            this.cbxSameAsSourceUser.Text = "Credentials based on source";
+            this.cbxSameAsSourceUser.UseVisualStyleBackColor = true;
+            // 
+            // cbxAttachmentsRollback
+            // 
+            this.cbxAttachmentsRollback.AutoSize = true;
+            this.cbxAttachmentsRollback.Location = new System.Drawing.Point(13, 467);
+            this.cbxAttachmentsRollback.Name = "cbxAttachmentsRollback";
+            this.cbxAttachmentsRollback.Size = new System.Drawing.Size(262, 23);
+            this.cbxAttachmentsRollback.TabIndex = 22;
+            this.cbxAttachmentsRollback.Text = "Roll back Attachments Import";
+            this.cbxAttachmentsRollback.UseVisualStyleBackColor = true;
+            this.cbxAttachmentsRollback.CheckedChanged += new System.EventHandler(this.cbxAttachmentsRollback_CheckedChanged);
+            // 
+            // cbxSameConnectionAsSource
+            // 
+            this.cbxSameConnectionAsSource.AutoSize = true;
+            this.cbxSameConnectionAsSource.Location = new System.Drawing.Point(17, 26);
+            this.cbxSameConnectionAsSource.Name = "cbxSameConnectionAsSource";
+            this.cbxSameConnectionAsSource.Size = new System.Drawing.Size(252, 23);
+            this.cbxSameConnectionAsSource.TabIndex = 25;
+            this.cbxSameConnectionAsSource.Text = "Source and Target are same";
+            this.cbxSameConnectionAsSource.UseVisualStyleBackColor = true;
+            // 
+            // groupAttachmentsMasters
+            // 
+            this.groupAttachmentsMasters.Controls.Add(this.btnAttachmentsLoadMasters);
+            this.groupAttachmentsMasters.Controls.Add(this.tbxAttachmentsMastersLocation);
+            this.groupAttachmentsMasters.Location = new System.Drawing.Point(932, 291);
+            this.groupAttachmentsMasters.Name = "groupAttachmentsMasters";
+            this.groupAttachmentsMasters.Size = new System.Drawing.Size(884, 132);
+            this.groupAttachmentsMasters.TabIndex = 19;
+            this.groupAttachmentsMasters.TabStop = false;
+            this.groupAttachmentsMasters.Text = "File with Note\'s parent objects";
+            this.groupAttachmentsMasters.Visible = false;
+            // 
+            // btnAttachmentsLoadMasters
+            // 
+            this.btnAttachmentsLoadMasters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAttachmentsLoadMasters.Location = new System.Drawing.Point(223, 91);
+            this.btnAttachmentsLoadMasters.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttachmentsLoadMasters.Name = "btnAttachmentsLoadMasters";
+            this.btnAttachmentsLoadMasters.Size = new System.Drawing.Size(392, 33);
+            this.btnAttachmentsLoadMasters.TabIndex = 3;
+            this.btnAttachmentsLoadMasters.Text = "Select Configuration Manager Data File";
+            this.btnAttachmentsLoadMasters.UseVisualStyleBackColor = true;
+            this.btnAttachmentsLoadMasters.Click += new System.EventHandler(this.btnAttachmentsLoadMasters_Click);
+            // 
+            // tbxAttachmentsMastersLocation
+            // 
+            this.tbxAttachmentsMastersLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tbxAttachmentsMastersLocation.Location = new System.Drawing.Point(29, 49);
+            this.tbxAttachmentsMastersLocation.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxAttachmentsMastersLocation.Name = "tbxAttachmentsMastersLocation";
+            this.tbxAttachmentsMastersLocation.ReadOnly = true;
+            this.tbxAttachmentsMastersLocation.Size = new System.Drawing.Size(801, 23);
+            this.tbxAttachmentsMastersLocation.TabIndex = 4;
+            // 
+            // groupAttachmentsRollBack
+            // 
+            this.groupAttachmentsRollBack.Controls.Add(this.tctAtachmentsIdsForBackup);
+            this.groupAttachmentsRollBack.Controls.Add(this.btnAttachmentsIdsForBackup);
+            this.groupAttachmentsRollBack.Controls.Add(this.btnAttachmentsRollback);
+            this.groupAttachmentsRollBack.Location = new System.Drawing.Point(932, 573);
+            this.groupAttachmentsRollBack.Name = "groupAttachmentsRollBack";
+            this.groupAttachmentsRollBack.Size = new System.Drawing.Size(884, 195);
+            this.groupAttachmentsRollBack.TabIndex = 21;
+            this.groupAttachmentsRollBack.TabStop = false;
+            this.groupAttachmentsRollBack.Text = "List of created Note\'s IDs";
+            this.groupAttachmentsRollBack.Visible = false;
+            // 
+            // tctAtachmentsIdsForBackup
+            // 
+            this.tctAtachmentsIdsForBackup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tctAtachmentsIdsForBackup.Location = new System.Drawing.Point(47, 49);
+            this.tctAtachmentsIdsForBackup.Margin = new System.Windows.Forms.Padding(4);
+            this.tctAtachmentsIdsForBackup.Name = "tctAtachmentsIdsForBackup";
+            this.tctAtachmentsIdsForBackup.ReadOnly = true;
+            this.tctAtachmentsIdsForBackup.Size = new System.Drawing.Size(801, 23);
+            this.tctAtachmentsIdsForBackup.TabIndex = 20;
+            // 
+            // btnAttachmentsIdsForBackup
+            // 
+            this.btnAttachmentsIdsForBackup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAttachmentsIdsForBackup.Location = new System.Drawing.Point(248, 90);
+            this.btnAttachmentsIdsForBackup.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttachmentsIdsForBackup.Name = "btnAttachmentsIdsForBackup";
+            this.btnAttachmentsIdsForBackup.Size = new System.Drawing.Size(392, 33);
+            this.btnAttachmentsIdsForBackup.TabIndex = 19;
+            this.btnAttachmentsIdsForBackup.Text = "Select a file to backup Attachments IDs";
+            this.btnAttachmentsIdsForBackup.UseVisualStyleBackColor = true;
+            this.btnAttachmentsIdsForBackup.Click += new System.EventHandler(this.btnAtachmentsIdsForBackup_Click);
+            // 
+            // btnAttachmentsRollback
+            // 
+            this.btnAttachmentsRollback.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAttachmentsRollback.Location = new System.Drawing.Point(248, 145);
+            this.btnAttachmentsRollback.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttachmentsRollback.Name = "btnAttachmentsRollback";
+            this.btnAttachmentsRollback.Size = new System.Drawing.Size(392, 33);
+            this.btnAttachmentsRollback.TabIndex = 7;
+            this.btnAttachmentsRollback.Text = "Roll Back. Delete created Note";
+            this.btnAttachmentsRollback.UseVisualStyleBackColor = true;
+            this.btnAttachmentsRollback.Visible = false;
+            this.btnAttachmentsRollback.Click += new System.EventHandler(this.btnAttachmentsRollback_Click);
+            // 
+            // groupPortalsSources
+            // 
+            this.groupPortalsSources.Controls.Add(this.ddlSourcePortal);
+            this.groupPortalsSources.Controls.Add(this.label9);
+            this.groupPortalsSources.Controls.Add(this.label8);
+            this.groupPortalsSources.Controls.Add(this.ddlTargetPortal);
+            this.groupPortalsSources.Location = new System.Drawing.Point(932, 429);
+            this.groupPortalsSources.Name = "groupPortalsSources";
+            this.groupPortalsSources.Size = new System.Drawing.Size(884, 129);
+            this.groupPortalsSources.TabIndex = 18;
+            this.groupPortalsSources.TabStop = false;
+            this.groupPortalsSources.Text = "PORTALS";
+            this.groupPortalsSources.Visible = false;
+            // 
+            // ddlSourcePortal
+            // 
+            this.ddlSourcePortal.FormattingEnabled = true;
+            this.ddlSourcePortal.Location = new System.Drawing.Point(335, 38);
+            this.ddlSourcePortal.Name = "ddlSourcePortal";
+            this.ddlSourcePortal.Size = new System.Drawing.Size(507, 27);
+            this.ddlSourcePortal.TabIndex = 14;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1293, 438);
+            this.label9.Location = new System.Drawing.Point(25, 84);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(164, 19);
             this.label9.TabIndex = 17;
             this.label9.Text = "Select Target Portal";
             // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(950, 438);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(308, 27);
-            this.comboBox2.TabIndex = 16;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1293, 380);
+            this.label8.Location = new System.Drawing.Point(25, 41);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(170, 19);
             this.label8.TabIndex = 15;
             this.label8.Text = "Select Source Portal";
             // 
-            // comboBox1
+            // ddlTargetPortal
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(950, 380);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(308, 27);
-            this.comboBox1.TabIndex = 14;
+            this.ddlTargetPortal.FormattingEnabled = true;
+            this.ddlTargetPortal.Location = new System.Drawing.Point(335, 81);
+            this.ddlTargetPortal.Name = "ddlTargetPortal";
+            this.ddlTargetPortal.Size = new System.Drawing.Size(507, 27);
+            this.ddlTargetPortal.TabIndex = 16;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btmAttachmentsSource);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox2);
@@ -1046,11 +1184,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(17, 27);
+            this.groupBox1.Location = new System.Drawing.Point(17, 61);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(875, 224);
+            this.groupBox1.Size = new System.Drawing.Size(875, 214);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source CRM Instance";
@@ -1059,27 +1197,28 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label1.Location = new System.Drawing.Point(602, 124);
+            this.label1.Location = new System.Drawing.Point(618, 184);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 24;
             // 
-            // button2
+            // btmAttachmentsSource
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(605, 154);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(217, 33);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Test Connection";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btmAttachmentsSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btmAttachmentsSource.Location = new System.Drawing.Point(621, 135);
+            this.btmAttachmentsSource.Margin = new System.Windows.Forms.Padding(4);
+            this.btmAttachmentsSource.Name = "btmAttachmentsSource";
+            this.btmAttachmentsSource.Size = new System.Drawing.Size(217, 33);
+            this.btmAttachmentsSource.TabIndex = 23;
+            this.btmAttachmentsSource.Text = "Test Connection";
+            this.btmAttachmentsSource.UseVisualStyleBackColor = true;
+            this.btmAttachmentsSource.Click += new System.EventHandler(this.btmAttachmentsSource_Click);
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox1.Location = new System.Drawing.Point(153, 167);
+            this.textBox1.Location = new System.Drawing.Point(161, 166);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.PasswordChar = '*';
@@ -1090,7 +1229,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label2.Location = new System.Drawing.Point(15, 170);
+            this.label2.Location = new System.Drawing.Point(23, 169);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 17);
@@ -1100,7 +1239,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox2.Location = new System.Drawing.Point(153, 124);
+            this.textBox2.Location = new System.Drawing.Point(161, 123);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(421, 23);
@@ -1109,7 +1248,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox3.Location = new System.Drawing.Point(153, 80);
+            this.textBox3.Location = new System.Drawing.Point(161, 79);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(677, 23);
@@ -1118,7 +1257,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox4.Location = new System.Drawing.Point(153, 41);
+            this.textBox4.Location = new System.Drawing.Point(161, 40);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(425, 23);
@@ -1128,7 +1267,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label3.Location = new System.Drawing.Point(15, 127);
+            this.label3.Location = new System.Drawing.Point(23, 126);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 17);
@@ -1139,7 +1278,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label4.Location = new System.Drawing.Point(15, 83);
+            this.label4.Location = new System.Drawing.Point(23, 82);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 17);
@@ -1150,7 +1289,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(15, 44);
+            this.label7.Location = new System.Drawing.Point(23, 43);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(130, 17);
@@ -1160,55 +1299,47 @@
             // cbxFromPortalToPortal
             // 
             this.cbxFromPortalToPortal.AutoSize = true;
-            this.cbxFromPortalToPortal.Location = new System.Drawing.Point(950, 294);
+            this.cbxFromPortalToPortal.Location = new System.Drawing.Point(13, 384);
             this.cbxFromPortalToPortal.Name = "cbxFromPortalToPortal";
             this.cbxFromPortalToPortal.Size = new System.Drawing.Size(390, 42);
             this.cbxFromPortalToPortal.TabIndex = 12;
             this.cbxFromPortalToPortal.Text = "Web Files from Selected Portal in Source \r\nto Selected Poratl in Target (based on" +
     " names)";
             this.cbxFromPortalToPortal.UseVisualStyleBackColor = true;
+            this.cbxFromPortalToPortal.CheckedChanged += new System.EventHandler(this.cbxFromPortalToPortal_CheckedChanged);
             // 
             // cbxBasedOnFiles
             // 
             this.cbxBasedOnFiles.AutoSize = true;
-            this.cbxBasedOnFiles.Location = new System.Drawing.Point(21, 294);
+            this.cbxBasedOnFiles.Location = new System.Drawing.Point(17, 319);
             this.cbxBasedOnFiles.Name = "cbxBasedOnFiles";
             this.cbxBasedOnFiles.Size = new System.Drawing.Size(181, 23);
             this.cbxBasedOnFiles.TabIndex = 11;
             this.cbxBasedOnFiles.Text = "Based On Data File";
             this.cbxBasedOnFiles.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(501, 720);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(364, 33);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Roll Back. Delete created Note";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cbxBasedOnFiles.CheckedChanged += new System.EventHandler(this.cbxBasedOnFiles_CheckedChanged);
             // 
             // groupAttachmentsCopySettings
             // 
-            this.groupAttachmentsCopySettings.Controls.Add(this.cbxAttachmentsLeepRBlist);
+            this.groupAttachmentsCopySettings.Controls.Add(this.cbxAttachmentsKeepIDs);
             this.groupAttachmentsCopySettings.Controls.Add(this.cbxIncludeTextNotes);
-            this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(31, 629);
+            this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(17, 556);
             this.groupAttachmentsCopySettings.Name = "groupAttachmentsCopySettings";
-            this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(407, 124);
+            this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(574, 124);
             this.groupAttachmentsCopySettings.TabIndex = 6;
             this.groupAttachmentsCopySettings.TabStop = false;
             this.groupAttachmentsCopySettings.Text = "Copy Settings";
             // 
-            // cbxAttachmentsLeepRBlist
+            // cbxAttachmentsKeepIDs
             // 
-            this.cbxAttachmentsLeepRBlist.AutoSize = true;
-            this.cbxAttachmentsLeepRBlist.Location = new System.Drawing.Point(17, 79);
-            this.cbxAttachmentsLeepRBlist.Name = "cbxAttachmentsLeepRBlist";
-            this.cbxAttachmentsLeepRBlist.Size = new System.Drawing.Size(340, 23);
-            this.cbxAttachmentsLeepRBlist.TabIndex = 7;
-            this.cbxAttachmentsLeepRBlist.Text = "Keep List Of Created Notes for rollback";
-            this.cbxAttachmentsLeepRBlist.UseVisualStyleBackColor = true;
+            this.cbxAttachmentsKeepIDs.AutoSize = true;
+            this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(17, 79);
+            this.cbxAttachmentsKeepIDs.Name = "cbxAttachmentsKeepIDs";
+            this.cbxAttachmentsKeepIDs.Size = new System.Drawing.Size(340, 23);
+            this.cbxAttachmentsKeepIDs.TabIndex = 7;
+            this.cbxAttachmentsKeepIDs.Text = "Keep List Of Created Notes for rollback";
+            this.cbxAttachmentsKeepIDs.UseVisualStyleBackColor = true;
+            this.cbxAttachmentsKeepIDs.CheckedChanged += new System.EventHandler(this.cbxAttachmentsKeepIDs_CheckedChanged);
             // 
             // cbxIncludeTextNotes
             // 
@@ -1223,34 +1354,14 @@
             // btnStartAttachmentsCopy
             // 
             this.btnStartAttachmentsCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStartAttachmentsCopy.Location = new System.Drawing.Point(501, 641);
+            this.btnStartAttachmentsCopy.Location = new System.Drawing.Point(17, 735);
             this.btnStartAttachmentsCopy.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartAttachmentsCopy.Name = "btnStartAttachmentsCopy";
             this.btnStartAttachmentsCopy.Size = new System.Drawing.Size(364, 33);
             this.btnStartAttachmentsCopy.TabIndex = 5;
             this.btnStartAttachmentsCopy.Text = "Copy Attachments";
             this.btnStartAttachmentsCopy.UseVisualStyleBackColor = true;
-            // 
-            // tbxAttachmentsMastersLocation
-            // 
-            this.tbxAttachmentsMastersLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxAttachmentsMastersLocation.Location = new System.Drawing.Point(309, 338);
-            this.tbxAttachmentsMastersLocation.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxAttachmentsMastersLocation.Name = "tbxAttachmentsMastersLocation";
-            this.tbxAttachmentsMastersLocation.ReadOnly = true;
-            this.tbxAttachmentsMastersLocation.Size = new System.Drawing.Size(530, 23);
-            this.tbxAttachmentsMastersLocation.TabIndex = 4;
-            // 
-            // btnAttachmentsLoadMasters
-            // 
-            this.btnAttachmentsLoadMasters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnAttachmentsLoadMasters.Location = new System.Drawing.Point(309, 288);
-            this.btnAttachmentsLoadMasters.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAttachmentsLoadMasters.Name = "btnAttachmentsLoadMasters";
-            this.btnAttachmentsLoadMasters.Size = new System.Drawing.Size(530, 33);
-            this.btnAttachmentsLoadMasters.TabIndex = 3;
-            this.btnAttachmentsLoadMasters.Text = "Load Data File with Attachments Master entities";
-            this.btnAttachmentsLoadMasters.UseVisualStyleBackColor = true;
+            this.btnStartAttachmentsCopy.Click += new System.EventHandler(this.btnStartAttachmentsCopy_Click);
             // 
             // groupConnectionTarget
             // 
@@ -1265,11 +1376,11 @@
             this.groupConnectionTarget.Controls.Add(this.lblServerUrlTarget);
             this.groupConnectionTarget.Controls.Add(this.lblOrgNameTarget);
             this.groupConnectionTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupConnectionTarget.Location = new System.Drawing.Point(950, 27);
+            this.groupConnectionTarget.Location = new System.Drawing.Point(950, 61);
             this.groupConnectionTarget.Margin = new System.Windows.Forms.Padding(4);
             this.groupConnectionTarget.Name = "groupConnectionTarget";
             this.groupConnectionTarget.Padding = new System.Windows.Forms.Padding(4);
-            this.groupConnectionTarget.Size = new System.Drawing.Size(866, 224);
+            this.groupConnectionTarget.Size = new System.Drawing.Size(866, 214);
             this.groupConnectionTarget.TabIndex = 2;
             this.groupConnectionTarget.TabStop = false;
             this.groupConnectionTarget.Text = "Target CRM Instance";
@@ -1278,7 +1389,7 @@
             // 
             this.lblTestConnTarget.AutoSize = true;
             this.lblTestConnTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTestConnTarget.Location = new System.Drawing.Point(602, 124);
+            this.lblTestConnTarget.Location = new System.Drawing.Point(631, 184);
             this.lblTestConnTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTestConnTarget.Name = "lblTestConnTarget";
             this.lblTestConnTarget.Size = new System.Drawing.Size(0, 17);
@@ -1287,18 +1398,19 @@
             // btnTestConnTarget
             // 
             this.btnTestConnTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnTestConnTarget.Location = new System.Drawing.Point(605, 154);
+            this.btnTestConnTarget.Location = new System.Drawing.Point(624, 135);
             this.btnTestConnTarget.Margin = new System.Windows.Forms.Padding(4);
             this.btnTestConnTarget.Name = "btnTestConnTarget";
             this.btnTestConnTarget.Size = new System.Drawing.Size(217, 33);
             this.btnTestConnTarget.TabIndex = 23;
             this.btnTestConnTarget.Text = "Test Connection";
             this.btnTestConnTarget.UseVisualStyleBackColor = true;
+            this.btnTestConnTarget.Click += new System.EventHandler(this.btnTestConnTarget_Click);
             // 
             // tbxPasswordTarget
             // 
             this.tbxPasswordTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxPasswordTarget.Location = new System.Drawing.Point(153, 167);
+            this.tbxPasswordTarget.Location = new System.Drawing.Point(172, 166);
             this.tbxPasswordTarget.Margin = new System.Windows.Forms.Padding(4);
             this.tbxPasswordTarget.Name = "tbxPasswordTarget";
             this.tbxPasswordTarget.PasswordChar = '*';
@@ -1309,7 +1421,7 @@
             // 
             this.lblPasswordTarget.AutoSize = true;
             this.lblPasswordTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblPasswordTarget.Location = new System.Drawing.Point(15, 170);
+            this.lblPasswordTarget.Location = new System.Drawing.Point(34, 169);
             this.lblPasswordTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPasswordTarget.Name = "lblPasswordTarget";
             this.lblPasswordTarget.Size = new System.Drawing.Size(69, 17);
@@ -1319,7 +1431,7 @@
             // tbxUsernameTarget
             // 
             this.tbxUsernameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxUsernameTarget.Location = new System.Drawing.Point(153, 124);
+            this.tbxUsernameTarget.Location = new System.Drawing.Point(172, 123);
             this.tbxUsernameTarget.Margin = new System.Windows.Forms.Padding(4);
             this.tbxUsernameTarget.Name = "tbxUsernameTarget";
             this.tbxUsernameTarget.Size = new System.Drawing.Size(421, 23);
@@ -1328,7 +1440,7 @@
             // tbxServerUrlTarget
             // 
             this.tbxServerUrlTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxServerUrlTarget.Location = new System.Drawing.Point(153, 80);
+            this.tbxServerUrlTarget.Location = new System.Drawing.Point(172, 79);
             this.tbxServerUrlTarget.Margin = new System.Windows.Forms.Padding(4);
             this.tbxServerUrlTarget.Name = "tbxServerUrlTarget";
             this.tbxServerUrlTarget.Size = new System.Drawing.Size(677, 23);
@@ -1337,7 +1449,7 @@
             // tbxOrgNameTarget
             // 
             this.tbxOrgNameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxOrgNameTarget.Location = new System.Drawing.Point(153, 41);
+            this.tbxOrgNameTarget.Location = new System.Drawing.Point(172, 37);
             this.tbxOrgNameTarget.Margin = new System.Windows.Forms.Padding(4);
             this.tbxOrgNameTarget.Name = "tbxOrgNameTarget";
             this.tbxOrgNameTarget.Size = new System.Drawing.Size(425, 23);
@@ -1347,7 +1459,7 @@
             // 
             this.lblUserTarget.AutoSize = true;
             this.lblUserTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblUserTarget.Location = new System.Drawing.Point(15, 127);
+            this.lblUserTarget.Location = new System.Drawing.Point(34, 126);
             this.lblUserTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserTarget.Name = "lblUserTarget";
             this.lblUserTarget.Size = new System.Drawing.Size(38, 17);
@@ -1358,7 +1470,7 @@
             // 
             this.lblServerUrlTarget.AutoSize = true;
             this.lblServerUrlTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblServerUrlTarget.Location = new System.Drawing.Point(15, 83);
+            this.lblServerUrlTarget.Location = new System.Drawing.Point(34, 82);
             this.lblServerUrlTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServerUrlTarget.Name = "lblServerUrlTarget";
             this.lblServerUrlTarget.Size = new System.Drawing.Size(72, 17);
@@ -1369,7 +1481,7 @@
             // 
             this.lblOrgNameTarget.AutoSize = true;
             this.lblOrgNameTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblOrgNameTarget.Location = new System.Drawing.Point(15, 44);
+            this.lblOrgNameTarget.Location = new System.Drawing.Point(34, 40);
             this.lblOrgNameTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrgNameTarget.Name = "lblOrgNameTarget";
             this.lblOrgNameTarget.Size = new System.Drawing.Size(130, 17);
@@ -1411,10 +1523,10 @@
             this.openFileLoadProject.Filter = "XML Files (*.xml)|*.xml";
             this.openFileLoadProject.Title = "Select a project xml to load";
             // 
-            // openFileAttachmentsMaterEntities
+            // openFileAttachmentsObjectEntities
             // 
-            this.openFileAttachmentsMaterEntities.FileName = "Data XML file (from Configuration Manager)";
-            this.openFileAttachmentsMaterEntities.Filter = "XML files (*.xml)|*.xnl";
+            this.openFileAttachmentsObjectEntities.FileName = "Data XML file (from Configuration Manager)";
+            this.openFileAttachmentsObjectEntities.Filter = "XML files (*.xml)|*.xnl";
             // 
             // panel1
             // 
@@ -1426,6 +1538,10 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1899, 78);
             this.panel1.TabIndex = 2;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileAttachmentsIDsBackup";
             // 
             // MainForm
             // 
@@ -1470,6 +1586,12 @@
             this.tabAttchmentsMigration.ResumeLayout(false);
             this.groupAttachmentsContent.ResumeLayout(false);
             this.groupAttachmentsContent.PerformLayout();
+            this.groupAttachmentsMasters.ResumeLayout(false);
+            this.groupAttachmentsMasters.PerformLayout();
+            this.groupAttachmentsRollBack.ResumeLayout(false);
+            this.groupAttachmentsRollBack.PerformLayout();
+            this.groupPortalsSources.ResumeLayout(false);
+            this.groupPortalsSources.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupAttachmentsCopySettings.ResumeLayout(false);
@@ -1555,7 +1677,7 @@
         private System.Windows.Forms.Label lblAvailableTransformations;
         private System.Windows.Forms.CheckBox cbxExcludeFromResult;
         private System.Windows.Forms.TabPage tabAttchmentsMigration;
-        private System.Windows.Forms.OpenFileDialog openFileAttachmentsMaterEntities;
+        private System.Windows.Forms.OpenFileDialog openFileAttachmentsObjectEntities;
         private System.Windows.Forms.GroupBox groupCopyToolContent;
         private System.Windows.Forms.GroupBox groupAttachmentsContent;
         private System.Windows.Forms.GroupBox groupConnectionTarget;
@@ -1570,17 +1692,17 @@
         private System.Windows.Forms.Label lblServerUrlTarget;
         private System.Windows.Forms.Label lblOrgNameTarget;
         private System.Windows.Forms.GroupBox groupAttachmentsCopySettings;
-        private System.Windows.Forms.CheckBox cbxAttachmentsLeepRBlist;
+        private System.Windows.Forms.CheckBox cbxAttachmentsKeepIDs;
         private System.Windows.Forms.CheckBox cbxIncludeTextNotes;
         private System.Windows.Forms.Button btnStartAttachmentsCopy;
         private System.Windows.Forms.TextBox tbxAttachmentsMastersLocation;
         private System.Windows.Forms.Button btnAttachmentsLoadMasters;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAttachmentsRollback;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTransformationSettings;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btmAttachmentsSource;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
@@ -1592,9 +1714,18 @@
         private System.Windows.Forms.CheckBox cbxFromPortalToPortal;
         private System.Windows.Forms.CheckBox cbxBasedOnFiles;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox ddlTargetPortal;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ddlSourcePortal;
+        private System.Windows.Forms.GroupBox groupAttachmentsMasters;
+        private System.Windows.Forms.GroupBox groupAttachmentsRollBack;
+        private System.Windows.Forms.TextBox tctAtachmentsIdsForBackup;
+        private System.Windows.Forms.Button btnAttachmentsIdsForBackup;
+        private System.Windows.Forms.GroupBox groupPortalsSources;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.CheckBox cbxAttachmentsRollback;
+        private System.Windows.Forms.CheckBox cbxSameAsSourceUser;
+        private System.Windows.Forms.CheckBox cbxSameConnectionAsSource;
     }
 }
 
