@@ -1094,5 +1094,26 @@ namespace DMM365
 
         #endregion Attachments
 
+        /*
+                private void button2_Click(object sender, EventArgs e)
+        {
+            //window to back
+            this.TopMost = false;
+
+            CRMLogin lgin = new CRMLogin();
+            lgin.ShowDialog();
+            //lgin.ConnectionToCrmCompleted += Lgin_ConnectionToCrmCompleted;
+
+            if (lgin.CrmConnectionMgr != null && lgin.CrmConnectionMgr.CrmSvc != null && lgin.CrmConnectionMgr.CrmSvc.IsReady)
+            {
+                 WhoAmIResponse wai = (WhoAmIResponse)lgin.CrmConnectionMgr.CrmSvc.Execute(new WhoAmIRequest());
+            }
+
+            //window to front
+            this.TopMost = true;
+         }
+
+        */
+
     }
 }
