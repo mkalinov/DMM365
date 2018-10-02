@@ -15,6 +15,17 @@ namespace DMM365.Helper
     {
         #region Common
 
+        internal static IEnumerable<KeyValuePair<object, string>> convertEntityContainerToKVP(List<CrmEntityContainer> list)
+        {
+            Dictionary<object, string> result = new Dictionary<object, string>();
+            result.Add(null, "");
+
+            foreach (CrmEntityContainer item in list)
+                result.Add(item.id, item.name);
+
+            return result;
+        }
+
         internal static List<CrmEntityContainer> getUserQueryListWraped(CrmServiceClient service, int entityTypeCode, int queryType = 0, string customName = "name")
         {
             List<Entity> responce = getUserQueryList(service, entityTypeCode, queryType);
@@ -335,6 +346,17 @@ namespace DMM365.Helper
             return clonedEntityGuid;
         }
 
+        public static List<CrmEntityContainer> getListOfPortals(CrmServiceClient service)
+        {
+            QueryExpression query = new QueryExpression("adx_website");
+            query.ColumnSet = new ColumnSet(true);
+
+            EntityCollection en = service.RetrieveMultiple(query);
+
+            if (ReferenceEquals(en, null) || ReferenceEquals(en.Entities, null) || en.Entities.Count == 0) return null;
+
+            return convertEntityToEntityContainer(en.Entities.ToList());
+        }
 
         #endregion Annotation
 

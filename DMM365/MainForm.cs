@@ -14,6 +14,8 @@ using Microsoft.Xrm.Tooling.Connector;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Tooling.CrmConnectControl;
+using LoginCustom;
+using Microsoft.Crm.Sdk.Messages;
 
 
 //using System.Windows;
@@ -46,8 +48,9 @@ namespace DMM365
 
         #region Attachments
 
-        CrmServiceClient crmSource;
         CrmServiceClient crmTarget;
+        List<CrmEntityContainer> sourcePortals;
+        List<CrmEntityContainer> targetPortals;
 
         #endregion Attachments
 
@@ -83,16 +86,16 @@ namespace DMM365
             //listOperators_DS = enumToList.Of<listSelectionOperators>(true);
             listAuthType_DS = enumToList.Of<Microsoft.Xrm.Tooling.Connector.AuthenticationType>(true);
             //set select oprators drop down. Simplify, not need the operators fo visualized selection
-            setOperatorsDropDown(ddlAuthType, listAuthType_DS);
+            //setOperatorsDropDown(ddlAuthType, listAuthType_DS);
 
 
             #region Bindings
 
             tbxProject.DataBindings.Add("Text", bindings_Settings, "ProjectPath", false, DataSourceUpdateMode.OnPropertyChanged);
-            tbxOrgNameSource.DataBindings.Add("Text", bindings_Settings, "OrgUniqueNameSource", false, DataSourceUpdateMode.OnPropertyChanged);
-            tbxServerUrlSource.DataBindings.Add("Text", bindings_Settings, "ServerUrlSource", false, DataSourceUpdateMode.OnPropertyChanged);
-            tbxUsernameSource.DataBindings.Add("Text", bindings_Settings, "UsernameSource", false, DataSourceUpdateMode.OnPropertyChanged);
-            tbxPasswordSource.DataBindings.Add("Text", bindings_Settings, "PasswordSource", false, DataSourceUpdateMode.OnPropertyChanged);
+            //tbxOrgNameSource.DataBindings.Add("Text", bindings_Settings, "OrgUniqueNameSource", false, DataSourceUpdateMode.OnPropertyChanged);
+            //tbxServerUrlSource.DataBindings.Add("Text", bindings_Settings, "ServerUrlSource", false, DataSourceUpdateMode.OnPropertyChanged);
+            //tbxUsernameSource.DataBindings.Add("Text", bindings_Settings, "UsernameSource", false, DataSourceUpdateMode.OnPropertyChanged);
+            //tbxPasswordSource.DataBindings.Add("Text", bindings_Settings, "PasswordSource", false, DataSourceUpdateMode.OnPropertyChanged);
 
             #endregion Bindings
 
@@ -102,8 +105,6 @@ namespace DMM365
         {
             //property changed notification
             allSettings.PropertyChanged += AllSettings_PropertyChanged;
-
-
         }
 
 
@@ -131,29 +132,24 @@ namespace DMM365
             //deserialise source data file
             listOfData_DS = IOHelper.DeserializeXmlFromFile<DataEntities>(IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileSource, fileName.dataFileXml));
 
-            if (GlobalHelper.isValidString(allSettings.OrgUniqueNameSource)
-                && GlobalHelper.isValidString(allSettings.ServerUrlSource)
-                && GlobalHelper.isValidString(allSettings.UsernameSource))
-            {
+            loadViewsConfiguration();
 
-
-                // start/keep connection and load crm dependent tabs
-                var backgroundScheduler = TaskScheduler.Default;
-                var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-                //connection labels
-                connectionLabels(true);
-                enableAllButtons(false);
-                //TO DO: check "no internet connection" situation
-                Task.Factory.StartNew(delegate
-                {
-                    crmServiceClientSource =
-                        ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
-
-                }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); loadViewsConfiguration(); enableAllButtons(true); }, uiScheduler);
-            }
-            else loadViewsConfiguration();
         }
-    
+
+
+
+        private void linkSource_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!ReferenceEquals(crmServiceClientSource, null) && crmServiceClientSource.IsReady)
+                System.Diagnostics.Process.Start(crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
+        }
+
+        private void linkTarget_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!ReferenceEquals(crmTarget, null) && crmTarget.IsReady)
+                System.Diagnostics.Process.Start(crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
+        }
+
 
         #endregion Form Global
 
@@ -181,8 +177,6 @@ namespace DMM365
                             IOHelper.setInnerProjectStructure(allSettings);
                             //
                             updateProjectTree();
-                            //control of load package load. Once project is created/loaded
-                            btnLoadSchema.Enabled = GlobalHelper.isValidString(tbxProject.Text);
 
                             //check project mode
                             if (!isCreate) loadProject();
@@ -207,17 +201,19 @@ namespace DMM365
         #region Project Tab
 
 
-        private void updateProjectTree()
+        private void cbxCreateProject_CheckedChanged(object sender, EventArgs e)
         {
-            if (!Directory.Exists(allSettings.ProjectPath)) return;
-            DirectoryInfo inf = new DirectoryInfo(allSettings.ProjectPath);
-            treeProject.Nodes.Clear();
-            treeProject.Nodes.Add(treeHelper.CreateDirectoryNode(inf));
-            treeProject.Nodes[0].Expand();
-        }
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+            //show/enable groups
+            groupViewDataFilter.Enabled = groupCopyToolContent.Enabled = groupProjectSchema.Visible = cb.Checked;
 
-        private void btnProject_Click(object sender, EventArgs e)
-        {
+            cbxLoadProject.Enabled = cbxAttachmentsMigration.Enabled = !cb.Checked;
+
+            if (!cb.Checked) return;
+
+
+            //create project
             if (folderBrowserDialogLoadProject.ShowDialog() == DialogResult.OK)
             {
                 //project mode
@@ -225,23 +221,18 @@ namespace DMM365
 
                 tbxProject.Text = folderBrowserDialogLoadProject.SelectedPath;
             }
-        }
 
-        private void btnProjectLoad_Click(object sender, EventArgs e)
-        {
 
-            if (openFileLoadProject.ShowDialog() == DialogResult.OK)
+            //get crm connection
+            crmServiceClientSource = getCrmConnectionOOB();
+            //update header
+            if (crmServiceClientSource.IsReady)
             {
-                //project mode
-                isCreate = false;
-
-                tbxProject.Text = Path.GetDirectoryName(openFileLoadProject.FileName);
+                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
+                groupConnectedTo.Visible = linkSource.Visible = crmServiceClientSource.IsReady;
             }
-        }
 
-        private void btnLoadSchema_Click(object sender, EventArgs e)
-        {
-
+            //load configuration migration tool package
             if (openFileDialogLoadSchema.ShowDialog() == DialogResult.OK)
             {
                 //check if loaded file is zip
@@ -277,76 +268,131 @@ namespace DMM365
 
                 loadProject();
             }
+
+
+            //move to views tab
+            moveNextTab(1);
+
+        }
+
+        private void cbxLoadProject_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+            //show/enable groups
+            groupViewDataFilter.Enabled = groupCopyToolContent.Enabled = groupProjectSchema.Visible = cb.Checked;
+
+            cbxCreateProject.Enabled = cbxAttachmentsMigration.Enabled = !cb.Checked;
+
+
+            if (!cb.Checked) return;
+
+
+            //get crm connection
+            crmServiceClientSource = getCrmConnectionOOB();
+            //update header
+            if (crmServiceClientSource.IsReady)
+            {
+                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
+                groupConnectedTo.Visible = linkSource.Visible = crmServiceClientSource.IsReady;
+            }
+
+            //load project
+            if (openFileLoadProject.ShowDialog() == DialogResult.OK)
+            {
+                //project mode
+                isCreate = false;
+
+                tbxProject.Text = Path.GetDirectoryName(openFileLoadProject.FileName);
+            }
+
+            //move to views tab
+            moveNextTab(1);
+        }
+
+        private void cbxAttachmentsMigration_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            cbxCreateProject.Enabled = cbxLoadProject.Enabled = !cb.Checked;
+
+            if (!cb.Checked) return;
+
+
+            //get crm connection
+            crmServiceClientSource = getCrmConnectionOOB();
+            //update header
+            if (crmServiceClientSource.IsReady)
+            {
+                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
+                linkSource.Visible = crmServiceClientSource.IsReady;
+
+            }
+            crmTarget = getCrmConnectionOOB();
+            //update header
+            if (crmTarget.IsReady)
+            {
+                string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
+                linkTarget.Visible = crmTarget.IsReady;
+            }
+            groupConnectedTo.Visible = crmServiceClientSource.IsReady && crmTarget.IsReady;
+
+
+
+            cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cb.Checked;
+
+            if (!cb.Checked)
+            {
+                cbxAttachmentsKeepIDs.Checked = cbxIncludeTextNotes.Checked = cbxAttachmentsRollback.Checked =  cbxFromPortalToPortal.Checked = cbxBasedOnFiles.Checked = cb.Checked;
+            }
+
+        }
+
+        private void updateProjectTree()
+        {
+            if (!Directory.Exists(allSettings.ProjectPath)) return;
+            DirectoryInfo inf = new DirectoryInfo(allSettings.ProjectPath);
+            treeProject.Nodes.Clear();
+            treeProject.Nodes.Add(treeHelper.CreateDirectoryNode(inf));
+            treeProject.Nodes[0].Expand();
         }
 
 
         #region Connection 
 
-        private void cbxIsOnPremSource_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox current = sender as CheckBox;
-            if (!ReferenceEquals(current, null))
-                lblUniqueNamePathSource.Visible = !current.Checked;
-        }
 
-        private void btnTestConnSource_Click(object sender, EventArgs e)
+        private CrmServiceClient getCrmConnectionOOB()
         {
-            if (validateGroup(groupConnectionSource))
+
+            CrmServiceClient current = null;
+            //window to back
+            this.TopMost = false;
+
+            CRMLogin login = new CRMLogin();
+            login.ShowDialog();
+            //lgin.ConnectionToCrmCompleted += Lgin_ConnectionToCrmCompleted;
+
+            if (login.CrmConnectionMgr != null && login.CrmConnectionMgr.CrmSvc != null && login.CrmConnectionMgr.CrmSvc.IsReady)
             {
-
-
-
-                // get connection 
-                var backgroundScheduler = TaskScheduler.Default;
-                var uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-                connectionLabels(true);
-
-                //tabs.Enabled = false;
-                enableAllButtons(false);
-                //TO DO: check "no internet connection" situation
-                Task.Factory.StartNew(delegate
+                try
                 {
+                    WhoAmIResponse wai = (WhoAmIResponse)login.CrmConnectionMgr.CrmSvc.Execute(new WhoAmIRequest());
+                    current = login.CrmConnectionMgr.CrmSvc;
+                }
+                catch (Exception)
+                {
+                    //TO DO: logs
+                }
 
-                    crmServiceClientSource = ConnectionHelper.getOnLineConnection(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text);
-                    //set local credentials
-                    if (crmServiceClientSource.IsReady)
-                    {
-                        if (CredentialsHelper.setLocalCredentials(tbxOrgNameSource.Text, tbxServerUrlSource.Text, tbxUsernameSource.Text, tbxPasswordSource.Text))
-                        {
-                            //successefully saved
-                        }
-                        else
-                        {
-                            //not saved
-                        }
-                    }
-
-
-                }, backgroundScheduler).ContinueWith(delegate { setConnectionStatusVisible(crmServiceClientSource.IsReady); setStatusLabel(lblTestConnSource, crmServiceClientSource.IsReady); enableAllButtons(true); }, uiScheduler);
-
-                //show load
             }
+
+            //window to front
+            this.TopMost = true;
+
+            return current;
         }
 
-        private void btnConnectionsSave_Click(object sender, EventArgs e)
-        {
-
-            // validation
-            if (!validateGroup(groupConnectionSource)) return;
-
-            try
-            {
-                SettingsHelper.saveProject(allSettings);
-                //save credentials
-                if (GlobalHelper.isValidString(tbxPasswordSource.Text))
-                    CredentialsHelper.setLocalCredentials(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, tbxPasswordSource.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
 
         #endregion Connection 
 
@@ -644,6 +690,20 @@ namespace DMM365
 
 
         #region Private methods
+
+        private void cleanAttachmentsSetting(bool _checked)
+        {
+            foreach (Control item in groupAttachmentsCopySettings.Controls)
+            {
+                if (item is CheckBox) ((CheckBox)item).Checked = _checked;
+            }
+        }
+
+        private void btnStartAttachmentsCopyText()
+        {
+            btnStartAttachmentsCopy.Text = cbxAttachmentsRollback.Checked ? "ROLL BACK" : "COPY";
+        }
+
         private void enableAllButtons(bool isEnabled)
         {
             for (int i = 0; i < buttons.Length; i++)
@@ -651,12 +711,6 @@ namespace DMM365
                 Button current = Controls.Find(buttons[i], true).SingleOrDefault() as Button;
                 if (!ReferenceEquals(current, null)) current.Enabled = isEnabled;
             }
-        }
-
-        private void connectionLabels(bool True_showWait_False_NoConnetion)
-        {
-            lblConnectionAwaitViews.Visible = lblTestConnectionAwait.Visible = True_showWait_False_NoConnetion;
-            lblTestConnSource.Visible = lblViewsNoConnection.Visible = !True_showWait_False_NoConnetion;
         }
 
         private void copyFilesToImportZipPackage(subFolders dataFileToImportPath, subFolders tempFolder)
@@ -677,7 +731,7 @@ namespace DMM365
             tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
         }
 
-        private void setOperatorsDropDown(ComboBox cb, IEnumerable<KeyValuePair<int, string>> ds)
+        private void populateDropDown(ComboBox cb, IEnumerable<KeyValuePair<object, string>> ds)
         {
             cb.DataSource = ds;
             cb.DisplayMember = "Value";
@@ -705,72 +759,6 @@ namespace DMM365
 
         }
 
-        private void showFile(string path, StreamReader stream = null)
-        {
-            if (GlobalHelper.isValidString(path) && File.Exists(path))
-            {
-                using (StreamReader sr = new StreamReader(openFileDialogLoadSchema.FileName))
-                { MessageBox.Show(sr.ReadToEnd()); }
-            }
-            else if (!ReferenceEquals(stream, null))
-            {
-
-                MessageBox.Show(stream.ReadToEnd());
-                stream.Close();
-            }
-            else MessageBox.Show("File not found");
-        }
-
-        private bool validateGroup(GroupBox targetGroup)
-        {
-
-            foreach (var tbx in targetGroup.Controls.OfType<TextBox>())
-            {
-                if (!GlobalHelper.isValidString(tbx.Text) && tbx.Enabled)
-                {
-                    tbx.BackColor = Color.LightSalmon;
-                    return false;
-                }
-                else tbx.BackColor = Color.White;
-            }
-
-            return true;
-        }
-
-        private bool validateLogicalOperator(ComboBox logicOperatorDDL)
-        {
-            if (!GlobalHelper.isValidString(logicOperatorDDL.Text))
-            {
-                logicOperatorDDL.BackColor = Color.LightSalmon;
-                return false;
-            }
-            else logicOperatorDDL.BackColor = Color.White;
-
-            return true;
-        }
-
-        private void setStatusLabel(Label handler, bool isSuccess)
-        {
-
-            if (isSuccess)
-            {
-                handler.Text = "SuCCeSS";
-                handler.ForeColor = Color.Green;
-            }
-            else
-            {
-                handler.Text = "FaileD";
-                handler.ForeColor = Color.Red;
-            }
-        }
-
-        private void setConnectionStatusVisible(bool isSuccess)
-        {
-            lblViewsNoConnection.Visible = !isSuccess;
-            lblConnectionAwaitViews.Visible = false;
-            lblTestConnSource.Visible = !isSuccess;
-            lblTestConnectionAwait.Visible = false;
-        }
 
         #endregion Private methods
 
@@ -1018,6 +1006,10 @@ namespace DMM365
 
         #endregion Saved Views Tab Management
 
+
+
+
+
         #endregion Helpers
 
 
@@ -1028,8 +1020,10 @@ namespace DMM365
             CheckBox cb = sender as CheckBox;
             if (ReferenceEquals(cb, null)) return;
 
-            groupAttachmentsMasters.Visible = cb.Checked;
+            groupAttachmentsCopySettings.Enabled = txtxAttachmentsDataFile.Visible = btnSelectAttachmentsDataFile.Visible = cb.Checked;
             cbxAttachmentsRollback.Enabled = cbxFromPortalToPortal.Enabled = !cb.Checked;
+            btnStartAttachmentsCopyText();
+            if(!cb.Checked) cleanAttachmentsSetting(cb.Checked);
         }
 
         private void cbxFromPortalToPortal_CheckedChanged(object sender, EventArgs e)
@@ -1037,8 +1031,20 @@ namespace DMM365
             CheckBox cb = sender as CheckBox;
             if (ReferenceEquals(cb, null)) return;
 
-            groupPortalsSources.Visible = cb.Checked;
+            //fill portals drop downs
+            //source 
+            sourcePortals = CrmHelper.getListOfPortals(crmServiceClientSource);
+            populateDropDown(ddlSourcePortal, CrmHelper.convertEntityContainerToKVP(sourcePortals));
+            //target
+            targetPortals = CrmHelper.getListOfPortals(crmTarget);
+            populateDropDown(ddlTargetPortal, CrmHelper.convertEntityContainerToKVP(targetPortals));
+
+
+            groupAttachmentsCopySettings.Enabled = groupPortalsSources.Visible = cb.Checked;
             cbxAttachmentsRollback.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+            btnStartAttachmentsCopyText();
+            if (!cb.Checked) cleanAttachmentsSetting(cb.Checked);
+
         }
 
         private void cbxAttachmentsRollback_CheckedChanged(object sender, EventArgs e)
@@ -1047,8 +1053,10 @@ namespace DMM365
             if (ReferenceEquals(cb, null)) return;
 
             cbxAttachmentsKeepIDs.Checked = false;
-            groupAttachmentsRollBack.Visible = btnAttachmentsRollback.Visible = cb.Checked;            
-            btnStartAttachmentsCopy.Visible = groupAttachmentsCopySettings.Visible = cbxFromPortalToPortal.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+            groupAttachmentsCopySettings.Visible = cbxFromPortalToPortal.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+            txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
+
+            btnStartAttachmentsCopyText();
         }
 
         private void cbxAttachmentsKeepIDs_CheckedChanged(object sender, EventArgs e)
@@ -1056,64 +1064,24 @@ namespace DMM365
             CheckBox cb = sender as CheckBox;
             if (ReferenceEquals(cb, null)) return;
 
-            groupAttachmentsRollBack.Visible = cb.Checked;
-            btnAttachmentsRollback.Visible = !cb.Checked;
+            txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
+
         }
 
+        private void btnSelectAttachmentsDataFile_Click(object sender, EventArgs e)
+        {
+            //get 
+        }
+
+        private void btnSelectIDsBackup_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void btnStartAttachmentsCopy_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void btnAtachmentsIdsForBackup_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAttachmentsRollback_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAttachmentsLoadMasters_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btmAttachmentsSource_Click(object sender, EventArgs e)
-        {
-            crmSource = ConnectionHelper.getOnLineConnection(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource, CredentialsHelper.getLocalPassword(string.Concat(allSettings.OrgUniqueNameSource, allSettings.ServerUrlSource, allSettings.UsernameSource)));
-        }
-
-        private void btnTestConnTarget_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         #endregion Attachments
-
-        /*
-                private void button2_Click(object sender, EventArgs e)
-        {
-            //window to back
-            this.TopMost = false;
-
-            CRMLogin lgin = new CRMLogin();
-            lgin.ShowDialog();
-            //lgin.ConnectionToCrmCompleted += Lgin_ConnectionToCrmCompleted;
-
-            if (lgin.CrmConnectionMgr != null && lgin.CrmConnectionMgr.CrmSvc != null && lgin.CrmConnectionMgr.CrmSvc.IsReady)
-            {
-                 WhoAmIResponse wai = (WhoAmIResponse)lgin.CrmConnectionMgr.CrmSvc.Execute(new WhoAmIRequest());
-            }
-
-            //window to front
-            this.TopMost = true;
-         }
-
-        */
-
     }
 }
