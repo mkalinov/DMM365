@@ -124,6 +124,14 @@ namespace DMM365.Helper
             return responce.FetchXml;
         }
 
+        internal static void deleteEntityByID(CrmServiceClient service, string entityName, List<Guid> ids)
+        {
+            foreach (Guid item in ids)
+            {
+                service.Delete(entityName, item);
+            }
+        }
+
         #endregion Common
 
 
@@ -252,28 +260,7 @@ namespace DMM365.Helper
 
         #region Annotation
 
-        /* execution
-                    DataEntities entities = Helper.DeserializeXmlFromFile<DataEntities>(datafilePath); //web files
-            foreach (DataEntity de in entities.entities)
-            {
-                //get attachment per entity record, files only, get lates
-                foreach (Record rec in de.RecordsCollection)
-                {
-                    Entity latestAttacnment = Helper.getLattestAttachmentByEntity(source, new Guid(rec.id), de.name, true);
-                    if (ReferenceEquals(latestAttacnment, null)) continue;
-
-                    //check is target has same entity
-                    Entity targetMaster = target.Retrieve(de.name, new Guid(rec.id), new ColumnSet());
-                    if (ReferenceEquals(targetMaster, null)) continue;
-
-                    //copy to target
-                    Helper.cloneAnnotation(target, latestAttacnment);
-                }
-            }
-
-        */
-
-        public static Entity getLattestAttachmentByEntity(CrmServiceClient service, Guid masterId, string masterLogicalName, bool documentOnly)
+        internal static Entity getLattestAttachmentByEntity(CrmServiceClient service, Guid masterId, string masterLogicalName, bool includeNotes)
         {
             QueryExpression query = new QueryExpression("annotation");
             FilterExpression filter = new FilterExpression(LogicalOperator.And);
@@ -282,7 +269,7 @@ namespace DMM365.Helper
             ConditionExpression cond3 = new ConditionExpression("isdocument", ConditionOperator.Equal, "1");
             filter.AddCondition(cond1);
             filter.AddCondition(cond2);
-            if (documentOnly) filter.AddCondition(cond3);
+            if (!includeNotes) filter.AddCondition(cond3);
 
             query.Criteria = filter;
             query.NoLock = true;
@@ -297,8 +284,7 @@ namespace DMM365.Helper
             return null;
         }
 
-
-        public static Guid? cloneAnnotation(CrmServiceClient service, Entity noteSource)
+        internal static Guid? cloneAnnotation(CrmServiceClient service, Entity noteSource)
         {
             Guid clonedEntityGuid;
             Entity noteClone = new Entity("annotation");
@@ -346,7 +332,57 @@ namespace DMM365.Helper
             return clonedEntityGuid;
         }
 
-        public static List<CrmEntityContainer> getListOfPortals(CrmServiceClient service)
+        internal static Guid? cloneAnnotationForSpecificID(CrmServiceClient service, Entity noteSource, Guid ObjectID)
+        {
+            Guid clonedEntityGuid;
+            Entity noteClone = new Entity("annotation");
+
+            noteClone["objectid"] = ObjectID;
+
+
+            if (noteSource.Contains("documentbody"))
+                noteClone["documentbody"] = noteSource["documentbody"];
+            if (noteSource.Contains("filename"))
+                noteClone["filename"] = noteSource["filename"];
+            if (noteSource.Contains("isdocument"))
+                noteClone["isdocument"] = noteSource["isdocument"];
+            if (noteSource.Contains("langid"))
+                noteClone["langid"] = noteSource["langid"];
+            if (noteSource.Contains("mimetype"))
+                noteClone["mimetype"] = noteSource["mimetype"];
+            if (noteSource.Contains("notetext"))
+                noteClone["notetext"] = noteSource["notetext"];
+            if (noteSource.Contains("objecttypecode"))
+                noteClone["objecttypecode"] = noteSource["objecttypecode"];
+            if (noteSource.Contains("stepid"))
+                noteClone["stepid"] = noteSource["stepid"];
+            if (noteSource.Contains("subject"))
+                noteClone["subject"] = noteSource["subject"];
+
+            //for data migration tools only, integer
+            //noteClone["importsequencenumber"] = noteSource["importsequencenumber"];
+
+            //for migration only, use for update
+            //noteClone["overriddencreatedon"] = noteSource["overriddencreatedon"];
+
+            //leave auto
+            //noteClone["ownerid"] = noteSource["ownerid"];
+            //noteClone["owneridtype"] = noteSource["owneridtype"];
+
+            try
+            {
+                clonedEntityGuid = service.Create(noteClone);
+            }
+            catch (Exception ex)
+            {
+                //TO DO: log
+                return null;
+            }
+            return clonedEntityGuid;
+        }
+
+
+        internal static List<CrmEntityContainer> getListOfPortals(CrmServiceClient service)
         {
             QueryExpression query = new QueryExpression("adx_website");
             query.ColumnSet = new ColumnSet(true);
@@ -357,6 +393,24 @@ namespace DMM365.Helper
 
             return convertEntityToEntityContainer(en.Entities.ToList());
         }
+
+        internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, Guid portalId)
+        {
+
+            QueryExpression query = new QueryExpression("adx_webfile");
+            FilterExpression filter = new FilterExpression(LogicalOperator.And);
+            ConditionExpression cond1 = new ConditionExpression("adx_websiteid", ConditionOperator.Equal, portalId);
+            query.ColumnSet = new ColumnSet(new string[] { "adx_name" });
+            query.Criteria = filter;
+            query.NoLock = true;
+
+            EntityCollection result = service.RetrieveMultiple(query);
+            if (!ReferenceEquals(result, null) && result.Entities.Count > 0)
+                return convertEntityToEntityContainer(result.Entities.ToList());
+
+            return null;
+        }
+
 
         #endregion Annotation
 

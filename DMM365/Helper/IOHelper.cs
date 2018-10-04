@@ -12,13 +12,28 @@ namespace DMM365.Helper
 {
     public static class IOHelper
     {
-        /// <summary>
-        /// Copy files, overrides on doOverride = true, else appends
-        /// </summary>
-        /// <param name="sourcePath"></param>
-        /// <param name="destinationPath"></param>
-        /// <param name="doOverride"></param>
-        internal static void copyFile(string sourcePath, string destinationPath, bool doOverride) {
+
+        internal static bool isFileExist(string path, string extensionToCheck = "")
+        {
+            if (!File.Exists(path)) return false;
+            if (!GlobalHelper.isValidString(extensionToCheck))
+                return true;
+            string ext = extensionToCheck.Substring(0, 1) == "." ? extensionToCheck : "." + extensionToCheck;
+            if (Path.GetExtension(path) != ext)
+                return false;
+
+            return true;
+        }
+
+
+
+            /// <summary>
+            /// Copy files, overrides on doOverride = true, else appends
+            /// </summary>
+            /// <param name="sourcePath"></param>
+            /// <param name="destinationPath"></param>
+            /// <param name="doOverride"></param>
+            internal static void copyFile(string sourcePath, string destinationPath, bool doOverride) {
 
             //File.Copy(sourcePath, destinationPath, doOverride);
 

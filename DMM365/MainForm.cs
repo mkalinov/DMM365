@@ -16,6 +16,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Tooling.CrmConnectControl;
 using LoginCustom;
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 
 
 //using System.Windows;
@@ -224,13 +225,7 @@ namespace DMM365
 
 
             //get crm connection
-            crmServiceClientSource = getCrmConnectionOOB();
-            //update header
-            if (crmServiceClientSource.IsReady)
-            {
-                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
-                groupConnectedTo.Visible = linkSource.Visible = crmServiceClientSource.IsReady;
-            }
+            getConnectionsTargetPlusSource();
 
             //load configuration migration tool package
             if (openFileDialogLoadSchema.ShowDialog() == DialogResult.OK)
@@ -289,13 +284,7 @@ namespace DMM365
 
 
             //get crm connection
-            crmServiceClientSource = getCrmConnectionOOB();
-            //update header
-            if (crmServiceClientSource.IsReady)
-            {
-                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
-                groupConnectedTo.Visible = linkSource.Visible = crmServiceClientSource.IsReady;
-            }
+            getConnectionsTargetPlusSource();
 
             //load project
             if (openFileLoadProject.ShowDialog() == DialogResult.OK)
@@ -321,23 +310,7 @@ namespace DMM365
 
 
             //get crm connection
-            crmServiceClientSource = getCrmConnectionOOB();
-            //update header
-            if (crmServiceClientSource.IsReady)
-            {
-                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
-                linkSource.Visible = crmServiceClientSource.IsReady;
-
-            }
-            crmTarget = getCrmConnectionOOB();
-            //update header
-            if (crmTarget.IsReady)
-            {
-                string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
-                linkTarget.Visible = crmTarget.IsReady;
-            }
-            groupConnectedTo.Visible = crmServiceClientSource.IsReady && crmTarget.IsReady;
-
+            getConnectionsTargetPlusSource(true);
 
 
             cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cb.Checked;
@@ -391,6 +364,36 @@ namespace DMM365
             this.TopMost = true;
 
             return current;
+        }
+
+        private void getConnectionsTargetPlusSource(bool addTarget = false)
+        {
+            if (addTarget) 
+                MessageBox.Show("Please set two connections. First connection is the source instance and second will be the target");
+            else MessageBox.Show("Please set connection to the source instance");
+
+
+            //get crm connection
+            crmServiceClientSource = getCrmConnectionOOB();
+            //update header
+            if (crmServiceClientSource.IsReady)
+            {
+                linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
+                linkSource.Visible = crmServiceClientSource.IsReady;
+
+            }
+            if (addTarget)
+            {
+                crmTarget = getCrmConnectionOOB();
+                //update header
+                if (crmTarget.IsReady)
+                {
+                    string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
+                    linkTarget.Visible = crmTarget.IsReady;
+                }
+            }
+            groupConnectedTo.Visible = crmServiceClientSource.IsReady && (addTarget ? crmTarget.IsReady : true);
+
         }
 
 
@@ -758,6 +761,22 @@ namespace DMM365
             }
 
         }
+        
+        private bool validateGroup(GroupBox targetGroup)
+        {
+
+            foreach (var tbx in targetGroup.Controls.OfType<TextBox>())
+            {
+                if (!GlobalHelper.isValidString(tbx.Text) && tbx.Enabled)
+                {
+                    tbx.BackColor = Color.LightSalmon;
+                    return false;
+                }
+                else tbx.BackColor = Color.White;
+            }
+
+            return true;
+        }
 
 
         #endregion Private methods
@@ -1002,13 +1021,55 @@ namespace DMM365
 
 
 
-
-
         #endregion Saved Views Tab Management
 
 
+        private List<Guid> executeAttachmentsCopyBasedMasterEntity(string datafilePath, bool keepIds, bool includeNotes)
+        {
 
+            List<Guid> result = new List<Guid>();
 
+            DataEntities entities = IOHelper.DeserializeXmlFromFile<DataEntities>(datafilePath); //web files
+            foreach (DataEntity de in entities.entities)
+            {
+                //get attachment per entity record, files only, get lates
+                foreach (Record rec in de.RecordsCollection)
+                {
+                    Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmServiceClientSource, new Guid(rec.id), de.name, includeNotes);
+                    if (ReferenceEquals(latestAttacnment, null)) continue;
+
+                    //check is target has same entity
+                    Entity targetMaster = crmTarget.Retrieve(de.name, new Guid(rec.id), new ColumnSet());
+                    if (ReferenceEquals(targetMaster, null)) continue;
+
+                    //copy to target
+                    Guid? newNote = CrmHelper.cloneAnnotation(crmTarget, latestAttacnment);
+                    if (keepIds && newNote.HasValue) result.Add(newNote.Value);
+                }
+            }
+
+            return result;
+        }
+
+        private List<Guid> executeAttachmentsCopyBasedOnWebFileName(List<CrmEntityContainer> source, List<CrmEntityContainer> target, bool includeNotes, bool keepIds)
+        {
+
+            List<Guid> result = new List<Guid>();
+            foreach (CrmEntityContainer enSource in source)
+            {
+                //get single web file with same name, skip if plural
+                CrmEntityContainer enTarget = target.SingleOrDefault(e => e.name == enSource.name);
+                if (ReferenceEquals(enTarget, null)) continue;
+
+                Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmServiceClientSource, enSource.id, enSource.logicalName, includeNotes);
+
+                //copy to target
+                Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.id);
+                if (keepIds && newNote.HasValue) result.Add(newNote.Value);
+            }
+
+            return result;
+        }
 
         #endregion Helpers
 
@@ -1023,7 +1084,16 @@ namespace DMM365
             groupAttachmentsCopySettings.Enabled = txtxAttachmentsDataFile.Visible = btnSelectAttachmentsDataFile.Visible = cb.Checked;
             cbxAttachmentsRollback.Enabled = cbxFromPortalToPortal.Enabled = !cb.Checked;
             btnStartAttachmentsCopyText();
-            if(!cb.Checked) cleanAttachmentsSetting(cb.Checked);
+            if (!cb.Checked) cleanAttachmentsSetting(cb.Checked);
+
+            //get data file 
+            MessageBox.Show("Select a data.xml file to import IDs based on");
+
+            if (openFileAttachments.ShowDialog() == DialogResult.OK)
+            {
+                txtxAttachmentsDataFile.Text = openFileAttachments.FileName;
+            }
+
         }
 
         private void cbxFromPortalToPortal_CheckedChanged(object sender, EventArgs e)
@@ -1057,6 +1127,24 @@ namespace DMM365
             txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
 
             btnStartAttachmentsCopyText();
+
+            //get target connection
+            MessageBox.Show("Please set connection to the instance you wish delete attachments from");
+            linkSource.Visible = false;
+            crmTarget = getCrmConnectionOOB();
+            //update header
+            if (crmTarget.IsReady)
+            {
+                string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
+                linkTarget.Visible = crmTarget.IsReady;
+            }
+            //get IDs file
+            MessageBox.Show("Point to file with IDs of created attachment");
+            if (openFileAttachments.ShowDialog() == DialogResult.OK)
+            {
+                txtAttachmentsIDsBackUpFile.Text = openFileAttachments.FileName;
+            }
+
         }
 
         private void cbxAttachmentsKeepIDs_CheckedChanged(object sender, EventArgs e)
@@ -1066,22 +1154,172 @@ namespace DMM365
 
             txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
 
+            MessageBox.Show("Select an xml file to keep list of created IDs");
+            if (openFileAttachments.ShowDialog() == DialogResult.OK)
+            {
+                txtAttachmentsIDsBackUpFile.Text = openFileAttachments.FileName;
+            }
+
+
         }
 
         private void btnSelectAttachmentsDataFile_Click(object sender, EventArgs e)
         {
-            //get 
+            //get data file             
+            if (openFileAttachments.ShowDialog() == DialogResult.OK)
+            {
+                txtxAttachmentsDataFile.Text = openFileAttachments.FileName;
+            }
         }
 
         private void btnSelectIDsBackup_Click(object sender, EventArgs e)
         {
+            //get data file             
+            if (openFileAttachments.ShowDialog() == DialogResult.OK)
+            {
+                txtAttachmentsIDsBackUpFile.Text = openFileAttachments.FileName;
+            }
 
         }
 
         private void btnStartAttachmentsCopy_Click(object sender, EventArgs e)
         {
+            List<Guid> ids = new List<Guid>();
+            //identify type of action
+            bool basedOnFile = cbxBasedOnFiles.Checked;
+            bool P2P = cbxFromPortalToPortal.Checked;
+            bool atRollback = cbxAttachmentsRollback.Checked;
+            bool keepIds = cbxAttachmentsKeepIDs.Checked;
+            bool includeNotes = cbxIncludeTextNotes.Checked;
 
+            //validate pre-requisites
+
+            if (atRollback)
+            {
+                //target connection only
+                if (crmTarget.IsReady)
+                {
+                    //validate backup file   
+                    if (!GlobalHelper.isValidString(txtAttachmentsIDsBackUpFile.Text) || !IOHelper.isFileExist(txtAttachmentsIDsBackUpFile.Text, ".xml"))
+                    {
+                        MessageBox.Show("Attachment IDs backup file was not found");
+                        return;
+                    }
+
+                    try
+                    {
+                        ids = IOHelper.DeserializeXmlFromFile<List<Guid>>(txtAttachmentsIDsBackUpFile.Text);
+                        //execute
+                        //CrmHelper.deleteEntityByID(crmTarget, "annotation", ids);
+                        MessageBox.Show("Delete success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Something went wrong. Error: " + ex.Message);
+                        return;
+                    }
+
+                }
+                else MessageBox.Show(crmServiceClientSource.IsReady ? "Connection to target is not set" : "Connection to Source is not set");
+
+                return;
+            }
+
+
+            //validate twoo connections
+            if ((basedOnFile || P2P) && crmServiceClientSource.IsReady && crmTarget.IsReady)
+            {
+                if (basedOnFile)
+                {
+
+                    //validate data file
+                    if (!GlobalHelper.isValidString(txtxAttachmentsDataFile.Text) || !IOHelper.isFileExist(txtxAttachmentsDataFile.Text, ".xml"))
+                    {
+                        MessageBox.Show("Data file was not found");
+                        return;
+                    }
+                    //validate backup file
+                    if (keepIds)
+                    {
+                        if (!GlobalHelper.isValidString(txtAttachmentsIDsBackUpFile.Text) || !IOHelper.isFileExist(txtAttachmentsIDsBackUpFile.Text, ".xml"))
+                        {
+                            MessageBox.Show("Attachment IDs backup file was not found");
+                            return;
+                        }
+                    }
+                    //execution
+                    try
+                    {
+                        //ids = executeAttachmentsCopyBasedMasterEntity(txtxAttachmentsDataFile.Text, keepIds, includeNotes);
+
+                        //if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
+
+                        MessageBox.Show("Success");
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Something went wrong. Error: " + ex.Message);
+                        return;
+                    }
+                }
+
+
+                if (P2P)
+                {
+
+                    //validate dropdouns portal selected
+                    if (!validateGroup(groupPortalsSources))
+                    {
+                        MessageBox.Show("Please select a portal");
+                        return;
+                    }
+
+                    //vlidate not the same portal for same connections
+                    if (crmServiceClientSource.ConnectedOrgUniqueName == crmTarget.ConnectedOrgUniqueName
+                        && ddlSourcePortal.SelectedValue == ddlTargetPortal.SelectedValue)
+                    {
+                        MessageBox.Show("Copy from source portal to  itself is not supported. Please select different target.");
+                        return;
+                    }
+
+                    if (keepIds)
+                    {
+                        if (!GlobalHelper.isValidString(txtAttachmentsIDsBackUpFile.Text) || !IOHelper.isFileExist(txtAttachmentsIDsBackUpFile.Text, ".xml"))
+                        {
+                            MessageBox.Show("Attachment IDs backup file was not found");
+                            return;
+                        }
+                    }
+                    //execute
+                    try
+                    {
+                        List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, new Guid(ddlSourcePortal.SelectedValue.ToString()));
+                        List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, new Guid(ddlSourcePortal.SelectedValue.ToString()));
+
+                        //ids = executeAttachmentsCopyBasedOnWebFileName(listOfWebFilesSource, listOfWebFilesTarget, includeNotes, keepIds);
+
+                        //if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
+
+
+                        MessageBox.Show("Success P2P");
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Something went wrong. Error: " + ex.Message);
+                        return;
+                    }
+
+                }
+            }
+            else MessageBox.Show(crmServiceClientSource.IsReady ? "Connection to target is not set" : "Connection to Source is not set");
+
+
+
+            //report
         }
+
         #endregion Attachments
     }
 }
