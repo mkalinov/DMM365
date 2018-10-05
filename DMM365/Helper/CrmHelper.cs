@@ -18,7 +18,7 @@ namespace DMM365.Helper
         internal static IEnumerable<KeyValuePair<object, string>> convertEntityContainerToKVP(List<CrmEntityContainer> list)
         {
             Dictionary<object, string> result = new Dictionary<object, string>();
-            result.Add(null, "");
+            result.Add(Guid.Empty, "");
 
             foreach (CrmEntityContainer item in list)
                 result.Add(item.id, item.name);

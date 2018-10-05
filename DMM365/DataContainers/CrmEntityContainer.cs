@@ -19,7 +19,7 @@ namespace DMM365.DataContainers
             if (isCustom)
             {
                 string prefix = entity.LogicalName.Substring(0, index);
-                customName = prefix + "name";
+                customName = prefix + "_name";
             }
             else customName = "name";
         }

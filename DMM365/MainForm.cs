@@ -44,9 +44,7 @@ namespace DMM365
         //for drag and drop source
         List<SchemaField> SelectedFieldsAdvanced = new List<SchemaField>();
         Dictionary<Guid, queryContainer> viewsContainers = new Dictionary<Guid, queryContainer>();
-
-        string[] buttons = new string[] { "btnProject", "btnProjectLoad", "btnLoadSchema", "btnProjectSaveAndNext", "btnTestConnSource", "btnCopyToolBack", "btnCopyToolFromSource", "btnCopyToolFromModified", "btnViewsBack", "btnSaveModifyViewsFile", "btnViewNext" };
-
+        
         #region Attachments
 
         CrmServiceClient crmTarget;
@@ -102,10 +100,16 @@ namespace DMM365
 
         }
 
+        //protected override bool ShowWithoutActivation
+        //{
+        //    get { return true; }
+        //}
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             //property changed notification
             allSettings.PropertyChanged += AllSettings_PropertyChanged;
+
         }
 
 
@@ -339,12 +343,9 @@ namespace DMM365
         {
 
             CrmServiceClient current = null;
-            //window to back
-            this.TopMost = false;
 
             CRMLogin login = new CRMLogin();
             login.ShowDialog();
-            //lgin.ConnectionToCrmCompleted += Lgin_ConnectionToCrmCompleted;
 
             if (login.CrmConnectionMgr != null && login.CrmConnectionMgr.CrmSvc != null && login.CrmConnectionMgr.CrmSvc.IsReady)
             {
@@ -360,9 +361,6 @@ namespace DMM365
 
             }
 
-            //window to front
-            this.TopMost = true;
-
             return current;
         }
 
@@ -376,7 +374,7 @@ namespace DMM365
             //get crm connection
             crmServiceClientSource = getCrmConnectionOOB();
             //update header
-            if (crmServiceClientSource.IsReady)
+            if (!ReferenceEquals(crmServiceClientSource, null) && crmServiceClientSource.IsReady)
             {
                 linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
                 linkSource.Visible = crmServiceClientSource.IsReady;
@@ -386,12 +384,14 @@ namespace DMM365
             {
                 crmTarget = getCrmConnectionOOB();
                 //update header
-                if (crmTarget.IsReady)
+                if (!ReferenceEquals(crmTarget, null) && crmTarget.IsReady)
                 {
-                    string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
+                    linkTarget.Text = string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
                     linkTarget.Visible = crmTarget.IsReady;
                 }
             }
+
+            if (ReferenceEquals(crmServiceClientSource, null) && ReferenceEquals(crmTarget, null)) return;
             groupConnectedTo.Visible = crmServiceClientSource.IsReady && (addTarget ? crmTarget.IsReady : true);
 
         }
@@ -451,27 +451,12 @@ namespace DMM365
                 foreach (DataEntity comparer in listOfData_DS.entities)
                 {
 
-                    //switch (ddlViewsActionOperator.Text)
-                    //{
-                    //    case "Selected Only":
 
                     if (comparer.RecordsCollection.All(r => !ids.Contains(new Guid(r.id), new GuidEqualityComparer())))
                         raw.entities.RemoveAll(d => d.name == comparer.name);
                     else
                         raw.entities.SingleOrDefault(d => d.name == comparer.name).RecordsCollection.RemoveAll(r => !ids.Contains(new Guid(r.id), new GuidEqualityComparer()));
 
-                    //    break;
-                    //case "All Except Selected":
-
-                    //if (comparer.RecordsCollection.All(r => ids.Contains(new Guid(r.id), new GuidEqualityComparer())))
-                    //    raw.entities.RemoveAll(d => d.name == comparer.name);
-                    //else
-                    //    raw.entities.SingleOrDefault(d => d.name == comparer.name).RecordsCollection.RemoveAll(r => ids.Contains(new Guid(r.id), new GuidEqualityComparer()));
-
-                    //        break;
-
-                    //    default: break;
-                    //}
                 }
 
                 //clear DataFileByViews folder
@@ -707,14 +692,6 @@ namespace DMM365
             btnStartAttachmentsCopy.Text = cbxAttachmentsRollback.Checked ? "ROLL BACK" : "COPY";
         }
 
-        private void enableAllButtons(bool isEnabled)
-        {
-            for (int i = 0; i < buttons.Length; i++)
-            {   
-                Button current = Controls.Find(buttons[i], true).SingleOrDefault() as Button;
-                if (!ReferenceEquals(current, null)) current.Enabled = isEnabled;
-            }
-        }
 
         private void copyFilesToImportZipPackage(subFolders dataFileToImportPath, subFolders tempFolder)
         {
@@ -734,11 +711,13 @@ namespace DMM365
             tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
         }
 
-        private void populateDropDown(ComboBox cb, IEnumerable<KeyValuePair<object, string>> ds)
+        private void populateDropDown(ComboBox cb, List<CrmEntityContainer> ds)
         {
             cb.DataSource = ds;
-            cb.DisplayMember = "Value";
-            cb.ValueMember = "Key";
+            cb.DisplayMember = "name";
+            cb.ValueMember = "id";
+            cb.SelectedItem = null;
+            
         }
 
         private void moveListBoxItems(ListBox source, List<SchemaEntity> dataSource, BindingSource bs, List<SchemaEntity> dataSourceTarget, BindingSource bd)
@@ -805,7 +784,7 @@ namespace DMM365
             //yet saved
             if (!ReferenceEquals(getView(view.id), null)) deleteView(view.id);
 
-            if (ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
+            if (ReferenceEquals(allSettings.SelectedUserQueries, null) || ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
                 viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, cbxExecuteAsListOfLinkedQueries.Checked, cbxCollectAllReferences.Checked, cbxExcludeFromResult.Checked));
 
             else {
@@ -1104,10 +1083,10 @@ namespace DMM365
             //fill portals drop downs
             //source 
             sourcePortals = CrmHelper.getListOfPortals(crmServiceClientSource);
-            populateDropDown(ddlSourcePortal, CrmHelper.convertEntityContainerToKVP(sourcePortals));
+            populateDropDown(ddlSourcePortal, sourcePortals);
             //target
             targetPortals = CrmHelper.getListOfPortals(crmTarget);
-            populateDropDown(ddlTargetPortal, CrmHelper.convertEntityContainerToKVP(targetPortals));
+            populateDropDown(ddlTargetPortal, targetPortals);
 
 
             groupAttachmentsCopySettings.Enabled = groupPortalsSources.Visible = cb.Checked;
@@ -1210,7 +1189,7 @@ namespace DMM365
                     {
                         ids = IOHelper.DeserializeXmlFromFile<List<Guid>>(txtAttachmentsIDsBackUpFile.Text);
                         //execute
-                        //CrmHelper.deleteEntityByID(crmTarget, "annotation", ids);
+                        CrmHelper.deleteEntityByID(crmTarget, "annotation", ids);
                         MessageBox.Show("Delete success");
                     }
                     catch (Exception ex)
@@ -1250,9 +1229,9 @@ namespace DMM365
                     //execution
                     try
                     {
-                        //ids = executeAttachmentsCopyBasedMasterEntity(txtxAttachmentsDataFile.Text, keepIds, includeNotes);
+                        ids = executeAttachmentsCopyBasedMasterEntity(txtxAttachmentsDataFile.Text, keepIds, includeNotes);
 
-                        //if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
+                        if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 
                         MessageBox.Show("Success");
                         return;
@@ -1297,9 +1276,9 @@ namespace DMM365
                         List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, new Guid(ddlSourcePortal.SelectedValue.ToString()));
                         List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, new Guid(ddlSourcePortal.SelectedValue.ToString()));
 
-                        //ids = executeAttachmentsCopyBasedOnWebFileName(listOfWebFilesSource, listOfWebFilesTarget, includeNotes, keepIds);
+                        ids = executeAttachmentsCopyBasedOnWebFileName(listOfWebFilesSource, listOfWebFilesTarget, includeNotes, keepIds);
 
-                        //if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
+                         if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 
 
                         MessageBox.Show("Success P2P");
@@ -1313,11 +1292,8 @@ namespace DMM365
 
                 }
             }
-            else MessageBox.Show(crmServiceClientSource.IsReady ? "Connection to target is not set" : "Connection to Source is not set");
+            else MessageBox.Show( "Connection is not set" );
 
-
-
-            //report
         }
 
         #endregion Attachments
