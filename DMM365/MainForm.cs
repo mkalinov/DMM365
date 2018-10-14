@@ -17,6 +17,8 @@ using Microsoft.Xrm.Tooling.CrmConnectControl;
 using LoginCustom;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Portal365_Deployment_Manager.Properties;
+using System.Threading;
 
 
 //using System.Windows;
@@ -107,11 +109,27 @@ namespace DMM365
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //load wpf control - mutulates the form 
+            CRMLogin login = new CRMLogin();
+
+            //fix sizes
+            fixWPF_caused_resizing();
+
             //property changed notification
             allSettings.PropertyChanged += AllSettings_PropertyChanged;
 
         }
 
+        private void fixWPF_caused_resizing()
+        {
+
+            this.WindowState = Settings.Default.F1State;
+            this.Location = Settings.Default.F1Location;
+            this.Size = Settings.Default.F1Size;
+            this.Font = Settings.Default.F1Font;
+            this.StartPosition = Settings.Default.F1Position;
+
+        }
 
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -225,10 +243,21 @@ namespace DMM365
 
                 tbxProject.Text = folderBrowserDialogLoadProject.SelectedPath;
             }
+            else
+            {
+                cb.Checked = false;
+                return;
+            }
 
 
             //get crm connection
             getConnectionsTargetPlusSource();
+            if (ReferenceEquals(crmServiceClientSource, null))
+            {
+                cb.Checked = false;
+                return;
+            }
+
 
             //load configuration migration tool package
             if (openFileDialogLoadSchema.ShowDialog() == DialogResult.OK)
@@ -266,6 +295,11 @@ namespace DMM365
 
                 loadProject();
             }
+            else
+            {
+                cb.Checked = false;
+                return;
+            }
 
 
             //move to views tab
@@ -286,6 +320,12 @@ namespace DMM365
 
             //get crm connection
             getConnectionsTargetPlusSource();
+            if (ReferenceEquals(crmServiceClientSource, null))
+            {
+                cb.Checked = false;
+                return;
+            }
+
 
             MessageBox.Show("Select < project name >.xml file to load", "Load Project");
 
@@ -296,6 +336,11 @@ namespace DMM365
                 isCreate = false;
 
                 tbxProject.Text = Path.GetDirectoryName(openFileLoadProject.FileName);
+            }
+            else
+            {
+                cb.Checked = false;
+                return;
             }
 
             //move to views tab
@@ -313,6 +358,11 @@ namespace DMM365
             {
                 //get crm connection
                 getConnectionsTargetPlusSource(true);
+
+                if (ReferenceEquals(crmServiceClientSource, null) || ReferenceEquals(crmTarget, null))
+                {
+                    cb.Checked = false;
+                }
             }
 
             cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cb.Checked;
@@ -366,10 +416,10 @@ namespace DMM365
 
         private CrmServiceClient getCrmConnectionOOB()
         {
-
             CrmServiceClient current = null;
-
+            
             CRMLogin login = new CRMLogin();
+            
             login.ShowDialog();
 
             if (login.CrmConnectionMgr != null && login.CrmConnectionMgr.CrmSvc != null && login.CrmConnectionMgr.CrmSvc.IsReady)
@@ -386,7 +436,6 @@ namespace DMM365
                 }
 
             }
-
             return current;
         }
 
@@ -403,6 +452,8 @@ namespace DMM365
                 linkSource.Visible = crmServiceClientSource.IsReady;
 
             }
+            else return;
+
             if (addTarget)
             {
                 MessageBox.Show("Set up TARGET connection", "TARGET");
@@ -414,11 +465,11 @@ namespace DMM365
                     linkTarget.Text = string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
                     linkTarget.Visible = crmTarget.IsReady;
                 }
+                else return;
             }
 
-            if (ReferenceEquals(crmServiceClientSource, null) && ReferenceEquals(crmTarget, null)) return;
-
             btnSourcetConnectionChange.Visible = btnTargetConnectionChange.Visible = true;
+
         }
 
         private void killConnection(bool both = false)
@@ -1352,7 +1403,7 @@ namespace DMM365
                     try
                     {
 
-                        if (DialogResult.Yes == MessageBox.Show("You're going to copy attachments \r\n from '" + crmServiceClientSource.ConnectedOrgFriendlyName + "' crm, Portal '" + ddlSourcePortal.Text + "' \r\n to '" + crmTarget.ConnectedOrgFriendlyName + "' cmr, Portal '" + ddlTargetPortal.Text + "' \r\n Recording of newly created attachemnts for potntial rollback is " + (keepIds ? "'ON'" : "'OFF'") + " \r\n\n Execute?", "CONFIRM COPY",MessageBoxButtons.YesNo))
+                        if (DialogResult.Yes == MessageBox.Show("You're going to copy attachments \r\n from '" + crmServiceClientSource.ConnectedOrgFriendlyName + "' crm, Portal '" + ddlSourcePortal.Text + "' \r\n to '" + crmTarget.ConnectedOrgFriendlyName + "' cmr, Portal '" + ddlTargetPortal.Text + "' \r\n Recording of newly created attachemnts for potntial rollback is " + (keepIds ? "'ON'" : "'OFF'") + " \r\n\n Execute?", "CONFIRM COPY", MessageBoxButtons.YesNo))
                         {
 
                             List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, new Guid(ddlSourcePortal.SelectedValue.ToString()));
@@ -1384,8 +1435,6 @@ namespace DMM365
         }
 
         #endregion Attachments
-
-
-        private void reloadForm() { }
+        
     }
 }
