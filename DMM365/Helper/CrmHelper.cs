@@ -286,7 +286,6 @@ namespace DMM365.Helper
 
         internal static Guid? cloneAnnotation(CrmServiceClient service, Entity noteSource)
         {
-            Guid clonedEntityGuid;
             Entity noteClone = new Entity("annotation");
 
             if (noteSource.Contains("documentbody"))
@@ -320,24 +319,14 @@ namespace DMM365.Helper
             //noteClone["ownerid"] = noteSource["ownerid"];
             //noteClone["owneridtype"] = noteSource["owneridtype"];
 
-            try
-            {
-                clonedEntityGuid = service.Create(noteClone);
-            }
-            catch (Exception ex)
-            {
-                //TO DO: log
-                return null;
-            }
-            return clonedEntityGuid;
+            return service.Create(noteClone);
         }
 
-        internal static Guid? cloneAnnotationForSpecificID(CrmServiceClient service, Entity noteSource, Guid ObjectID)
+        internal static Guid? cloneAnnotationForSpecificID(CrmServiceClient service, Entity noteSource, EntityReference ObjectID)
         {
-            Guid clonedEntityGuid;
             Entity noteClone = new Entity("annotation");
 
-            noteClone["objectid"] = ObjectID;
+            noteClone["objectid"] =  ObjectID;
 
 
             if (noteSource.Contains("documentbody"))
@@ -359,26 +348,7 @@ namespace DMM365.Helper
             if (noteSource.Contains("subject"))
                 noteClone["subject"] = noteSource["subject"];
 
-            //for data migration tools only, integer
-            //noteClone["importsequencenumber"] = noteSource["importsequencenumber"];
-
-            //for migration only, use for update
-            //noteClone["overriddencreatedon"] = noteSource["overriddencreatedon"];
-
-            //leave auto
-            //noteClone["ownerid"] = noteSource["ownerid"];
-            //noteClone["owneridtype"] = noteSource["owneridtype"];
-
-            try
-            {
-                clonedEntityGuid = service.Create(noteClone);
-            }
-            catch (Exception ex)
-            {
-                //TO DO: log
-                return null;
-            }
-            return clonedEntityGuid;
+            return service.Create(noteClone);
         }
 
 
@@ -400,7 +370,7 @@ namespace DMM365.Helper
             QueryExpression query = new QueryExpression("adx_webfile");
             FilterExpression filter = new FilterExpression(LogicalOperator.And);
             ConditionExpression cond1 = new ConditionExpression("adx_websiteid", ConditionOperator.Equal, portalId);
-            query.ColumnSet = new ColumnSet(new string[] { "adx_name" });
+            query.ColumnSet = new ColumnSet(new string[] { "adx_name", "adx_partialurl"});
             query.Criteria = filter;
             query.NoLock = true;
 
