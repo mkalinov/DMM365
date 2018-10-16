@@ -203,6 +203,8 @@ namespace DMM365
 
                             //check project mode
                             if (!isCreate) loadProject();
+                            enableTabs(true);
+
                         }
                         break;
 
@@ -260,6 +262,8 @@ namespace DMM365
 
 
             //load configuration migration tool package
+            MessageBox.Show("Select a Configuration Migration tool package (.zip)", "Load Configuration");
+
             if (openFileDialogLoadSchema.ShowDialog() == DialogResult.OK)
             {
                 //check if loaded file is zip
@@ -287,13 +291,12 @@ namespace DMM365
 
                 ArchiveHelper.ExtractZipContentByFileName(IOHelper.getProjectSubfolderPath(allSettings, subFolders.ExportPackageZip, fileName.appendFolderNameDotZip)
                     , @"[Content_Types].xml", IOHelper.getProjectSubfolderPath(allSettings, subFolders.ContentTypeSource, fileName.contentTypesXml));
-
-
-
+                                
                 updateProjectTree();
-
-
+                
                 loadProject();
+
+                enableTabs(true);
             }
             else
             {
@@ -340,6 +343,7 @@ namespace DMM365
             else
             {
                 cb.Checked = false;
+                enableTabs(false);
                 return;
             }
 
@@ -385,19 +389,57 @@ namespace DMM365
             treeProject.Nodes[0].Expand();
         }
 
+        private void enableTabs(bool isEnabled)
+        {
+
+            groupViewDataFilter.Enabled = groupCopyToolContent.Enabled = isEnabled;
+
+        }
 
         #region Connection 
 
         private void btnSourcetConnectionChange_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("If you change the SOURCE connection the project will be reload ", "SOURCE CHANGE", MessageBoxButtons.YesNo))
+            if (DialogResult.Yes == MessageBox.Show("If you change the SOURCE connection the project willbe reloaded. \r\n ", "SOURCE CHANGE", MessageBoxButtons.YesNo))
             {
                 crmServiceClientSource = getCrmConnectionOOB();
                 linkSource.Text = "Source CRM:   {0} \r\n{1}";
                 linkSource.Text = string.Format(linkSource.Text, crmServiceClientSource.ConnectedOrgFriendlyName, crmServiceClientSource.CrmConnectOrgUriActual.Scheme + "://" + crmServiceClientSource.CrmConnectOrgUriActual.DnsSafeHost);
                 linkSource.Visible = true;
 
-                //reload project
+                //reload views
+                if (cbxLoadProject.Checked)
+                {
+                    try
+                    {
+                        SettingsHelper.projectFileLoad(allSettings);
+                        bindings_Settings.ResetBindings(false);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        tbxProject.Text = string.Empty;
+                        return;
+                    }
+                    //set directories if not there
+                    IOHelper.setInnerProjectStructure(allSettings);
+                    //
+                    updateProjectTree();
+
+                    //check project mode
+                    if (!isCreate) loadProject();
+                    enableTabs(true);
+
+                    //move to views tab
+                    moveNextTab(1);
+
+                }
+                //reload drop downs if necessery
+                if (cbxFromPortalToPortal.Checked)
+                {
+                    sourcePortals = CrmHelper.getListOfPortals(crmServiceClientSource);
+                    populateDropDown(ddlSourcePortal, sourcePortals);
+                }
             }
         }
 
@@ -409,6 +451,14 @@ namespace DMM365
                 linkTarget.Text = "Target CRM:   {0} \r\n{1}";
                 linkTarget.Text = string.Format(linkTarget.Text, crmTarget.ConnectedOrgFriendlyName, crmTarget.CrmConnectOrgUriActual.Scheme + "://" + crmTarget.CrmConnectOrgUriActual.DnsSafeHost);
                 linkTarget.Visible = true;
+
+                //reload drop downs if necessery
+                if (cbxFromPortalToPortal.Checked)
+                {
+                    targetPortals = CrmHelper.getListOfPortals(crmTarget);
+                    populateDropDown(ddlTargetPortal, targetPortals);
+                }
+
             }
 
         }
@@ -720,7 +770,7 @@ namespace DMM365
                 IOHelper.clearDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.TempFolder, fileName.pathToFolderFromProjectRoot));
 
                 //copy to temp folder
-                copyFilesToImportZipPackage(subFolders.DataFileSource, subFolders.TempFolder);
+                copyFilesToImportZipPackage(subFolders.DataFileByCopyTool, subFolders.TempFolder);
                 //create import package
                 ArchiveHelper.CreateZipFromDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.TempFolder, fileName.pathToFolderFromProjectRoot), IOHelper.getProjectSubfolderPath(allSettings, subFolders.ImportPackageZipByCopyToolFromOrigin, fileName.appendFolderNameDotZip));
 
@@ -1132,18 +1182,20 @@ namespace DMM365
             List<Guid> result = new List<Guid>();
             foreach (CrmEntityContainer enSource in source)
             {
+                string n = enSource.name;
+
                 //get single web file with same name, skip if plural
                 List<CrmEntityContainer> enTargets = target.Where(e => e.name == enSource.name).ToList();
                 if (ReferenceEquals(enTargets, null) || enTargets.Count == 0) continue;
 
                 Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmServiceClientSource, enSource.id, enSource.logicalName, includeNotes);
+                if (ReferenceEquals(latestAttacnment, null)) continue;
 
                 //copy to all found target webfiles
                 foreach (CrmEntityContainer enTarget in enTargets)
                 {
-                    Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment,  enTarget.crmEntityRef);
+                    Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.crmEntityRef);
                     if (newNote.HasValue) result.Add(newNote.Value);
-
                 }
             }
 
@@ -1251,6 +1303,13 @@ namespace DMM365
             if (ReferenceEquals(cb, null)) return;
 
             txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
+
+            if (!cb.Checked)
+            {
+                //txtAttachmentsIDsBackUpFile.Text = string.Empty;
+                return;
+            }
+
 
             MessageBox.Show("Select an xml file to keep list of created IDs");
             if (openFileAttachments.ShowDialog() == DialogResult.OK)
@@ -1406,8 +1465,8 @@ namespace DMM365
                         if (DialogResult.Yes == MessageBox.Show("You're going to copy attachments \r\n from '" + crmServiceClientSource.ConnectedOrgFriendlyName + "' crm, Portal '" + ddlSourcePortal.Text + "' \r\n to '" + crmTarget.ConnectedOrgFriendlyName + "' cmr, Portal '" + ddlTargetPortal.Text + "' \r\n Recording of newly created attachemnts for potntial rollback is " + (keepIds ? "'ON'" : "'OFF'") + " \r\n\n Execute?", "CONFIRM COPY", MessageBoxButtons.YesNo))
                         {
 
-                            List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, new Guid(ddlSourcePortal.SelectedValue.ToString()));
-                            List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, new Guid(ddlSourcePortal.SelectedValue.ToString()));
+                            List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString());
+                            List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString());
 
                             ids = executeAttachmentsCopyBasedOnWebFileName(listOfWebFilesSource, listOfWebFilesTarget, includeNotes);
 

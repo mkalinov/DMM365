@@ -325,14 +325,16 @@ namespace DMM365.Helper
         internal static Guid? cloneAnnotationForSpecificID(CrmServiceClient service, Entity noteSource, EntityReference ObjectID)
         {
             Entity noteClone = new Entity("annotation");
-
-            noteClone["objectid"] =  ObjectID;
+            Guid? x = null;
+            noteClone["objectid"] = ObjectID;
 
 
             if (noteSource.Contains("documentbody"))
                 noteClone["documentbody"] = noteSource["documentbody"];
             if (noteSource.Contains("filename"))
                 noteClone["filename"] = noteSource["filename"];
+            //if (noteSource.Contains("filesize"))
+            //    noteClone["filesize"] = noteSource["filesize"];
             if (noteSource.Contains("isdocument"))
                 noteClone["isdocument"] = noteSource["isdocument"];
             if (noteSource.Contains("langid"))
@@ -364,15 +366,29 @@ namespace DMM365.Helper
             return convertEntityToEntityContainer(en.Entities.ToList());
         }
 
-        internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, Guid portalId)
+        internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, string portalName, string portalId)
         {
 
-            QueryExpression query = new QueryExpression("adx_webfile");
-            FilterExpression filter = new FilterExpression(LogicalOperator.And);
-            ConditionExpression cond1 = new ConditionExpression("adx_websiteid", ConditionOperator.Equal, portalId);
-            query.ColumnSet = new ColumnSet(new string[] { "adx_name", "adx_partialurl"});
-            query.Criteria = filter;
-            query.NoLock = true;
+            //QueryExpression query = new QueryExpression("adx_webfile");
+            //FilterExpression filter = new FilterExpression(LogicalOperator.And);
+            //ConditionExpression cond1 = new ConditionExpression("adx_websiteid", ConditionOperator.Equal, portalId);
+            //query.ColumnSet = new ColumnSet(new string[] { "adx_name", "adx_partialurl", "adx_websiteid" });
+            //query.Criteria = filter;
+            //query.NoLock = true;
+
+
+            string fetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>"
+                            + "<entity name = 'adx_webfile' >"
+                           + "<attribute name = 'adx_webfileid' />" 
+                           + "<attribute name = 'adx_name' />"
+                           + "<attribute name = 'createdon' />"
+                           + "<order attribute = 'adx_name' descending = 'false' />"
+                           + "<filter type = 'and' >"
+                           + "<condition attribute = 'adx_websiteid' operator= 'eq' uiname = '" + portalName + "' uitype = 'adx_website' value = '{" + portalId + "}' />"
+                           + "</filter ></entity ></fetch >";
+
+            FetchExpression query = new FetchExpression(fetch);
+
 
             EntityCollection result = service.RetrieveMultiple(query);
             if (!ReferenceEquals(result, null) && result.Entities.Count > 0)
