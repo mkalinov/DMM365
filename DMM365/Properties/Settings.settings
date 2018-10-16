@@ -3,19 +3,22 @@
   <Profiles />
   <Settings>
     <Setting Name="F1State" Type="System.Windows.Forms.FormWindowState" Scope="User">
-      <Value Profile="(Default)">Normal</Value>
+      <Value Profile="(Default)">Maximized</Value>
     </Setting>
     <Setting Name="F1Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="F1Size" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">1953, 1057</Value>
+      <Value Profile="(Default)">1056, 786</Value>
     </Setting>
     <Setting Name="F1Font" Type="System.Drawing.Font" Scope="User">
-      <Value Profile="(Default)">Microsoft Sans Serif, 10pt</Value>
+      <Value Profile="(Default)">Microsoft Sans Serif, 8.25pt</Value>
     </Setting>
     <Setting Name="F1Position" Type="System.Windows.Forms.FormStartPosition" Scope="User">
       <Value Profile="(Default)">CenterScreen</Value>
+    </Setting>
+    <Setting Name="F1AutoSize" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

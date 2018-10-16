@@ -25,7 +25,7 @@ namespace Portal365_Deployment_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
         public global::System.Windows.Forms.FormWindowState F1State {
             get {
                 return ((global::System.Windows.Forms.FormWindowState)(this["F1State"]));
@@ -49,7 +49,7 @@ namespace Portal365_Deployment_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1953, 1057")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1056, 786")]
         public global::System.Drawing.Size F1Size {
             get {
                 return ((global::System.Drawing.Size)(this["F1Size"]));
@@ -61,7 +61,7 @@ namespace Portal365_Deployment_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 10pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 8.25pt")]
         public global::System.Drawing.Font F1Font {
             get {
                 return ((global::System.Drawing.Font)(this["F1Font"]));
@@ -80,6 +80,18 @@ namespace Portal365_Deployment_Manager.Properties {
             }
             set {
                 this["F1Position"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool F1AutoSize {
+            get {
+                return ((bool)(this["F1AutoSize"]));
+            }
+            set {
+                this["F1AutoSize"] = value;
             }
         }
     }

@@ -125,9 +125,11 @@ namespace DMM365
 
             this.WindowState = Settings.Default.F1State;
             this.Location = Settings.Default.F1Location;
-            this.Size = Settings.Default.F1Size;
+            //this.Size = Settings.Default.F1Size;
+            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
             this.Font = Settings.Default.F1Font;
             this.StartPosition = Settings.Default.F1Position;
+            this.AutoSize = Settings.Default.F1AutoSize;
 
         }
 
@@ -137,7 +139,8 @@ namespace DMM365
             //save tab
             SettingsHelper.saveProject(allSettings);
 
-            moveNextTab(-1);
+            moveFirstTab();
+            //moveNextTab(-1);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -855,6 +858,12 @@ namespace DMM365
         {
             tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
         }
+
+        private void moveFirstTab()
+        {
+            tabs.SelectTab(0);
+        }
+
 
         private void populateDropDown(ComboBox cb, List<CrmEntityContainer> ds)
         {
