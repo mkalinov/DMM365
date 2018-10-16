@@ -71,7 +71,6 @@
             this.groupViewDataFilter = new System.Windows.Forms.GroupBox();
             this.lblTransformationSettings = new System.Windows.Forms.Label();
             this.lblTransformedQueryDisplay = new System.Windows.Forms.Label();
-            this.groupSavedViewsFooter = new System.Windows.Forms.GroupBox();
             this.btnViewsBack = new System.Windows.Forms.Button();
             this.btnSaveModifyViewsFile = new System.Windows.Forms.Button();
             this.cbxExcludeFromResult = new System.Windows.Forms.CheckBox();
@@ -106,20 +105,17 @@
             this.tabModifyDataBasedOnSavedQueries.SuspendLayout();
             this.groupViewsAdvanced.SuspendLayout();
             this.groupViewDataFilter.SuspendLayout();
-            this.groupSavedViewsFooter.SuspendLayout();
             this.tabReplaceIDs.SuspendLayout();
             this.groupCopyToolContent.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabsPanel
             // 
-            this.tabsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabsPanel.Controls.Add(this.tabs);
-            this.tabsPanel.Location = new System.Drawing.Point(11, 11);
+            this.tabsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabsPanel.Location = new System.Drawing.Point(0, 0);
             this.tabsPanel.Name = "tabsPanel";
-            this.tabsPanel.Size = new System.Drawing.Size(1424, 786);
+            this.tabsPanel.Size = new System.Drawing.Size(1448, 817);
             this.tabsPanel.TabIndex = 1;
             // 
             // tabs
@@ -135,7 +131,7 @@
             this.tabs.Name = "tabs";
             this.tabs.Padding = new System.Drawing.Point(10, 8);
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(1404, 763);
+            this.tabs.Size = new System.Drawing.Size(1428, 794);
             this.tabs.TabIndex = 0;
             // 
             // tabProject
@@ -167,7 +163,7 @@
             this.tabProject.Location = new System.Drawing.Point(4, 35);
             this.tabProject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabProject.Name = "tabProject";
-            this.tabProject.Size = new System.Drawing.Size(1396, 724);
+            this.tabProject.Size = new System.Drawing.Size(1420, 755);
             this.tabProject.TabIndex = 5;
             this.tabProject.Text = "Project Management";
             this.tabProject.UseVisualStyleBackColor = true;
@@ -529,7 +525,7 @@
             this.tabModifyDataBasedOnSavedQueries.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabModifyDataBasedOnSavedQueries.Location = new System.Drawing.Point(4, 35);
             this.tabModifyDataBasedOnSavedQueries.Name = "tabModifyDataBasedOnSavedQueries";
-            this.tabModifyDataBasedOnSavedQueries.Size = new System.Drawing.Size(1396, 724);
+            this.tabModifyDataBasedOnSavedQueries.Size = new System.Drawing.Size(1420, 755);
             this.tabModifyDataBasedOnSavedQueries.TabIndex = 3;
             this.tabModifyDataBasedOnSavedQueries.Text = "Modify Data: Saved Views filters";
             this.tabModifyDataBasedOnSavedQueries.UseVisualStyleBackColor = true;
@@ -540,11 +536,12 @@
             this.groupViewsAdvanced.Controls.Add(this.lblResultDataFile);
             this.groupViewsAdvanced.Controls.Add(this.treeResultDataFile);
             this.groupViewsAdvanced.Controls.Add(this.treeSorceDataFile);
-            this.groupViewsAdvanced.Location = new System.Drawing.Point(1149, 15);
+            this.groupViewsAdvanced.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupViewsAdvanced.Location = new System.Drawing.Point(1172, 0);
             this.groupViewsAdvanced.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupViewsAdvanced.Name = "groupViewsAdvanced";
             this.groupViewsAdvanced.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupViewsAdvanced.Size = new System.Drawing.Size(248, 707);
+            this.groupViewsAdvanced.Size = new System.Drawing.Size(248, 755);
             this.groupViewsAdvanced.TabIndex = 44;
             this.groupViewsAdvanced.TabStop = false;
             this.groupViewsAdvanced.Text = "Filters and Results PreView";
@@ -574,7 +571,7 @@
             // treeResultDataFile
             // 
             this.treeResultDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.treeResultDataFile.Location = new System.Drawing.Point(15, 403);
+            this.treeResultDataFile.Location = new System.Drawing.Point(15, 386);
             this.treeResultDataFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.treeResultDataFile.Name = "treeResultDataFile";
             this.treeResultDataFile.Size = new System.Drawing.Size(215, 280);
@@ -591,9 +588,10 @@
             // 
             // groupViewDataFilter
             // 
+            this.groupViewDataFilter.Controls.Add(this.btnSaveModifyViewsFile);
+            this.groupViewDataFilter.Controls.Add(this.btnViewsBack);
             this.groupViewDataFilter.Controls.Add(this.lblTransformationSettings);
             this.groupViewDataFilter.Controls.Add(this.lblTransformedQueryDisplay);
-            this.groupViewDataFilter.Controls.Add(this.groupSavedViewsFooter);
             this.groupViewDataFilter.Controls.Add(this.cbxExcludeFromResult);
             this.groupViewDataFilter.Controls.Add(this.treeTransformedQueryDisplay);
             this.groupViewDataFilter.Controls.Add(this.cbxExecuteAsListOfLinkedQueries);
@@ -608,10 +606,11 @@
             this.groupViewDataFilter.Controls.Add(this.btnViews_ReturnToDefaultFromSelected);
             this.groupViewDataFilter.Controls.Add(this.lblListOfViewsFilters);
             this.groupViewDataFilter.Controls.Add(this.lstSelectedSchemaDataByViews);
+            this.groupViewDataFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupViewDataFilter.Enabled = false;
-            this.groupViewDataFilter.Location = new System.Drawing.Point(15, 15);
+            this.groupViewDataFilter.Location = new System.Drawing.Point(0, 0);
             this.groupViewDataFilter.Name = "groupViewDataFilter";
-            this.groupViewDataFilter.Size = new System.Drawing.Size(1121, 713);
+            this.groupViewDataFilter.Size = new System.Drawing.Size(1420, 755);
             this.groupViewDataFilter.TabIndex = 43;
             this.groupViewDataFilter.TabStop = false;
             this.groupViewDataFilter.Text = "Set Saved Views as Data Filters ";
@@ -638,20 +637,10 @@
             this.lblTransformedQueryDisplay.TabIndex = 63;
             this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
             // 
-            // groupSavedViewsFooter
-            // 
-            this.groupSavedViewsFooter.Controls.Add(this.btnViewsBack);
-            this.groupSavedViewsFooter.Controls.Add(this.btnSaveModifyViewsFile);
-            this.groupSavedViewsFooter.Location = new System.Drawing.Point(10, 643);
-            this.groupSavedViewsFooter.Name = "groupSavedViewsFooter";
-            this.groupSavedViewsFooter.Size = new System.Drawing.Size(1101, 64);
-            this.groupSavedViewsFooter.TabIndex = 42;
-            this.groupSavedViewsFooter.TabStop = false;
-            // 
             // btnViewsBack
             // 
             this.btnViewsBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnViewsBack.Location = new System.Drawing.Point(16, 22);
+            this.btnViewsBack.Location = new System.Drawing.Point(10, 711);
             this.btnViewsBack.Name = "btnViewsBack";
             this.btnViewsBack.Size = new System.Drawing.Size(200, 27);
             this.btnViewsBack.TabIndex = 6;
@@ -662,7 +651,7 @@
             // btnSaveModifyViewsFile
             // 
             this.btnSaveModifyViewsFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSaveModifyViewsFile.Location = new System.Drawing.Point(891, 22);
+            this.btnSaveModifyViewsFile.Location = new System.Drawing.Point(911, 695);
             this.btnSaveModifyViewsFile.Name = "btnSaveModifyViewsFile";
             this.btnSaveModifyViewsFile.Size = new System.Drawing.Size(200, 27);
             this.btnSaveModifyViewsFile.TabIndex = 5;
@@ -833,7 +822,7 @@
             this.tabReplaceIDs.Location = new System.Drawing.Point(4, 35);
             this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabReplaceIDs.Name = "tabReplaceIDs";
-            this.tabReplaceIDs.Size = new System.Drawing.Size(1396, 724);
+            this.tabReplaceIDs.Size = new System.Drawing.Size(1420, 755);
             this.tabReplaceIDs.TabIndex = 4;
             this.tabReplaceIDs.Text = "Data Duplicator";
             this.tabReplaceIDs.UseVisualStyleBackColor = true;
@@ -844,18 +833,19 @@
             this.groupCopyToolContent.Controls.Add(this.btnCopyToolBack);
             this.groupCopyToolContent.Controls.Add(this.btnCopyToolFromModified);
             this.groupCopyToolContent.Controls.Add(this.btnCopyToolFromSource);
+            this.groupCopyToolContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupCopyToolContent.Enabled = false;
-            this.groupCopyToolContent.Location = new System.Drawing.Point(16, 24);
+            this.groupCopyToolContent.Location = new System.Drawing.Point(0, 0);
             this.groupCopyToolContent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupCopyToolContent.Name = "groupCopyToolContent";
             this.groupCopyToolContent.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupCopyToolContent.Size = new System.Drawing.Size(1359, 542);
+            this.groupCopyToolContent.Size = new System.Drawing.Size(1420, 755);
             this.groupCopyToolContent.TabIndex = 42;
             this.groupCopyToolContent.TabStop = false;
             // 
             // btnCopyToolBack
             // 
-            this.btnCopyToolBack.Location = new System.Drawing.Point(1116, 485);
+            this.btnCopyToolBack.Location = new System.Drawing.Point(44, 576);
             this.btnCopyToolBack.Name = "btnCopyToolBack";
             this.btnCopyToolBack.Size = new System.Drawing.Size(200, 27);
             this.btnCopyToolBack.TabIndex = 6;
@@ -938,7 +928,6 @@
             this.groupViewsAdvanced.PerformLayout();
             this.groupViewDataFilter.ResumeLayout(false);
             this.groupViewDataFilter.PerformLayout();
-            this.groupSavedViewsFooter.ResumeLayout(false);
             this.tabReplaceIDs.ResumeLayout(false);
             this.groupCopyToolContent.ResumeLayout(false);
             this.groupCopyToolContent.PerformLayout();
@@ -975,7 +964,6 @@
         private System.Windows.Forms.Button btnViews_ReturnToDefaultFromSelected;
         private System.Windows.Forms.Label lblListOfViewsFilters;
         private System.Windows.Forms.ListBox lstSelectedSchemaDataByViews;
-        private System.Windows.Forms.GroupBox groupSavedViewsFooter;
         private System.Windows.Forms.Button btnViewsBack;
         private System.Windows.Forms.Button btnSaveModifyViewsFile;
         private System.Windows.Forms.ListBox lstListOfViewsFilters;
