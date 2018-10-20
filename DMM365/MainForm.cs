@@ -133,13 +133,18 @@ namespace DMM365
 
         }
 
+        private void btnBegin_Click(object sender, EventArgs e)
+        {
+            moveProjectTab();
+        }
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             //save tab
             SettingsHelper.saveProject(allSettings);
 
-            moveFirstTab();
+            moveProjectTab();
             //moveNextTab(-1);
         }
 
@@ -859,9 +864,9 @@ namespace DMM365
             tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
         }
 
-        private void moveFirstTab()
+        private void moveProjectTab()
         {
-            tabs.SelectTab(0);
+            tabs.SelectTab(1);
         }
 
 
@@ -1503,6 +1508,6 @@ namespace DMM365
         }
 
         #endregion Attachments
-        
+
     }
 }
