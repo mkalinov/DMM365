@@ -89,6 +89,7 @@ namespace DMM365
             //set select oprators drop down. Simplify, not need the operators fo visualized selection
             //setOperatorsDropDown(ddlAuthType, listAuthType_DS);
 
+            lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
 
             #region Bindings
 
@@ -102,14 +103,10 @@ namespace DMM365
 
         }
 
-        //protected override bool ShowWithoutActivation
-        //{
-        //    get { return true; }
-        //}
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //load wpf control - mutulates the form 
+            //load wpf control - mutulates the form with wpf video settings
             CRMLogin login = new CRMLogin();
 
             //fix sizes
@@ -375,6 +372,7 @@ namespace DMM365
                 {
                     cb.Checked = false;
                 }
+                else moveNextTab(2);
             }
 
             cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cb.Checked;
@@ -385,6 +383,8 @@ namespace DMM365
                 //kill connections
                 killConnection(true);
             }
+
+            groupPortalsSync.Enabled = cb.Checked;
 
         }
 
@@ -1509,5 +1509,14 @@ namespace DMM365
 
         #endregion Attachments
 
+        private void linkWiki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //to open link to github wiki and blog
+        }
+
+        private void cbxSyncSettings_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
