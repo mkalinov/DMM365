@@ -375,7 +375,7 @@ namespace DMM365
                 else moveNextTab(2);
             }
 
-            cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cb.Checked;
+            cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cbxSyncSettings.Enabled = cb.Checked;
 
             if (!cb.Checked)
             {
@@ -1227,7 +1227,7 @@ namespace DMM365
             if (ReferenceEquals(cb, null)) return;
 
             groupAttachmentsCopySettings.Enabled = txtxAttachmentsDataFile.Visible = btnSelectAttachmentsDataFile.Visible = cb.Checked;
-            cbxAttachmentsRollback.Enabled = cbxFromPortalToPortal.Enabled = !cb.Checked;
+            cbxAttachmentsRollback.Enabled = cbxFromPortalToPortal.Enabled = cbxSyncSettings.Enabled = !cb.Checked;
             btnStartAttachmentsCopyText();
             if (!cb.Checked)
             {
@@ -1250,8 +1250,11 @@ namespace DMM365
             CheckBox cb = sender as CheckBox;
             if (ReferenceEquals(cb, null)) return;
 
+            //move ddl group
+            groupPortalsSources.Location = new Point(groupPortalsSources.Location.X, cbxFromPortalToPortal.Location.Y);
+
             groupAttachmentsCopySettings.Enabled = groupPortalsSources.Visible = cb.Checked;
-            cbxAttachmentsRollback.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+            cbxAttachmentsRollback.Enabled = cbxBasedOnFiles.Enabled = cbxSyncSettings.Enabled = !cb.Checked;
             btnStartAttachmentsCopyText();
 
             if (!cb.Checked)
@@ -1275,7 +1278,7 @@ namespace DMM365
             if (ReferenceEquals(cb, null)) return;
 
             cbxAttachmentsKeepIDs.Checked = false;
-            groupAttachmentsCopySettings.Visible = cbxFromPortalToPortal.Enabled = cbxBasedOnFiles.Enabled = !cb.Checked;
+            groupAttachmentsCopySettings.Visible = cbxFromPortalToPortal.Enabled = cbxBasedOnFiles.Enabled = cbxSyncSettings.Enabled = !cb.Checked;
             txtAttachmentsIDsBackUpFile.Visible = btnSelectIDsBackup.Visible = cb.Checked;
 
             btnStartAttachmentsCopyText();
@@ -1310,6 +1313,34 @@ namespace DMM365
             }
 
         }
+
+        private void cbxSyncSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (ReferenceEquals(cb, null)) return;
+
+            //move ddl group
+            groupPortalsSources.Location = new Point(groupPortalsSources.Location.X, cbxSyncSettings.Location.Y);
+
+            groupAttachmentsCopySettings.Enabled = groupPortalsSources.Visible = cb.Checked;
+            cbxAttachmentsRollback.Enabled = cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = !cb.Checked;
+            btnStartAttachmentsCopyText();
+
+            if (!cb.Checked)
+            {
+                cleanAttachmentsSetting(cb.Checked);
+                return;
+            }
+
+            //fill portals drop downs
+            //source 
+            sourcePortals = CrmHelper.getListOfPortals(crmServiceClientSource);
+            populateDropDown(ddlSourcePortal, sourcePortals);
+            //target
+            targetPortals = CrmHelper.getListOfPortals(crmTarget);
+            populateDropDown(ddlTargetPortal, targetPortals);
+        }
+
 
         private void cbxAttachmentsKeepIDs_CheckedChanged(object sender, EventArgs e)
         {
@@ -1514,9 +1545,5 @@ namespace DMM365
             //to open link to github wiki and blog
         }
 
-        private void cbxSyncSettings_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

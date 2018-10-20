@@ -690,7 +690,7 @@
             this.lblDataDouplInfo.Size = new System.Drawing.Size(377, 80);
             this.lblDataDouplInfo.TabIndex = 42;
             this.lblDataDouplInfo.Text = "The \"Data Duplicator\" creates exact copy of data file.\r\n\r\nAll entities are gettin" +
-    "g new ids.\r\n\r\nTheir references will be updated..";
+    "g new ids.\r\n\r\nReferences are respected and will be updated.";
             // 
             // btnCopyToolBack
             // 
@@ -1093,7 +1093,7 @@
             this.lblAbout2content.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAbout2content.Location = new System.Drawing.Point(112, 352);
             this.lblAbout2content.Name = "lblAbout2content";
-            this.lblAbout2content.Size = new System.Drawing.Size(1087, 144);
+            this.lblAbout2content.Size = new System.Drawing.Size(1134, 144);
             this.lblAbout2content.TabIndex = 59;
             this.lblAbout2content.Text = resources.GetString("lblAbout2content.Text");
             // 
@@ -1137,13 +1137,14 @@
             // 
             // linkWiki
             // 
-            this.linkWiki.AutoSize = true;
-            this.linkWiki.Location = new System.Drawing.Point(1142, 41);
+            this.linkWiki.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold);
+            this.linkWiki.Location = new System.Drawing.Point(1199, 31);
             this.linkWiki.Name = "linkWiki";
-            this.linkWiki.Size = new System.Drawing.Size(91, 16);
+            this.linkWiki.Size = new System.Drawing.Size(108, 26);
             this.linkWiki.TabIndex = 65;
             this.linkWiki.TabStop = true;
             this.linkWiki.Text = "Project Wiki";
+            this.linkWiki.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linkWiki.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkWiki_LinkClicked);
             // 
             // label1
