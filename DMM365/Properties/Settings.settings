@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="F1State" Type="System.Windows.Forms.FormWindowState" Scope="User">
-      <Value Profile="(Default)">Maximized</Value>
+      <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="F1Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>

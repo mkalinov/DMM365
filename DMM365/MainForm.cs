@@ -125,8 +125,8 @@ namespace DMM365
 
             this.WindowState = Settings.Default.F1State;
             this.Location = Settings.Default.F1Location;
-            //this.Size = Settings.Default.F1Size;
-            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+            this.Size = Settings.Default.F1Size;
+            //this.Size = Screen.PrimaryScreen.WorkingArea.Size;
             this.Font = Settings.Default.F1Font;
             this.StartPosition = Settings.Default.F1Position;
             this.AutoSize = Settings.Default.F1AutoSize;

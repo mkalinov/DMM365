@@ -132,7 +132,6 @@
             // tabsPanel
             // 
             this.tabsPanel.Controls.Add(this.tabs);
-            this.tabsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabsPanel.Location = new System.Drawing.Point(0, 0);
             this.tabsPanel.Name = "tabsPanel";
             this.tabsPanel.Size = new System.Drawing.Size(1448, 817);
@@ -140,9 +139,6 @@
             // 
             // tabs
             // 
-            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabs.Controls.Add(this.tabAbout);
             this.tabs.Controls.Add(this.tabProject);
             this.tabs.Controls.Add(this.tabModifyDataBasedOnSavedQueries);
@@ -962,6 +958,7 @@
             // 
             // btnPortalSyncBack
             // 
+            this.btnPortalSyncBack.Enabled = false;
             this.btnPortalSyncBack.Location = new System.Drawing.Point(40, 639);
             this.btnPortalSyncBack.Name = "btnPortalSyncBack";
             this.btnPortalSyncBack.Size = new System.Drawing.Size(200, 27);
@@ -1011,7 +1008,7 @@
             this.tabAbout.Controls.Add(this.lblAgenda);
             this.tabAbout.Location = new System.Drawing.Point(4, 35);
             this.tabAbout.Name = "tabAbout";
-            this.tabAbout.Size = new System.Drawing.Size(1420, 755);
+            this.tabAbout.Size = new System.Drawing.Size(1440, 778);
             this.tabAbout.TabIndex = 7;
             this.tabAbout.Text = "About the DMM365 tool";
             this.tabAbout.UseVisualStyleBackColor = true;
@@ -1086,11 +1083,11 @@
             // 
             // btnBegin
             // 
-            this.btnBegin.Location = new System.Drawing.Point(1281, 707);
+            this.btnBegin.Location = new System.Drawing.Point(1248, 707);
             this.btnBegin.Name = "btnBegin";
-            this.btnBegin.Size = new System.Drawing.Size(75, 23);
+            this.btnBegin.Size = new System.Drawing.Size(108, 23);
             this.btnBegin.TabIndex = 63;
-            this.btnBegin.Text = "BEGIN";
+            this.btnBegin.Text = "To Project";
             this.btnBegin.UseVisualStyleBackColor = true;
             this.btnBegin.Click += new System.EventHandler(this.btnBegin_Click);
             // 

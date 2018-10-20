@@ -25,7 +25,7 @@ namespace Portal365_Deployment_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
         public global::System.Windows.Forms.FormWindowState F1State {
             get {
                 return ((global::System.Windows.Forms.FormWindowState)(this["F1State"]));
