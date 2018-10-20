@@ -633,12 +633,14 @@ namespace DMM365
 
                 updateModifiedDataMonitorViewsTab();
 
-                MessageBox.Show("Package is ready for import");
-
+                if (DialogResult.OK == MessageBox.Show("Package is ready for import", "REPORT", MessageBoxButtons.OK))
+                {
+                    System.Diagnostics.Process.Start(IOHelper.getProjectSubfolderPathOld(allSettings, subFolders.ImportPackageZipByViews, false) + @"\");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong: " + ex.Message);
+                MessageBox.Show("Something went wrong: " + ex.Message, "ERROR");
             }
 
         }
@@ -785,11 +787,15 @@ namespace DMM365
                 IOHelper.clearDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.TempFolder, fileName.pathToFolderFromProjectRoot));
 
 
-                MessageBox.Show("Package is ready for import");
+                if (DialogResult.OK == MessageBox.Show("Package is ready for import", "REPORT", MessageBoxButtons.OK))
+                {
+                    System.Diagnostics.Process.Start(IOHelper.getProjectSubfolderPathOld(allSettings, subFolders.ImportPackageZipByCopyToolFromOrigin, false) + @"\");
+                }
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong: " + ex.Message);
+                MessageBox.Show("Something went wrong: " + ex.Message, "ERROR");
             }
         }
 
@@ -813,12 +819,14 @@ namespace DMM365
                 //clear temp folder
                 IOHelper.clearDirectory(IOHelper.getProjectSubfolderPath(allSettings, subFolders.TempFolder, fileName.pathToFolderFromProjectRoot));
 
-
-                MessageBox.Show("Package is ready for import");
+                if (DialogResult.OK == MessageBox.Show("Package is ready for import", "REPORT", MessageBoxButtons.OK))
+                {
+                    System.Diagnostics.Process.Start(IOHelper.getProjectSubfolderPathOld(allSettings, subFolders.ImportPackageZipByCopyToolFromViews, false) + @"\");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong: " + ex.Message);
+                MessageBox.Show("Something went wrong: " + ex.Message, "ERROR");
             }
         }
 
@@ -1162,60 +1170,6 @@ namespace DMM365
         #endregion Saved Views Tab Management
 
 
-        private List<Guid> executeAttachmentsCopyBasedMasterEntity(string datafilePath, bool includeNotes, out int webFilesCount)
-        {
-            List<Guid> result = new List<Guid>();
-            webFilesCount = 0;
-
-            DataEntities entities = IOHelper.DeserializeXmlFromFile<DataEntities>(datafilePath); //web files
-            foreach (DataEntity de in entities.entities)
-            {
-                webFilesCount += de.RecordsCollection.Count;
-                //get attachment per entity record, files only, get lates
-                foreach (Record rec in de.RecordsCollection)
-                {
-                    Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmServiceClientSource, new Guid(rec.id), de.name, includeNotes);
-                    if (ReferenceEquals(latestAttacnment, null)) continue;
-
-                    //check is target has same entity
-                    Entity targetMaster = crmTarget.Retrieve(de.name, new Guid(rec.id), new ColumnSet());
-                    if (ReferenceEquals(targetMaster, null)) continue;
-
-                    //copy to target
-                    Guid? newNote = CrmHelper.cloneAnnotation(crmTarget, latestAttacnment);
-                    if (newNote.HasValue) result.Add(newNote.Value);
-                }
-            }
-
-            return result;
-        }
-
-        private List<Guid> executeAttachmentsCopyBasedOnWebFileName(List<CrmEntityContainer> source, List<CrmEntityContainer> target, bool includeNotes)
-        {
-
-            List<Guid> result = new List<Guid>();
-            foreach (CrmEntityContainer enSource in source)
-            {
-                string n = enSource.name;
-
-                //get single web file with same name, skip if plural
-                List<CrmEntityContainer> enTargets = target.Where(e => e.name == enSource.name).ToList();
-                if (ReferenceEquals(enTargets, null) || enTargets.Count == 0) continue;
-
-                Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmServiceClientSource, enSource.id, enSource.logicalName, includeNotes);
-                if (ReferenceEquals(latestAttacnment, null)) continue;
-
-                //copy to all found target webfiles
-                foreach (CrmEntityContainer enTarget in enTargets)
-                {
-                    Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.crmEntityRef);
-                    if (newNote.HasValue) result.Add(newNote.Value);
-                }
-            }
-
-            return result;
-        }
-
         #endregion Helpers
 
 
@@ -1457,7 +1411,7 @@ namespace DMM365
                         {
 
                             int webFilesCount = 0;
-                            ids = executeAttachmentsCopyBasedMasterEntity(txtxAttachmentsDataFile.Text, includeNotes, out webFilesCount);
+                            ids = CrmHelper.executeAttachmentsCopyBasedMasterEntity(crmServiceClientSource, crmTarget, txtxAttachmentsDataFile.Text, includeNotes, out webFilesCount);
 
                             if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 
@@ -1513,7 +1467,7 @@ namespace DMM365
                             List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString());
                             List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString());
 
-                            ids = executeAttachmentsCopyBasedOnWebFileName(listOfWebFilesSource, listOfWebFilesTarget, includeNotes);
+                            ids = CrmHelper.executeAttachmentsCopyBasedOnWebFileName(crmServiceClientSource, crmTarget, listOfWebFilesSource, listOfWebFilesTarget, includeNotes);
 
                             if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 

@@ -368,7 +368,7 @@ namespace DMM365.Helper
 
         internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, string portalName, string portalId)
         {
-
+            //TO DO: Investigate : The sdk query return is wrong. Fetch is ok
             //QueryExpression query = new QueryExpression("adx_webfile");
             //FilterExpression filter = new FilterExpression(LogicalOperator.And);
             //ConditionExpression cond1 = new ConditionExpression("adx_websiteid", ConditionOperator.Equal, portalId);
@@ -395,6 +395,61 @@ namespace DMM365.Helper
                 return convertEntityToEntityContainer(result.Entities.ToList());
 
             return null;
+        }
+
+
+        internal static List<Guid> executeAttachmentsCopyBasedMasterEntity(CrmServiceClient crmSource, CrmServiceClient crmTarget, string datafilePath, bool includeNotes, out int webFilesCount)
+        {
+            List<Guid> result = new List<Guid>();
+            webFilesCount = 0;
+
+            DataEntities entities = IOHelper.DeserializeXmlFromFile<DataEntities>(datafilePath); //web files
+            foreach (DataEntity de in entities.entities)
+            {
+                webFilesCount += de.RecordsCollection.Count;
+                //get attachment per entity record, files only, get lates
+                foreach (Record rec in de.RecordsCollection)
+                {
+                    Entity latestAttacnment = CrmHelper.getLattestAttachmentByEntity(crmSource, new Guid(rec.id), de.name, includeNotes);
+                    if (ReferenceEquals(latestAttacnment, null)) continue;
+
+                    //check is target has same entity
+                    Entity targetMaster = crmTarget.Retrieve(de.name, new Guid(rec.id), new ColumnSet());
+                    if (ReferenceEquals(targetMaster, null)) continue;
+
+                    //copy to target
+                    Guid? newNote = CrmHelper.cloneAnnotation(crmTarget, latestAttacnment);
+                    if (newNote.HasValue) result.Add(newNote.Value);
+                }
+            }
+
+            return result;
+        }
+
+        internal static List<Guid> executeAttachmentsCopyBasedOnWebFileName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, bool includeNotes)
+        {
+
+            List<Guid> result = new List<Guid>();
+            foreach (CrmEntityContainer enSource in source)
+            {
+                string n = enSource.name;
+
+                //get single web file with same name, skip if plural
+                List<CrmEntityContainer> enTargets = target.Where(e => e.name == enSource.name).ToList();
+                if (ReferenceEquals(enTargets, null) || enTargets.Count == 0) continue;
+
+                Entity latestAttacnment = getLattestAttachmentByEntity(crmSource, enSource.id, enSource.logicalName, includeNotes);
+                if (ReferenceEquals(latestAttacnment, null)) continue;
+
+                //copy to all found target webfiles
+                foreach (CrmEntityContainer enTarget in enTargets)
+                {
+                    Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.crmEntityRef);
+                    if (newNote.HasValue) result.Add(newNote.Value);
+                }
+            }
+
+            return result;
         }
 
 

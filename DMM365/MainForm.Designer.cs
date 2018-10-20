@@ -282,11 +282,11 @@
             this.lblProject2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.lblProject2.Location = new System.Drawing.Point(27, 457);
             this.lblProject2.Name = "lblProject2";
-            this.lblProject2.Size = new System.Drawing.Size(638, 85);
+            this.lblProject2.Size = new System.Drawing.Size(798, 85);
             this.lblProject2.TabIndex = 9;
-            this.lblProject2.Text = "Steps:\r\n\r\nSelect an existing \"<ProjectName>.xml\" file from project root directory" +
-    " to load a Project\r\n\r\nOnce project loaded application will take you to \"Saved Vi" +
-    "ews filters\" tab";
+            this.lblProject2.Text = "Steps:\r\n\r\nSet up source connection then select an existing \"<ProjectName>.xml\" fi" +
+    "le from project root directory to load.\r\n\r\nOnce project loaded application will " +
+    "take you to \"Saved Views filters\" tab.";
             // 
             // cbxLoadProject
             // 
@@ -1093,7 +1093,7 @@
             this.lblAbout2content.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAbout2content.Location = new System.Drawing.Point(112, 352);
             this.lblAbout2content.Name = "lblAbout2content";
-            this.lblAbout2content.Size = new System.Drawing.Size(1134, 144);
+            this.lblAbout2content.Size = new System.Drawing.Size(1087, 144);
             this.lblAbout2content.TabIndex = 59;
             this.lblAbout2content.Text = resources.GetString("lblAbout2content.Text");
             // 
