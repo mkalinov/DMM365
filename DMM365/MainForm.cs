@@ -1344,6 +1344,7 @@ namespace DMM365
             //identify type of action
             bool basedOnFile = cbxBasedOnFiles.Checked;
             bool P2P = cbxFromPortalToPortal.Checked;
+            bool isSettings = cbxSyncSettings.Checked;
             bool atRollback = cbxAttachmentsRollback.Checked;
             bool keepIds = cbxAttachmentsKeepIDs.Checked;
             bool includeNotes = cbxIncludeTextNotes.Checked;
@@ -1382,9 +1383,10 @@ namespace DMM365
             }
 
 
-            //validate twoo connections
+            //validate two connections
             if ((basedOnFile || P2P) && crmServiceClientSource.IsReady && crmTarget.IsReady)
             {
+                //based on data file
                 if (basedOnFile)
                 {
 
@@ -1430,7 +1432,7 @@ namespace DMM365
                     }
                 }
 
-
+                //from portal to portal
                 if (P2P)
                 {
 
@@ -1464,8 +1466,8 @@ namespace DMM365
                         if (DialogResult.Yes == MessageBox.Show("You're going to copy attachments \r\n from '" + crmServiceClientSource.ConnectedOrgFriendlyName + "' crm, Portal '" + ddlSourcePortal.Text + "' \r\n to '" + crmTarget.ConnectedOrgFriendlyName + "' cmr, Portal '" + ddlTargetPortal.Text + "' \r\n Recording of newly created attachemnts for potntial rollback is " + (keepIds ? "'ON'" : "'OFF'") + " \r\n\n Execute?", "CONFIRM COPY", MessageBoxButtons.YesNo))
                         {
 
-                            List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString());
-                            List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString());
+                            List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString(), false);
+                            List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString(), false);
 
                             ids = CrmHelper.executeAttachmentsCopyBasedOnWebFileName(crmServiceClientSource, crmTarget, listOfWebFilesSource, listOfWebFilesTarget, includeNotes);
 
@@ -1479,6 +1481,49 @@ namespace DMM365
                         }
 
                         return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Something went wrong. Error: " + ex.Message, "ERROR");
+                        return;
+                    }
+
+                }
+
+                if (isSettings)
+                {
+                    //cbxSyncSettings =
+                    
+                    //validate dropdouns portal selected
+                    if (!validateGroupCombos(groupPortalsSources))
+                    {
+                        MessageBox.Show("Please select a portal", "Mandatory field");
+                        return;
+                    }
+
+                    //vlidate not the same portal for same connections
+                    if (crmServiceClientSource.ConnectedOrgUniqueName == crmTarget.ConnectedOrgUniqueName
+                        && ddlSourcePortal.SelectedValue == ddlTargetPortal.SelectedValue)
+                    {
+                        MessageBox.Show("Copy from source portal to  itself is not supported. Please select different target.", "WRONG SET");
+                        return;
+                    }
+                    try
+                    {
+                        if (DialogResult.Yes == MessageBox.Show("You're going to copy/update Site Settings \r\n from '" + crmServiceClientSource.ConnectedOrgFriendlyName + "' crm, Portal '" + ddlSourcePortal.Text + "' \r\n to '" + crmTarget.ConnectedOrgFriendlyName + "' cmr, Portal '" + ddlTargetPortal.Text + " \r\n\n Execute?", "CONFIRM COPY", MessageBoxButtons.YesNo))
+                        {
+                            List<CrmEntityContainer> listOfSSetingsSource = CrmHelper.getListOfSettingPerPortal(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString(), false);
+                            List<CrmEntityContainer> listOfSSetingsTarget = CrmHelper.getListOfSettingPerPortal(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString(), true);
+
+                            if (ReferenceEquals(listOfSSetingsTarget, null) || listOfSSetingsTarget.Count == 0)
+                                throw new Exception("No active Site Settings in Target portal");
+
+                            int ssettingsCont = CrmHelper.syncSSettingsBasedOnName(crmServiceClientSource, crmTarget, listOfSSetingsSource, listOfSSetingsTarget, ddlTargetPortal.SelectedValue.ToString());
+
+                            MessageBox.Show("Site Settings (active/inactive) found in source portal - " + listOfSSetingsSource.Count.ToString() + "\r\n Active Site Settings copied/updated in target portal - " + ssettingsCont.ToString(), "RESULT");
+
+                        }
+
                     }
                     catch (Exception ex)
                     {

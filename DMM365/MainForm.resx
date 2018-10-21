@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Selecting the option will take you "Portals 365 sync" tab.
-
-All methods works for for any crm entitiy (able to have attachments) except "Sync Portal Site Settings" 
-and "Copy Web File attchments". These two are didicated support Portals 365 deployment.</value>
-  </data>
   <data name="lblProject.Text" xml:space="preserve">
     <value>Steps:
 
@@ -185,6 +179,12 @@ The douplicator is very usefull in Portals 365 deployment. See Project Wiki for 
 If there is any linked entites in the fetch then app will transform them to separate query.
 Dependency to main entity will remain as condition. A list of queries, including original,
 will be executed and result will be distincted by ID.</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Selecting the option will take you "Portals 365 sync" tab.
+
+All methods works for for any crm entitiy (able to have attachments) except "Sync Portal Site Settings" 
+and "Copy Web File attchments". These two are didicated support Portals 365 deployment.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>120</value>

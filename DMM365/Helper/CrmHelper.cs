@@ -353,7 +353,6 @@ namespace DMM365.Helper
             return service.Create(noteClone);
         }
 
-
         internal static List<CrmEntityContainer> getListOfPortals(CrmServiceClient service)
         {
             QueryExpression query = new QueryExpression("adx_website");
@@ -366,7 +365,7 @@ namespace DMM365.Helper
             return convertEntityToEntityContainer(en.Entities.ToList());
         }
 
-        internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, string portalName, string portalId)
+        internal static List<CrmEntityContainer> getWebFilesByPortalId(CrmServiceClient service, string portalName, string portalId, bool activeOnly)
         {
             //TO DO: Investigate : The sdk query return is wrong. Fetch is ok
             //QueryExpression query = new QueryExpression("adx_webfile");
@@ -384,8 +383,12 @@ namespace DMM365.Helper
                            + "<attribute name = 'createdon' />"
                            + "<order attribute = 'adx_name' descending = 'false' />"
                            + "<filter type = 'and' >"
+                           + "{0}"
                            + "<condition attribute = 'adx_websiteid' operator= 'eq' uiname = '" + portalName + "' uitype = 'adx_website' value = '{" + portalId + "}' />"
                            + "</filter ></entity ></fetch >";
+            if (activeOnly)
+                string.Format(fetch, "<condition value='0' attribute='statecode' operator='eq' />");
+            else string.Format(fetch, "");
 
             FetchExpression query = new FetchExpression(fetch);
 
@@ -396,7 +399,6 @@ namespace DMM365.Helper
 
             return null;
         }
-
 
         internal static List<Guid> executeAttachmentsCopyBasedMasterEntity(CrmServiceClient crmSource, CrmServiceClient crmTarget, string datafilePath, bool includeNotes, out int webFilesCount)
         {
@@ -432,8 +434,6 @@ namespace DMM365.Helper
             List<Guid> result = new List<Guid>();
             foreach (CrmEntityContainer enSource in source)
             {
-                string n = enSource.name;
-
                 //get single web file with same name, skip if plural
                 List<CrmEntityContainer> enTargets = target.Where(e => e.name == enSource.name).ToList();
                 if (ReferenceEquals(enTargets, null) || enTargets.Count == 0) continue;
@@ -455,7 +455,102 @@ namespace DMM365.Helper
 
         #endregion Annotation
 
+
+        #region  Site Settings
+
+        internal static List<CrmEntityContainer> getListOfSettingPerPortal(CrmServiceClient service, string portalName, string portalId, bool activeOnly)
+        {
+            string fetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>"
+                            + "<entity name = 'adx_sitesetting' >"
+                           + "<attribute name='adx_sitesettingid' />"
+                           + "<attribute name='adx_name' />"
+                           + "<attribute name='createdon' />"
+                           + "<attribute name='adx_value' />"
+                           + "<attribute name = 'adx_description' />"
+                           + "<order attribute = 'adx_name' descending = 'false' />"
+                           + "<filter type = 'and' >"
+                           + "{0}"
+                           + "<condition attribute = 'adx_websiteid' operator= 'eq' uiname = '" + portalName + "' uitype = 'adx_website' value = '{" + portalId + "}' />"
+                           + "</filter ></entity ></fetch >";
+            if (activeOnly)
+                string.Format(fetch, "<condition value='0' attribute='statecode' operator='eq' />");
+            else string.Format(fetch, "");
+
+            FetchExpression query = new FetchExpression(fetch);
+
+
+            EntityCollection result = service.RetrieveMultiple(query);
+            if (!ReferenceEquals(result, null) && result.Entities.Count > 0)
+                return convertEntityToEntityContainer(result.Entities.ToList());
+
+            return null;
+        }
+
+        internal static int syncSSettingsBasedOnName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, string targetPortalId)
+        {
+            int count = 0;
+            List<Guid> result = new List<Guid>();
+            foreach (CrmEntityContainer enSource in source)
+            {
+                //check mandatory field
+                if (!enSource.crmEntity.Contains("adx_value")) continue;
+                //not mandatory
+                bool isDescription = enSource.crmEntity.Contains("adx_description");
+
+                //get single site setting with same name, skip if plural
+                List<CrmEntityContainer> enTargets = target.Where(e => e.name == enSource.name).ToList();
+                //if not found => create
+                if (ReferenceEquals(enTargets, null) || enTargets.Count == 0)
+                {
+                    //copy site setting
+                    Entity ss = new Entity("adx_sitesetting");
+                    ss["adx_value"] = enSource.crmEntity["adx_value"];
+                    ss["adx_name"] = enSource.crmEntity["adx_name"];
+                    ss["adx_websiteid"] = new EntityReference("adx_website", new Guid(targetPortalId));
+                    if (isDescription)
+                        ss["adx_description"] = enSource.crmEntity["adx_description"];
+
+                    try
+                    {
+                        crmTarget.Create(ss);
+                        count++;
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
+                }
+                else //update
+                {                    
+                    foreach (CrmEntityContainer enTarget in enTargets)
+                    {
+                        //update site setting
+                        try
+                        {
+                            enTarget.crmEntity["adx_value"] = enSource.crmEntity["adx_value"];
+                            if (isDescription)
+                                enTarget.crmEntity["adx_description"] = enSource.crmEntity["adx_description"];
+
+                            crmTarget.Update(enTarget.crmEntity);
+
+                            count++;
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        #endregion  Site Settings
+
     }
+
 
     //QueryType
     /*

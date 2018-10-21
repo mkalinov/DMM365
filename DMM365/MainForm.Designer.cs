@@ -816,7 +816,7 @@
             // cbxAttachmentsKeepIDs
             // 
             this.cbxAttachmentsKeepIDs.AutoSize = true;
-            this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(35, 57);
+            this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(35, 61);
             this.cbxAttachmentsKeepIDs.Margin = new System.Windows.Forms.Padding(2);
             this.cbxAttachmentsKeepIDs.Name = "cbxAttachmentsKeepIDs";
             this.cbxAttachmentsKeepIDs.Size = new System.Drawing.Size(302, 20);
@@ -828,7 +828,7 @@
             // cbxIncludeTextNotes
             // 
             this.cbxIncludeTextNotes.AutoSize = true;
-            this.cbxIncludeTextNotes.Location = new System.Drawing.Point(35, 24);
+            this.cbxIncludeTextNotes.Location = new System.Drawing.Point(35, 28);
             this.cbxIncludeTextNotes.Margin = new System.Windows.Forms.Padding(2);
             this.cbxIncludeTextNotes.Name = "cbxIncludeTextNotes";
             this.cbxIncludeTextNotes.Size = new System.Drawing.Size(161, 20);
