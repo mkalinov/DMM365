@@ -33,8 +33,8 @@ public enum fileName
     appendfolderNameDotPSscript,
     dataFileXml,
     dataSchemaXml,
-    contentTypesXml
-
+    contentTypesXml,
+    log
 }
 
 public enum relationShipType

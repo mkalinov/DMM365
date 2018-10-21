@@ -5,13 +5,12 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.AccessControl;
 
 namespace DMM365.Helper
 {
     public static class IOHelper
     {
+
 
         internal static bool isFileExist(string path, string extensionToCheck = "")
         {
@@ -71,29 +70,17 @@ namespace DMM365.Helper
 
 
         /// <summary>
-        /// Creates/overrides file specified in the patch with new content
+        /// Appends content to file specified in the patch with current time prefix
         /// </summary>
-        /// <param name="resourceName"></param>
         /// <param name="path"></param>
-        internal static void updateContent(string path, string content)
+        /// <param name="content"></param>
+        internal static void appendLogFile(string path, string content)
         {
 
-            //var assembly = Assembly.GetExecutingAssembly();
-            //using (Stream dll = assembly.GetManifestResourceStream(resourceName))
-            //{
-            //    using (FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileSystemRights.FullControl, FileShare.ReadWrite, (int)dll.Length, FileOptions.None))// File.Create(path, (int)dll.Length, FileOptions.))
-            //    {
-            //        byte[] b = new byte[dll.Length];
-            //        dll.Read(b, 0, b.Length);
-            //        file.Write(b, 0, b.Length);
-            //    }
-            //}
-
-            //override
-
-            File.WriteAllText(path, content, Encoding.UTF8);
-
-
+            using (StreamWriter sw = new StreamWriter(path, true, Encoding.UTF8))
+            {
+                sw.Write(DateTime.Now.ToLocalTime() + ": " + content);
+            }
         }
 
 
@@ -110,7 +97,7 @@ namespace DMM365.Helper
                 string path = Path.Combine(settings.ProjectPath, item.Value);
                 if (Directory.Exists(path)) continue;
                 Directory.CreateDirectory(path);
-            }
+            }      
         }
 
         /// <summary>
@@ -153,6 +140,7 @@ namespace DMM365.Helper
                     case "dataFileXml": result = Path.Combine(dir, "data.xml"); break;
                     case "dataSchemaXml": result = Path.Combine(dir, "data_schema.xml"); break;
                     case "contentTypesXml": result = Path.Combine(dir, @"[Content_Types].xml"); break;
+                    case "log": result = Path.Combine(dir, "Log_" + DateTime.Now.ToLocalTime() + ".txt"); break;
                     default:
                         if (GlobalHelper.isValidString(fileNameAndExt)) result = Path.Combine(dir,fileNameAndExt);
                         break;

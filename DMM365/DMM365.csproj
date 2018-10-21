@@ -7,8 +7,8 @@
     <ProjectGuid>{3AF47D55-5DCF-4656-AB7A-4EEE2A4C4497}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Portal365_Deployment_Manager</RootNamespace>
-    <AssemblyName>Portal365 Deployment Manager</AssemblyName>
+    <RootNamespace>DMM365</RootNamespace>
+    <AssemblyName>DMM365</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

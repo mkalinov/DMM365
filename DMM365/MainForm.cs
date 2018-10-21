@@ -4,21 +4,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using DMM365.Helper;
 using DMM365.DataContainers;
 using Microsoft.Xrm.Tooling.Connector;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Tooling.CrmConnectControl;
 using LoginCustom;
 using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk;
-using Portal365_Deployment_Manager.Properties;
-using System.Threading;
+using DMM365.Properties;
 
 
 //using System.Windows;
@@ -46,7 +40,10 @@ namespace DMM365
         //for drag and drop source
         List<SchemaField> SelectedFieldsAdvanced = new List<SchemaField>();
         Dictionary<Guid, queryContainer> viewsContainers = new Dictionary<Guid, queryContainer>();
-        
+
+        string currentLogPath = string.Empty;
+
+
         #region Attachments
 
         CrmServiceClient crmTarget;
@@ -84,12 +81,12 @@ namespace DMM365
             bindings_Settings = new BindingSource();
             bindings_Settings.DataSource = allSettings;
 
-            //listOperators_DS = enumToList.Of<listSelectionOperators>(true);
             listAuthType_DS = enumToList.Of<Microsoft.Xrm.Tooling.Connector.AuthenticationType>(true);
-            //set select oprators drop down. Simplify, not need the operators fo visualized selection
-            //setOperatorsDropDown(ddlAuthType, listAuthType_DS);
 
             lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
+
+            currentLogPath = Path.Combine(Environment.CurrentDirectory, "Log_" + DateTime.Now.ToString().Replace(':','_') + ".txt");
+            File.Create(currentLogPath);
 
             #region Bindings
 
@@ -208,8 +205,7 @@ namespace DMM365
 
                             //check project mode
                             if (!isCreate) loadProject();
-                            enableTabs(true);
-
+                            enableTabs(true);                            
                         }
                         break;
 
@@ -1295,7 +1291,6 @@ namespace DMM365
             populateDropDown(ddlTargetPortal, targetPortals);
         }
 
-
         private void cbxAttachmentsKeepIDs_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
@@ -1384,7 +1379,7 @@ namespace DMM365
 
 
             //validate two connections
-            if ((basedOnFile || P2P) && crmServiceClientSource.IsReady && crmTarget.IsReady)
+            if ((basedOnFile || P2P || isSettings) && crmServiceClientSource.IsReady && crmTarget.IsReady)
             {
                 //based on data file
                 if (basedOnFile)
@@ -1413,12 +1408,13 @@ namespace DMM365
                         {
 
                             int webFilesCount = 0;
-                            ids = CrmHelper.executeAttachmentsCopyBasedMasterEntity(crmServiceClientSource, crmTarget, txtxAttachmentsDataFile.Text, includeNotes, out webFilesCount);
+                            ids = CrmHelper.executeAttachmentsCopyBasedMasterEntity(crmServiceClientSource, crmTarget, txtxAttachmentsDataFile.Text, includeNotes, currentLogPath, out webFilesCount);
 
                             if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 
-
-                            MessageBox.Show("Attachments found in file - " + webFilesCount.ToString() + "\r\n Attachments copied to target - " + ids.Count.ToString(), "RESULT");
+                            string message = "Attachments found in file - " + webFilesCount.ToString() + "\r\n Attachments copied to target - " + ids.Count.ToString();
+                            MessageBox.Show(message, "RESULT");
+                            IOHelper.appendLogFile(currentLogPath, message);
 
                             //reset collection
                             ids = new List<Guid>();
@@ -1469,12 +1465,13 @@ namespace DMM365
                             List<CrmEntityContainer> listOfWebFilesSource = CrmHelper.getWebFilesByPortalId(crmServiceClientSource, ddlSourcePortal.Text, ddlSourcePortal.SelectedValue.ToString(), false);
                             List<CrmEntityContainer> listOfWebFilesTarget = CrmHelper.getWebFilesByPortalId(crmTarget, ddlTargetPortal.Text, ddlTargetPortal.SelectedValue.ToString(), false);
 
-                            ids = CrmHelper.executeAttachmentsCopyBasedOnWebFileName(crmServiceClientSource, crmTarget, listOfWebFilesSource, listOfWebFilesTarget, includeNotes);
+                            ids = CrmHelper.executeAttachmentsCopyBasedOnWebFileName(crmServiceClientSource, crmTarget, listOfWebFilesSource, listOfWebFilesTarget, includeNotes, currentLogPath);
 
                             if (ids.Count > 0 && keepIds) IOHelper.SerializeObjectToXmlFile<List<Guid>>(ids, txtAttachmentsIDsBackUpFile.Text);
 
-                            MessageBox.Show("Attachments found in source portal - " + listOfWebFilesSource.Count.ToString() + "\r\n Attachments copied to target portal - " + ids.Count.ToString(), "RESULT");
-
+                            string message = "Attachments found in source portal - " + listOfWebFilesSource.Count.ToString() + "\r\n Attachments copied to target portal - " + ids.Count.ToString();
+                            MessageBox.Show(message, "RESULT");
+                            IOHelper.appendLogFile(currentLogPath, message);
 
                             //reset collection
                             ids = new List<Guid>();
@@ -1518,9 +1515,12 @@ namespace DMM365
                             if (ReferenceEquals(listOfSSetingsTarget, null) || listOfSSetingsTarget.Count == 0)
                                 throw new Exception("No active Site Settings in Target portal");
 
-                            int ssettingsCont = CrmHelper.syncSSettingsBasedOnName(crmServiceClientSource, crmTarget, listOfSSetingsSource, listOfSSetingsTarget, ddlTargetPortal.SelectedValue.ToString());
+                            int ssettingsCont = CrmHelper.syncSSettingsBasedOnName(crmServiceClientSource, crmTarget, listOfSSetingsSource, listOfSSetingsTarget, ddlTargetPortal.SelectedValue.ToString(), currentLogPath);
+                            string message = "Site Settings (active/inactive) found in source portal - " + listOfSSetingsSource.Count.ToString() + "\r\n Active Site Settings copied/updated in target portal - " + ssettingsCont.ToString();
 
-                            MessageBox.Show("Site Settings (active/inactive) found in source portal - " + listOfSSetingsSource.Count.ToString() + "\r\n Active Site Settings copied/updated in target portal - " + ssettingsCont.ToString(), "RESULT");
+                            MessageBox.Show(message, "RESULT");
+
+                            IOHelper.appendLogFile(currentLogPath, message);
 
                         }
 

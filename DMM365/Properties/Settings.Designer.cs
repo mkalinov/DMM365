@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal365_Deployment_Manager.Properties {
+namespace DMM365.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Tooling.Connector;
@@ -387,8 +385,8 @@ namespace DMM365.Helper
                            + "<condition attribute = 'adx_websiteid' operator= 'eq' uiname = '" + portalName + "' uitype = 'adx_website' value = '{" + portalId + "}' />"
                            + "</filter ></entity ></fetch >";
             if (activeOnly)
-                string.Format(fetch, "<condition value='0' attribute='statecode' operator='eq' />");
-            else string.Format(fetch, "");
+                fetch = fetch.Replace("{0}", "<condition value='0' attribute='statecode' operator='eq' />");
+            else fetch = fetch.Replace("{0}", "");
 
             FetchExpression query = new FetchExpression(fetch);
 
@@ -400,7 +398,8 @@ namespace DMM365.Helper
             return null;
         }
 
-        internal static List<Guid> executeAttachmentsCopyBasedMasterEntity(CrmServiceClient crmSource, CrmServiceClient crmTarget, string datafilePath, bool includeNotes, out int webFilesCount)
+ 
+        internal static List<Guid> executeAttachmentsCopyBasedMasterEntity(CrmServiceClient crmSource, CrmServiceClient crmTarget, string datafilePath, bool includeNotes, string logPath, out int webFilesCount)
         {
             List<Guid> result = new List<Guid>();
             webFilesCount = 0;
@@ -420,15 +419,24 @@ namespace DMM365.Helper
                     if (ReferenceEquals(targetMaster, null)) continue;
 
                     //copy to target
-                    Guid? newNote = CrmHelper.cloneAnnotation(crmTarget, latestAttacnment);
-                    if (newNote.HasValue) result.Add(newNote.Value);
+                    try
+                    {
+                        Guid? newNote = CrmHelper.cloneAnnotation(crmTarget, latestAttacnment);
+                        if (newNote.HasValue) result.Add(newNote.Value);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        IOHelper.appendLogFile(logPath, ex.Message);
+                        continue;
+                    }
                 }
             }
 
             return result;
         }
 
-        internal static List<Guid> executeAttachmentsCopyBasedOnWebFileName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, bool includeNotes)
+        internal static List<Guid> executeAttachmentsCopyBasedOnWebFileName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, bool includeNotes, string logPath)
         {
 
             List<Guid> result = new List<Guid>();
@@ -444,8 +452,17 @@ namespace DMM365.Helper
                 //copy to all found target webfiles
                 foreach (CrmEntityContainer enTarget in enTargets)
                 {
-                    Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.crmEntityRef);
-                    if (newNote.HasValue) result.Add(newNote.Value);
+                    try
+                    {
+                        Guid? newNote = CrmHelper.cloneAnnotationForSpecificID(crmTarget, latestAttacnment, enTarget.crmEntityRef);
+                        if (newNote.HasValue) result.Add(newNote.Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        IOHelper.appendLogFile(logPath, ex.Message);
+                        continue;
+                    }
+
                 }
             }
 
@@ -473,8 +490,8 @@ namespace DMM365.Helper
                            + "<condition attribute = 'adx_websiteid' operator= 'eq' uiname = '" + portalName + "' uitype = 'adx_website' value = '{" + portalId + "}' />"
                            + "</filter ></entity ></fetch >";
             if (activeOnly)
-                string.Format(fetch, "<condition value='0' attribute='statecode' operator='eq' />");
-            else string.Format(fetch, "");
+                fetch = fetch.Replace("{0}","<condition value='0' attribute='statecode' operator='eq' />");
+            else fetch = fetch.Replace("{0}", "");
 
             FetchExpression query = new FetchExpression(fetch);
 
@@ -486,14 +503,14 @@ namespace DMM365.Helper
             return null;
         }
 
-        internal static int syncSSettingsBasedOnName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, string targetPortalId)
+        internal static int syncSSettingsBasedOnName(CrmServiceClient crmSource, CrmServiceClient crmTarget, List<CrmEntityContainer> source, List<CrmEntityContainer> target, string targetPortalId, string logPath)
         {
             int count = 0;
             List<Guid> result = new List<Guid>();
             foreach (CrmEntityContainer enSource in source)
             {
                 //check mandatory field
-                if (!enSource.crmEntity.Contains("adx_value")) continue;
+                bool isValueSource = enSource.crmEntity.Contains("adx_value");
                 //not mandatory
                 bool isDescription = enSource.crmEntity.Contains("adx_description");
 
@@ -504,9 +521,11 @@ namespace DMM365.Helper
                 {
                     //copy site setting
                     Entity ss = new Entity("adx_sitesetting");
-                    ss["adx_value"] = enSource.crmEntity["adx_value"];
                     ss["adx_name"] = enSource.crmEntity["adx_name"];
                     ss["adx_websiteid"] = new EntityReference("adx_website", new Guid(targetPortalId));
+
+                    if (isValueSource)
+                        ss["adx_value"] = enSource.crmEntity["adx_value"];
                     if (isDescription)
                         ss["adx_description"] = enSource.crmEntity["adx_description"];
 
@@ -515,8 +534,9 @@ namespace DMM365.Helper
                         crmTarget.Create(ss);
                         count++;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        IOHelper.appendLogFile(logPath, ex.Message);
                         continue;
                     }
 
@@ -528,16 +548,26 @@ namespace DMM365.Helper
                         //update site setting
                         try
                         {
-                            enTarget.crmEntity["adx_value"] = enSource.crmEntity["adx_value"];
-                            if (isDescription)
-                                enTarget.crmEntity["adx_description"] = enSource.crmEntity["adx_description"];
+                            bool isTargetValue = enTarget.crmEntity.Contains("adx_value");
+                            //execute update only if target value absent or different from source
+                            if (!isTargetValue && !isValueSource) continue;
+                            if(!isTargetValue
+                                ||
+                                (isTargetValue
+                                && enTarget.crmEntity["adx_value"].ToString() != (isValueSource ? enSource.crmEntity["adx_value"].ToString() : string.Empty)))
+                            {
+                                enTarget.crmEntity["adx_value"] = (isValueSource ? enSource.crmEntity["adx_value"] : string.Empty);
+                                enTarget.crmEntity["adx_description"] = (isDescription ? enSource.crmEntity["adx_description"] : string.Empty);
 
-                            crmTarget.Update(enTarget.crmEntity);
+                                crmTarget.Update(enTarget.crmEntity);
 
-                            count++;
+                                count++;
+
+                            }
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            IOHelper.appendLogFile(logPath, ex.Message);
                             continue;
                         }
                     }
