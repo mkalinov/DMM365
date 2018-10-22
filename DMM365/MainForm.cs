@@ -85,7 +85,8 @@ namespace DMM365
 
             lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
 
-            currentLogPath = Path.Combine(Environment.CurrentDirectory, "Log_" + DateTime.Now.ToString().Replace(':','_') + ".txt");
+            currentLogPath = Path.Combine(IOHelper.createDirectory(Path.Combine(Environment.CurrentDirectory,"Logs")).FullName, "Log_" + DateTime.Now.ToString().Replace(':', '_') + ".txt");
+            //Path.Combine(Environment.CurrentDirectory, @"Log_" + DateTime.Now.ToString().Replace(':','_') + ".txt");
             File.Create(currentLogPath);
 
             #region Bindings
@@ -829,345 +830,7 @@ namespace DMM365
 
 
         #endregion Copy Tool
-
-
-        #region Helpers
-
-
-        #region Private methods
-
-        private void cleanAttachmentsSetting(bool _checked)
-        {
-            foreach (Control item in groupAttachmentsCopySettings.Controls)
-            {
-                if (item is CheckBox) ((CheckBox)item).Checked = _checked;
-            }
-        }
-
-        private void btnStartAttachmentsCopyText()
-        {
-            btnStartAttachmentsCopy.Text = cbxAttachmentsRollback.Checked ? "ROLL BACK" : "COPY";
-        }
-
-
-        private void copyFilesToImportZipPackage(subFolders dataFileToImportPath, subFolders tempFolder)
-        {
-
-            // Content type xml
-            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, subFolders.ContentTypeSource, fileName.contentTypesXml)
-                , IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.contentTypesXml), true);
-            //schema xml
-            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, subFolders.SchemaFileSource, fileName.dataSchemaXml), IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.dataSchemaXml), true);
-            //data xml
-            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, dataFileToImportPath, fileName.dataFileXml), IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.dataFileXml), true);
-
-        }
-
-        private void moveNextTab(int direction)
-        {
-            tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
-        }
-
-        private void moveProjectTab()
-        {
-            tabs.SelectTab(1);
-        }
-
-
-        private void populateDropDown(ComboBox cb, List<CrmEntityContainer> ds)
-        {
-            cb.DataSource = ds;
-            cb.DisplayMember = "name";
-            cb.ValueMember = "id";
-            cb.SelectedItem = null;
-            
-        }
-
-        private void moveListBoxItems(ListBox source, List<SchemaEntity> dataSource, BindingSource bs, List<SchemaEntity> dataSourceTarget, BindingSource bd)
-        {
-            if (source.SelectedItems.Count > 0)
-            {
-                //copy selected items to a new collection
-                List<SchemaEntity> selected = source.SelectedItems.Cast<SchemaEntity>().ToList();
-                //remove from source ds
-                selected.ForEach(a =>
-                {
-                    dataSource.Remove(a);
-                });
-                //merge to selected ds
-                dataSourceTarget.AddRange(selected.Where(d1 => dataSourceTarget.All(d2 => d1.name != d2.name)));
-
-                //reset data bindings
-                bs.ResetBindings(false);
-                bd.ResetBindings(false);
-            }
-
-        }
         
-        private bool validateGroupCombos(GroupBox targetGroup)
-        {
-
-            foreach (var tbx in targetGroup.Controls.OfType<ComboBox>())
-            {
-                if (!GlobalHelper.isValidString(tbx.Text) && tbx.Enabled)
-                {
-                    tbx.BackColor = Color.LightSalmon;
-                    return false;
-                }
-                else tbx.BackColor = Color.White;
-            }
-
-            return true;
-        }
-
-
-        #endregion Private methods
-
-
-        #region Views
-
-        private void deleteView(Guid viewId)
-        {
-            if (viewsContainers.Keys.Contains(viewId)) viewsContainers.Remove(viewId);
-        }
-
-        private queryContainer getView(Guid viewId)
-        {
-            if (!viewsContainers.Keys.Contains(viewId)) return null;
-
-            return viewsContainers[viewId];
-        }
-
-        private void addView(CrmEntityContainer view)
-        {
-
-            if (!view.crmEntity.Contains("fetchxml")) return;
-
-            string fetch = view.crmEntity.GetAttributeValue<string>("fetchxml");
-            //yet saved
-            if (!ReferenceEquals(getView(view.id), null)) deleteView(view.id);
-
-            if (ReferenceEquals(allSettings.SelectedUserQueries, null) || ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
-                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, cbxExecuteAsListOfLinkedQueries.Checked, cbxCollectAllReferences.Checked, cbxExcludeFromResult.Checked));
-
-            else {
-
-                selectedQuery current = allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id);
-                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, current.ExecuteAsListOfLinkedQueries, current.CollectAllReferences, current.ExcludeFromResults));
-            }
-
-        }
-
-        private void loadView(CrmEntityContainer view)
-        {
-
-            queryContainer current = getView(view.id);
-            if (ReferenceEquals(current, null))
-            {
-                if (ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
-                {
-                    //?? add on fly??
-                    return;
-                }
-                //MessageBox.Show("Cannot load selected view");
-                return;
-            }
-            string fetch = view.crmEntity.GetAttributeValue<string>("fetchxml");
-            //load Load Query Monitor
-            treeTransformedQueryDisplay.Nodes.Clear();
-            if (current.ExequteAsSeparateLinkedQueries)
-                treeTransformedQueryDisplay.Nodes.AddRange(treeHelper.fromQuery(crmServiceClientSource, getView(view.id), CrmHelper.queryToFetch(crmServiceClientSource, current.expression)).ToArray());
-            else treeTransformedQueryDisplay.Nodes.Add(treeHelper.nodeBasedOnFetch(fetch));
-            //treeTransformedQueryDisplay.ExpandAll();
-            //load transformation settings
-            //remove oncheked event
-            //transformationSettings_CheckedChanged
-            cbxExcludeFromResult.CheckedChanged -= transformationSettings_CheckedChanged;
-            cbxCollectAllReferences.CheckedChanged -= transformationSettings_CheckedChanged;
-            cbxExecuteAsListOfLinkedQueries.CheckedChanged -= transformationSettings_CheckedChanged;
-            cbxExcludeFromResult.Checked = current.ExcludeFromResults;
-            cbxCollectAllReferences.Checked = current.CollectAllReferences;
-            cbxExecuteAsListOfLinkedQueries.Checked = current.ExequteAsSeparateLinkedQueries;
-            cbxExcludeFromResult.CheckedChanged += transformationSettings_CheckedChanged;
-            cbxCollectAllReferences.CheckedChanged += transformationSettings_CheckedChanged;
-            cbxExecuteAsListOfLinkedQueries.CheckedChanged += transformationSettings_CheckedChanged;
-
-
-        }
-
-        private void saveAndReloadView()
-        {
-
-            if (ReferenceEquals(lstListOfViewsFilters.SelectedItem, null)) return;
-            CrmEntityContainer view = lstListOfViewsFilters.SelectedItem as CrmEntityContainer;
-            queryContainer current = getView(view.id);
-            current.CollectAllReferences = cbxCollectAllReferences.Checked;
-            current.ExcludeFromResults = cbxExcludeFromResult.Checked;
-            current.ExequteAsSeparateLinkedQueries = cbxExecuteAsListOfLinkedQueries.Checked;
-            saveViewToSettings(current, view.id);
-            loadView(view);
-
-        }
-
-        private void saveViewToSettings(queryContainer query, Guid viewid)
-        {
-
-            selectedQuery userQuery = SelectedSavedUserViews_DS.Select(s => new selectedQuery
-            {
-                id = s.id,
-                CollectAllReferences = query.CollectAllReferences,
-                ExecuteAsListOfLinkedQueries = query.ExequteAsSeparateLinkedQueries,
-                ExcludeFromResults = query.ExcludeFromResults
-            }).FirstOrDefault(s => s.id == viewid);
-
-            if (allSettings.SelectedUserQueries.Contains(userQuery, new selectedQueryEqualityComparer()))
-                allSettings.SelectedUserQueries.RemoveAll(q => q.id == userQuery.id);
-
-            allSettings.SelectedUserQueries.Add(userQuery);
-        }
-
-        #endregion Views
-
-
-        #region Saved Views Tab Management
-
-
-        private void updateModifiedDataMonitorViewsTab()
-        {
-            //update Processed records monitor:
-            string modifiedDataFilePath = IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByViews, fileName.dataFileXml);
-            if (File.Exists(modifiedDataFilePath))
-            {
-                treeResultDataFile.Nodes.Clear();
-                treeResultDataFile.Nodes.Add(treeHelper.createEntityNodes(IOHelper.DeserializeXmlFromFile<DataEntities>(modifiedDataFilePath).entities));
-                treeResultDataFile.Nodes[0].Expand();
-            }
-
-        }
-
-
-        private void loadViewsConfiguration()
-        {
-
-            reinitViewsData();
-
-            lstDefaultSchemaDataByViews.ClearSelected();
-            List<SchemaEntity> d = lstDefaultSchemaDataByViews.Items.Cast<SchemaEntity>().ToList();
-
-            //if(!ReferenceEquals(allSettings.SelectedUserQueries, null) && allSettings.SelectedUserQueries.Count > 0)
-
-            bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS
-= CrmHelper.convertEntityToEntityContainer(CrmHelper.getUserQueryListByIds(crmServiceClientSource, allSettings.SelectedUserQueries));
-            lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
-            bindings_SelectedSavedUserViews_DS.ResetBindings(false);
-
-            //load selected seting collection
-            if (SelectedSavedUserViews_DS.Count > 0)
-            {
-                foreach (CrmEntityContainer cec in SelectedSavedUserViews_DS) addView(cec);
-                //load selected
-                loadView(lstListOfViewsFilters.SelectedItem as CrmEntityContainer);
-            }
-
-            //set selected in default source
-            if (!ReferenceEquals(SelectedSavedUserViews_DS, null) && SelectedSavedUserViews_DS.Count > 0)
-            {
-                foreach (CrmEntityContainer s in SelectedSavedUserViews_DS)
-                {
-                    string fetch = s.crmEntity.GetAttributeValue<string>("fetchxml");
-                    if (!GlobalHelper.isValidString(fetch)) continue;
-                    QueryExpression query = CrmHelper.fetchToQuery(crmServiceClientSource, fetch);
-                    int index = d.FindIndex(c => c.name == query.EntityName);
-                    if (index != -1)
-                        lstDefaultSchemaDataByViews.SetSelected(index, true);
-                }
-            }
-
-
-            //remove selected entities from defaults to selected
-            moveListBoxItems(lstDefaultSchemaDataByViews, DefaultViewsSchema_DS, bindings_DefaultViewsSchema, SelectedEntitiesViews_DS, bindings_SelectedEntitiesViews);
-            //mimic lstSelectedSchemaDataByViews.SelectedIndexChanged
-            if (lstSelectedSchemaDataByViews.SelectedItems.Count > 0)
-            {
-                SchemaEntity ent = lstSelectedSchemaDataByViews.SelectedItem as SchemaEntity;
-                if (ReferenceEquals(ent, null)) return;
-
-                bindings_SavedUserViews = new BindingSource();
-                bindings_SavedUserViews.DataSource = CrmHelper.getUserQueryListWraped(crmServiceClientSource, ent.etc);
-                lstViewsPerEntity.DataSource = bindings_SavedUserViews;
-                lstViewsPerEntity.DisplayMember = "name";
-                bindings_SavedUserViews.ResetBindings(false);
-            }
-
-            //
-            updateViewsTabDependencies();
-        }
-
-        private void updateViewsTabDependencies()
-        {
-
-            //fill fields collection with selected entity fields
-
-            //clear Fields list in advaced filters to if selected entities is empty
-            if (SelectedEntitiesViews_DS.Count == 0)
-            {
-                bindings_SavedUserViews.DataSource = SavedUserViews_DS;
-                lstViewsPerEntity.DataSource = bindings_SavedUserViews;
-                bindings_SavedUserViews.ResetBindings(false);
-
-                bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS = new List<CrmEntityContainer>();
-                lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
-                bindings_SelectedSavedUserViews_DS.ResetBindings(false);
-            }
-
-        }
-
-        private void reinitViewsData()
-        {
-
-            //douplicate schema source to keep default unchanged
-            DefaultViewsSchema_DS = GlobalHelper.copyCollection<SchemaEntity>(listOfEntities_DS.entities).Where(x => listOfData_DS.entities.Exists(d => d.name == x.name)).ToList();
-
-
-            //set binded source
-            bindings_DefaultViewsSchema = new BindingSource();
-            bindings_DefaultViewsSchema.DataSource = DefaultViewsSchema_DS;
-            lstDefaultSchemaDataByViews.DataSource = bindings_DefaultViewsSchema;
-            lstDefaultSchemaDataByViews.DisplayMember = "name";
-
-
-            //set binded source
-            bindings_SelectedEntitiesViews = new BindingSource();
-            bindings_SelectedEntitiesViews.DataSource = SelectedEntitiesViews_DS;
-            lstSelectedSchemaDataByViews.DataSource = bindings_SelectedEntitiesViews;
-            lstSelectedSchemaDataByViews.DisplayMember = "name";
-
-            //selected fields
-            bindings_SavedUserViews = new BindingSource();
-            bindings_SavedUserViews.DataSource = SavedUserViews_DS;
-            lstViewsPerEntity.DataSource = bindings_SavedUserViews;
-            lstViewsPerEntity.DisplayMember = "name";
-
-            bindings_SelectedSavedUserViews_DS = new BindingSource();
-            bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS;
-            lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
-            lstListOfViewsFilters.DisplayMember = "name";
-
-            //fill original data tree
-            treeSorceDataFile.Nodes.Clear();
-            treeSorceDataFile.Nodes.Add(treeHelper.createEntityNodes(listOfData_DS.entities));
-            treeSorceDataFile.Nodes[0].Expand();
-
-            updateModifiedDataMonitorViewsTab();
-        }
-
-
-
-        #endregion Saved Views Tab Management
-
-
-        #endregion Helpers
-
 
         #region Attachments
 
@@ -1537,12 +1200,364 @@ namespace DMM365
 
         }
 
+        private void btnAttachmentsLogs_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(Path.GetDirectoryName(currentLogPath) + @"\");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot find path specified '" + Path.GetPathRoot(currentLogPath) + "'. \r\n Error message: \r\n" + ex.Message , "ERROR");
+            }
+        }
+
         #endregion Attachments
+
 
         private void linkWiki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //to open link to github wiki and blog
         }
+
+
+        #region Helpers
+
+
+        #region Private methods
+
+        private void cleanAttachmentsSetting(bool _checked)
+        {
+            foreach (Control item in groupAttachmentsCopySettings.Controls)
+            {
+                if (item is CheckBox) ((CheckBox)item).Checked = _checked;
+            }
+        }
+
+        private void btnStartAttachmentsCopyText()
+        {
+            btnStartAttachmentsCopy.Text = cbxAttachmentsRollback.Checked ? "ROLL BACK" : "COPY";
+        }
+
+
+        private void copyFilesToImportZipPackage(subFolders dataFileToImportPath, subFolders tempFolder)
+        {
+
+            // Content type xml
+            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, subFolders.ContentTypeSource, fileName.contentTypesXml)
+                , IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.contentTypesXml), true);
+            //schema xml
+            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, subFolders.SchemaFileSource, fileName.dataSchemaXml), IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.dataSchemaXml), true);
+            //data xml
+            IOHelper.copyFile(IOHelper.getProjectSubfolderPath(allSettings, dataFileToImportPath, fileName.dataFileXml), IOHelper.getProjectSubfolderPath(allSettings, tempFolder, fileName.dataFileXml), true);
+
+        }
+
+        private void moveNextTab(int direction)
+        {
+            tabs.SelectTab(tabs.TabPages.IndexOf(tabs.SelectedTab) + direction);
+        }
+
+        private void moveProjectTab()
+        {
+            tabs.SelectTab(1);
+        }
+
+
+        private void populateDropDown(ComboBox cb, List<CrmEntityContainer> ds)
+        {
+            cb.DataSource = ds;
+            cb.DisplayMember = "name";
+            cb.ValueMember = "id";
+            cb.SelectedItem = null;
+
+        }
+
+        private void moveListBoxItems(ListBox source, List<SchemaEntity> dataSource, BindingSource bs, List<SchemaEntity> dataSourceTarget, BindingSource bd)
+        {
+            if (source.SelectedItems.Count > 0)
+            {
+                //copy selected items to a new collection
+                List<SchemaEntity> selected = source.SelectedItems.Cast<SchemaEntity>().ToList();
+                //remove from source ds
+                selected.ForEach(a =>
+                {
+                    dataSource.Remove(a);
+                });
+                //merge to selected ds
+                dataSourceTarget.AddRange(selected.Where(d1 => dataSourceTarget.All(d2 => d1.name != d2.name)));
+
+                //reset data bindings
+                bs.ResetBindings(false);
+                bd.ResetBindings(false);
+            }
+
+        }
+
+        private bool validateGroupCombos(GroupBox targetGroup)
+        {
+
+            foreach (var tbx in targetGroup.Controls.OfType<ComboBox>())
+            {
+                if (!GlobalHelper.isValidString(tbx.Text) && tbx.Enabled)
+                {
+                    tbx.BackColor = Color.LightSalmon;
+                    return false;
+                }
+                else tbx.BackColor = Color.White;
+            }
+
+            return true;
+        }
+
+
+        #endregion Private methods
+
+
+        #region Views
+
+        private void deleteView(Guid viewId)
+        {
+            if (viewsContainers.Keys.Contains(viewId)) viewsContainers.Remove(viewId);
+        }
+
+        private queryContainer getView(Guid viewId)
+        {
+            if (!viewsContainers.Keys.Contains(viewId)) return null;
+
+            return viewsContainers[viewId];
+        }
+
+        private void addView(CrmEntityContainer view)
+        {
+
+            if (!view.crmEntity.Contains("fetchxml")) return;
+
+            string fetch = view.crmEntity.GetAttributeValue<string>("fetchxml");
+            //yet saved
+            if (!ReferenceEquals(getView(view.id), null)) deleteView(view.id);
+
+            if (ReferenceEquals(allSettings.SelectedUserQueries, null) || ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
+                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, cbxExecuteAsListOfLinkedQueries.Checked, cbxCollectAllReferences.Checked, cbxExcludeFromResult.Checked));
+
+            else
+            {
+
+                selectedQuery current = allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id);
+                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, current.ExecuteAsListOfLinkedQueries, current.CollectAllReferences, current.ExcludeFromResults));
+            }
+
+        }
+
+        private void loadView(CrmEntityContainer view)
+        {
+
+            queryContainer current = getView(view.id);
+            if (ReferenceEquals(current, null))
+            {
+                if (ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
+                {
+                    //?? add on fly??
+                    return;
+                }
+                //MessageBox.Show("Cannot load selected view");
+                return;
+            }
+            string fetch = view.crmEntity.GetAttributeValue<string>("fetchxml");
+            //load Load Query Monitor
+            treeTransformedQueryDisplay.Nodes.Clear();
+            if (current.ExequteAsSeparateLinkedQueries)
+                treeTransformedQueryDisplay.Nodes.AddRange(treeHelper.fromQuery(crmServiceClientSource, getView(view.id), CrmHelper.queryToFetch(crmServiceClientSource, current.expression)).ToArray());
+            else treeTransformedQueryDisplay.Nodes.Add(treeHelper.nodeBasedOnFetch(fetch));
+            //treeTransformedQueryDisplay.ExpandAll();
+            //load transformation settings
+            //remove oncheked event
+            //transformationSettings_CheckedChanged
+            cbxExcludeFromResult.CheckedChanged -= transformationSettings_CheckedChanged;
+            cbxCollectAllReferences.CheckedChanged -= transformationSettings_CheckedChanged;
+            cbxExecuteAsListOfLinkedQueries.CheckedChanged -= transformationSettings_CheckedChanged;
+            cbxExcludeFromResult.Checked = current.ExcludeFromResults;
+            cbxCollectAllReferences.Checked = current.CollectAllReferences;
+            cbxExecuteAsListOfLinkedQueries.Checked = current.ExequteAsSeparateLinkedQueries;
+            cbxExcludeFromResult.CheckedChanged += transformationSettings_CheckedChanged;
+            cbxCollectAllReferences.CheckedChanged += transformationSettings_CheckedChanged;
+            cbxExecuteAsListOfLinkedQueries.CheckedChanged += transformationSettings_CheckedChanged;
+
+
+        }
+
+        private void saveAndReloadView()
+        {
+
+            if (ReferenceEquals(lstListOfViewsFilters.SelectedItem, null)) return;
+            CrmEntityContainer view = lstListOfViewsFilters.SelectedItem as CrmEntityContainer;
+            queryContainer current = getView(view.id);
+            current.CollectAllReferences = cbxCollectAllReferences.Checked;
+            current.ExcludeFromResults = cbxExcludeFromResult.Checked;
+            current.ExequteAsSeparateLinkedQueries = cbxExecuteAsListOfLinkedQueries.Checked;
+            saveViewToSettings(current, view.id);
+            loadView(view);
+
+        }
+
+        private void saveViewToSettings(queryContainer query, Guid viewid)
+        {
+
+            selectedQuery userQuery = SelectedSavedUserViews_DS.Select(s => new selectedQuery
+            {
+                id = s.id,
+                CollectAllReferences = query.CollectAllReferences,
+                ExecuteAsListOfLinkedQueries = query.ExequteAsSeparateLinkedQueries,
+                ExcludeFromResults = query.ExcludeFromResults
+            }).FirstOrDefault(s => s.id == viewid);
+
+            if (allSettings.SelectedUserQueries.Contains(userQuery, new selectedQueryEqualityComparer()))
+                allSettings.SelectedUserQueries.RemoveAll(q => q.id == userQuery.id);
+
+            allSettings.SelectedUserQueries.Add(userQuery);
+        }
+
+        #endregion Views
+
+
+        #region Saved Views Tab Management
+
+
+        private void updateModifiedDataMonitorViewsTab()
+        {
+            //update Processed records monitor:
+            string modifiedDataFilePath = IOHelper.getProjectSubfolderPath(allSettings, subFolders.DataFileByViews, fileName.dataFileXml);
+            if (File.Exists(modifiedDataFilePath))
+            {
+                treeResultDataFile.Nodes.Clear();
+                treeResultDataFile.Nodes.Add(treeHelper.createEntityNodes(IOHelper.DeserializeXmlFromFile<DataEntities>(modifiedDataFilePath).entities));
+                treeResultDataFile.Nodes[0].Expand();
+            }
+
+        }
+
+
+        private void loadViewsConfiguration()
+        {
+
+            reinitViewsData();
+
+            lstDefaultSchemaDataByViews.ClearSelected();
+            List<SchemaEntity> d = lstDefaultSchemaDataByViews.Items.Cast<SchemaEntity>().ToList();
+
+            //if(!ReferenceEquals(allSettings.SelectedUserQueries, null) && allSettings.SelectedUserQueries.Count > 0)
+
+            bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS
+= CrmHelper.convertEntityToEntityContainer(CrmHelper.getUserQueryListByIds(crmServiceClientSource, allSettings.SelectedUserQueries));
+            lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
+            bindings_SelectedSavedUserViews_DS.ResetBindings(false);
+
+            //load selected seting collection
+            if (SelectedSavedUserViews_DS.Count > 0)
+            {
+                foreach (CrmEntityContainer cec in SelectedSavedUserViews_DS) addView(cec);
+                //load selected
+                loadView(lstListOfViewsFilters.SelectedItem as CrmEntityContainer);
+            }
+
+            //set selected in default source
+            if (!ReferenceEquals(SelectedSavedUserViews_DS, null) && SelectedSavedUserViews_DS.Count > 0)
+            {
+                foreach (CrmEntityContainer s in SelectedSavedUserViews_DS)
+                {
+                    string fetch = s.crmEntity.GetAttributeValue<string>("fetchxml");
+                    if (!GlobalHelper.isValidString(fetch)) continue;
+                    QueryExpression query = CrmHelper.fetchToQuery(crmServiceClientSource, fetch);
+                    int index = d.FindIndex(c => c.name == query.EntityName);
+                    if (index != -1)
+                        lstDefaultSchemaDataByViews.SetSelected(index, true);
+                }
+            }
+
+
+            //remove selected entities from defaults to selected
+            moveListBoxItems(lstDefaultSchemaDataByViews, DefaultViewsSchema_DS, bindings_DefaultViewsSchema, SelectedEntitiesViews_DS, bindings_SelectedEntitiesViews);
+            //mimic lstSelectedSchemaDataByViews.SelectedIndexChanged
+            if (lstSelectedSchemaDataByViews.SelectedItems.Count > 0)
+            {
+                SchemaEntity ent = lstSelectedSchemaDataByViews.SelectedItem as SchemaEntity;
+                if (ReferenceEquals(ent, null)) return;
+
+                bindings_SavedUserViews = new BindingSource();
+                bindings_SavedUserViews.DataSource = CrmHelper.getUserQueryListWraped(crmServiceClientSource, ent.etc);
+                lstViewsPerEntity.DataSource = bindings_SavedUserViews;
+                lstViewsPerEntity.DisplayMember = "name";
+                bindings_SavedUserViews.ResetBindings(false);
+            }
+
+            //
+            updateViewsTabDependencies();
+        }
+
+        private void updateViewsTabDependencies()
+        {
+
+            //fill fields collection with selected entity fields
+
+            //clear Fields list in advaced filters to if selected entities is empty
+            if (SelectedEntitiesViews_DS.Count == 0)
+            {
+                bindings_SavedUserViews.DataSource = SavedUserViews_DS;
+                lstViewsPerEntity.DataSource = bindings_SavedUserViews;
+                bindings_SavedUserViews.ResetBindings(false);
+
+                bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS = new List<CrmEntityContainer>();
+                lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
+                bindings_SelectedSavedUserViews_DS.ResetBindings(false);
+            }
+
+        }
+
+        private void reinitViewsData()
+        {
+
+            //douplicate schema source to keep default unchanged
+            DefaultViewsSchema_DS = GlobalHelper.copyCollection<SchemaEntity>(listOfEntities_DS.entities).Where(x => listOfData_DS.entities.Exists(d => d.name == x.name)).ToList();
+
+
+            //set binded source
+            bindings_DefaultViewsSchema = new BindingSource();
+            bindings_DefaultViewsSchema.DataSource = DefaultViewsSchema_DS;
+            lstDefaultSchemaDataByViews.DataSource = bindings_DefaultViewsSchema;
+            lstDefaultSchemaDataByViews.DisplayMember = "name";
+
+
+            //set binded source
+            bindings_SelectedEntitiesViews = new BindingSource();
+            bindings_SelectedEntitiesViews.DataSource = SelectedEntitiesViews_DS;
+            lstSelectedSchemaDataByViews.DataSource = bindings_SelectedEntitiesViews;
+            lstSelectedSchemaDataByViews.DisplayMember = "name";
+
+            //selected fields
+            bindings_SavedUserViews = new BindingSource();
+            bindings_SavedUserViews.DataSource = SavedUserViews_DS;
+            lstViewsPerEntity.DataSource = bindings_SavedUserViews;
+            lstViewsPerEntity.DisplayMember = "name";
+
+            bindings_SelectedSavedUserViews_DS = new BindingSource();
+            bindings_SelectedSavedUserViews_DS.DataSource = SelectedSavedUserViews_DS;
+            lstListOfViewsFilters.DataSource = bindings_SelectedSavedUserViews_DS;
+            lstListOfViewsFilters.DisplayMember = "name";
+
+            //fill original data tree
+            treeSorceDataFile.Nodes.Clear();
+            treeSorceDataFile.Nodes.Add(treeHelper.createEntityNodes(listOfData_DS.entities));
+            treeSorceDataFile.Nodes[0].Expand();
+
+            updateModifiedDataMonitorViewsTab();
+        }
+
+
+
+        #endregion Saved Views Tab Management
+
+
+        #endregion Helpers
 
     }
 }

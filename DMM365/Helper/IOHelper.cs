@@ -23,16 +23,16 @@ namespace DMM365.Helper
 
             return true;
         }
+        
 
-
-
-            /// <summary>
-            /// Copy files, overrides on doOverride = true, else appends
-            /// </summary>
-            /// <param name="sourcePath"></param>
-            /// <param name="destinationPath"></param>
-            /// <param name="doOverride"></param>
-            internal static void copyFile(string sourcePath, string destinationPath, bool doOverride) {
+        /// <summary>
+        /// Copy files, overrides on doOverride = true, else appends
+        /// </summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="destinationPath"></param>
+        /// <param name="doOverride"></param>
+        internal static void copyFile(string sourcePath, string destinationPath, bool doOverride)
+        {
 
             //File.Copy(sourcePath, destinationPath, doOverride);
 
@@ -48,6 +48,7 @@ namespace DMM365.Helper
             outf.Close();
             outf.Dispose();
         }
+        
 
         internal static void clearDirectory(string directoryPath)
         {
@@ -61,6 +62,7 @@ namespace DMM365.Helper
                     dir.Delete(true);
             }
         }
+
 
         internal static void deleteFile(string filePath)
         {
@@ -95,10 +97,25 @@ namespace DMM365.Helper
             foreach (KeyValuePair<int, string> item in directoriesNames)
             {
                 string path = Path.Combine(settings.ProjectPath, item.Value);
-                if (Directory.Exists(path)) continue;
-                Directory.CreateDirectory(path);
+                //if (Directory.Exists(path)) continue;
+                //Directory.CreateDirectory(path);
+                createDirectory(path);
             }      
         }
+
+        internal static DirectoryInfo createDirectory(string path)
+        {
+            if (Directory.Exists(path)) return new DirectoryInfo(path);
+            try
+            {
+                return Directory.CreateDirectory(path);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Obsolete
@@ -148,8 +165,7 @@ namespace DMM365.Helper
             }
             return result;
         }
-
-
+        
 
         /// <summary>
         /// returns absolute path to project xml
@@ -203,6 +219,7 @@ namespace DMM365.Helper
             }
         }
 
+
         /// <summary>
         /// Object to xml file
         /// </summary>
@@ -239,6 +256,7 @@ namespace DMM365.Helper
                 return responseObject;
             }
         }
+
 
         /// <summary>
         /// Object of type T to JSON
