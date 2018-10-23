@@ -86,7 +86,6 @@ namespace DMM365
             lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
 
             currentLogPath = Path.Combine(IOHelper.createDirectory(Path.Combine(Environment.CurrentDirectory,"Logs")).FullName, "Log_" + DateTime.Now.ToString().Replace(':', '_') + ".txt");
-            //Path.Combine(Environment.CurrentDirectory, @"Log_" + DateTime.Now.ToString().Replace(':','_') + ".txt");
             File.Create(currentLogPath);
 
             #region Bindings
@@ -119,7 +118,7 @@ namespace DMM365
         {
 
             this.WindowState = Settings.Default.F1State;
-            this.Location = Settings.Default.F1Location;
+            //this.Location = Settings.Default.F1Location;
             this.Size = Settings.Default.F1Size;
             //this.Size = Screen.PrimaryScreen.WorkingArea.Size;
             this.Font = Settings.Default.F1Font;
