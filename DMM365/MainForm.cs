@@ -1217,6 +1217,7 @@ namespace DMM365
         private void linkWiki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //to open link to github wiki and blog
+            //https://github.com/mkalinov/DMM365/wiki
         }
 
 
