@@ -91,6 +91,7 @@
             this.lstSelectedSchemaDataByViews = new System.Windows.Forms.ListBox();
             this.tabPortalsSync = new System.Windows.Forms.TabPage();
             this.groupPortalsSync = new System.Windows.Forms.GroupBox();
+            this.btnAttachmentsLogs = new System.Windows.Forms.Button();
             this.lblSyncStart = new System.Windows.Forms.Label();
             this.lblPortalSyncTo = new System.Windows.Forms.Label();
             this.lblPortalSyncFrom = new System.Windows.Forms.Label();
@@ -122,7 +123,6 @@
             this.openFileDialogLoadSchema = new System.Windows.Forms.OpenFileDialog();
             this.openFileLoadProject = new System.Windows.Forms.OpenFileDialog();
             this.openFileAttachments = new System.Windows.Forms.OpenFileDialog();
-            this.btnAttachmentsLogs = new System.Windows.Forms.Button();
             this.tabsPanel.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabAbout.SuspendLayout();
@@ -142,8 +142,9 @@
             // 
             this.tabsPanel.Controls.Add(this.tabs);
             this.tabsPanel.Location = new System.Drawing.Point(0, 0);
+            this.tabsPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabsPanel.Name = "tabsPanel";
-            this.tabsPanel.Size = new System.Drawing.Size(1448, 817);
+            this.tabsPanel.Size = new System.Drawing.Size(1931, 1006);
             this.tabsPanel.TabIndex = 1;
             // 
             // tabs
@@ -151,14 +152,15 @@
             this.tabs.Controls.Add(this.tabAbout);
             this.tabs.Controls.Add(this.tabProject);
             this.tabs.Controls.Add(this.tabModifyDataBasedOnSavedQueries);
-            this.tabs.Controls.Add(this.tabPortalsSync);
             this.tabs.Controls.Add(this.tabReplaceIDs);
+            this.tabs.Controls.Add(this.tabPortalsSync);
             this.tabs.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.tabs.Location = new System.Drawing.Point(17, 11);
+            this.tabs.Location = new System.Drawing.Point(23, 14);
+            this.tabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabs.Name = "tabs";
             this.tabs.Padding = new System.Drawing.Point(10, 8);
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(1428, 794);
+            this.tabs.Size = new System.Drawing.Size(1904, 977);
             this.tabs.TabIndex = 0;
             // 
             // tabAbout
@@ -173,9 +175,10 @@
             this.tabAbout.Controls.Add(this.lblAbout1);
             this.tabAbout.Controls.Add(this.lblAboutTitle);
             this.tabAbout.Controls.Add(this.lblAbout1content);
-            this.tabAbout.Location = new System.Drawing.Point(4, 35);
+            this.tabAbout.Location = new System.Drawing.Point(4, 38);
+            this.tabAbout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabAbout.Name = "tabAbout";
-            this.tabAbout.Size = new System.Drawing.Size(1420, 755);
+            this.tabAbout.Size = new System.Drawing.Size(1896, 935);
             this.tabAbout.TabIndex = 7;
             this.tabAbout.Text = "About DMM365 tool";
             this.tabAbout.UseVisualStyleBackColor = true;
@@ -183,9 +186,10 @@
             // linkWiki
             // 
             this.linkWiki.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold);
-            this.linkWiki.Location = new System.Drawing.Point(1199, 31);
+            this.linkWiki.Location = new System.Drawing.Point(1599, 38);
+            this.linkWiki.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkWiki.Name = "linkWiki";
-            this.linkWiki.Size = new System.Drawing.Size(108, 26);
+            this.linkWiki.Size = new System.Drawing.Size(144, 32);
             this.linkWiki.TabIndex = 65;
             this.linkWiki.TabStop = true;
             this.linkWiki.Text = "Project Wiki";
@@ -195,17 +199,19 @@
             // lblAboutSubTitle
             // 
             this.lblAboutSubTitle.AutoSize = true;
-            this.lblAboutSubTitle.Location = new System.Drawing.Point(71, 71);
+            this.lblAboutSubTitle.Location = new System.Drawing.Point(69, 85);
+            this.lblAboutSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAboutSubTitle.Name = "lblAboutSubTitle";
-            this.lblAboutSubTitle.Size = new System.Drawing.Size(402, 16);
+            this.lblAboutSubTitle.Size = new System.Drawing.Size(449, 19);
             this.lblAboutSubTitle.TabIndex = 64;
             this.lblAboutSubTitle.Text = "Each application tab represents a different functionality:";
             // 
             // btnBegin
             // 
-            this.btnBegin.Location = new System.Drawing.Point(1165, 699);
+            this.btnBegin.Location = new System.Drawing.Point(1603, 860);
+            this.btnBegin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBegin.Name = "btnBegin";
-            this.btnBegin.Size = new System.Drawing.Size(231, 27);
+            this.btnBegin.Size = new System.Drawing.Size(258, 33);
             this.btnBegin.TabIndex = 63;
             this.btnBegin.Text = "To Project";
             this.btnBegin.UseVisualStyleBackColor = true;
@@ -214,47 +220,52 @@
             // lblAbout3
             // 
             this.lblAbout3.AutoSize = true;
-            this.lblAbout3.Location = new System.Drawing.Point(76, 530);
+            this.lblAbout3.Location = new System.Drawing.Point(79, 405);
+            this.lblAbout3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout3.Name = "lblAbout3";
-            this.lblAbout3.Size = new System.Drawing.Size(139, 16);
+            this.lblAbout3.Size = new System.Drawing.Size(159, 19);
             this.lblAbout3.TabIndex = 62;
-            this.lblAbout3.Text = "3. Data Dupliacator";
+            this.lblAbout3.Text = "2. Data Dupliacator";
             // 
             // lblAbout3content
             // 
             this.lblAbout3content.AutoSize = true;
             this.lblAbout3content.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbout3content.Location = new System.Drawing.Point(112, 582);
+            this.lblAbout3content.Location = new System.Drawing.Point(95, 455);
+            this.lblAbout3content.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout3content.Name = "lblAbout3content";
-            this.lblAbout3content.Size = new System.Drawing.Size(658, 72);
+            this.lblAbout3content.Size = new System.Drawing.Size(842, 138);
             this.lblAbout3content.TabIndex = 61;
             this.lblAbout3content.Text = resources.GetString("lblAbout3content.Text");
             // 
             // lblAbout2
             // 
             this.lblAbout2.AutoSize = true;
-            this.lblAbout2.Location = new System.Drawing.Point(76, 320);
+            this.lblAbout2.Location = new System.Drawing.Point(79, 651);
+            this.lblAbout2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout2.Name = "lblAbout2";
-            this.lblAbout2.Size = new System.Drawing.Size(418, 16);
+            this.lblAbout2.Size = new System.Drawing.Size(478, 19);
             this.lblAbout2.TabIndex = 60;
-            this.lblAbout2.Text = "2. Copy CRM attachments and sync Portal 365 Site Settings";
+            this.lblAbout2.Text = "3. Copy CRM attachments and sync Portal 365 Site Settings";
             // 
             // lblAbout2content
             // 
             this.lblAbout2content.AutoSize = true;
             this.lblAbout2content.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbout2content.Location = new System.Drawing.Point(112, 352);
+            this.lblAbout2content.Location = new System.Drawing.Point(95, 710);
+            this.lblAbout2content.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout2content.Name = "lblAbout2content";
-            this.lblAbout2content.Size = new System.Drawing.Size(1087, 144);
+            this.lblAbout2content.Size = new System.Drawing.Size(1389, 207);
             this.lblAbout2content.TabIndex = 59;
             this.lblAbout2content.Text = resources.GetString("lblAbout2content.Text");
             // 
             // lblAbout1
             // 
             this.lblAbout1.AutoSize = true;
-            this.lblAbout1.Location = new System.Drawing.Point(76, 132);
+            this.lblAbout1.Location = new System.Drawing.Point(79, 140);
+            this.lblAbout1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout1.Name = "lblAbout1";
-            this.lblAbout1.Size = new System.Drawing.Size(259, 16);
+            this.lblAbout1.Size = new System.Drawing.Size(293, 19);
             this.lblAbout1.TabIndex = 58;
             this.lblAbout1.Text = "1. CRM Granular Data Migration tool";
             // 
@@ -262,9 +273,10 @@
             // 
             this.lblAboutTitle.AutoSize = true;
             this.lblAboutTitle.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAboutTitle.Location = new System.Drawing.Point(37, 34);
+            this.lblAboutTitle.Location = new System.Drawing.Point(49, 42);
+            this.lblAboutTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAboutTitle.Name = "lblAboutTitle";
-            this.lblAboutTitle.Size = new System.Drawing.Size(1079, 23);
+            this.lblAboutTitle.Size = new System.Drawing.Size(1359, 29);
             this.lblAboutTitle.TabIndex = 57;
             this.lblAboutTitle.Text = "DMM is stands for Data Migration Manager. The tool dedicated to assist with Dynam" +
     "ics 365 dta migration and Portals 365 deployment. ";
@@ -273,9 +285,10 @@
             // 
             this.lblAbout1content.AutoSize = true;
             this.lblAbout1content.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbout1content.Location = new System.Drawing.Point(112, 164);
+            this.lblAbout1content.Location = new System.Drawing.Point(95, 190);
+            this.lblAbout1content.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout1content.Name = "lblAbout1content";
-            this.lblAbout1content.Size = new System.Drawing.Size(1123, 144);
+            this.lblAbout1content.Size = new System.Drawing.Size(1429, 161);
             this.lblAbout1content.TabIndex = 56;
             this.lblAbout1content.Text = resources.GetString("lblAbout1content.Text");
             // 
@@ -295,10 +308,10 @@
             this.tabProject.Controls.Add(this.lblProject);
             this.tabProject.Controls.Add(this.cbxCreateProject);
             this.tabProject.Controls.Add(this.cbxAttachmentsMigration);
-            this.tabProject.Location = new System.Drawing.Point(4, 35);
-            this.tabProject.Margin = new System.Windows.Forms.Padding(2);
+            this.tabProject.Location = new System.Drawing.Point(4, 38);
+            this.tabProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabProject.Name = "tabProject";
-            this.tabProject.Size = new System.Drawing.Size(1420, 755);
+            this.tabProject.Size = new System.Drawing.Size(1896, 935);
             this.tabProject.TabIndex = 5;
             this.tabProject.Text = "Project Management";
             this.tabProject.UseVisualStyleBackColor = true;
@@ -307,19 +320,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(27, 643);
+            this.label4.Location = new System.Drawing.Point(36, 791);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(753, 68);
+            this.label4.Size = new System.Drawing.Size(880, 80);
             this.label4.TabIndex = 55;
             this.label4.Text = resources.GetString("label4.Text");
             // 
             // btnTargetConnectionChange
             // 
             this.btnTargetConnectionChange.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnTargetConnectionChange.Location = new System.Drawing.Point(1233, 212);
-            this.btnTargetConnectionChange.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTargetConnectionChange.Location = new System.Drawing.Point(1644, 261);
+            this.btnTargetConnectionChange.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTargetConnectionChange.Name = "btnTargetConnectionChange";
-            this.btnTargetConnectionChange.Size = new System.Drawing.Size(76, 19);
+            this.btnTargetConnectionChange.Size = new System.Drawing.Size(101, 23);
             this.btnTargetConnectionChange.TabIndex = 54;
             this.btnTargetConnectionChange.Text = "change";
             this.btnTargetConnectionChange.UseCompatibleTextRendering = true;
@@ -330,10 +344,10 @@
             // btnSourcetConnectionChange
             // 
             this.btnSourcetConnectionChange.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnSourcetConnectionChange.Location = new System.Drawing.Point(1233, 117);
-            this.btnSourcetConnectionChange.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSourcetConnectionChange.Location = new System.Drawing.Point(1644, 144);
+            this.btnSourcetConnectionChange.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSourcetConnectionChange.Name = "btnSourcetConnectionChange";
-            this.btnSourcetConnectionChange.Size = new System.Drawing.Size(76, 19);
+            this.btnSourcetConnectionChange.Size = new System.Drawing.Size(101, 23);
             this.btnSourcetConnectionChange.TabIndex = 53;
             this.btnSourcetConnectionChange.Text = "change";
             this.btnSourcetConnectionChange.UseCompatibleTextRendering = true;
@@ -344,46 +358,47 @@
             // lblProjectFiles
             // 
             this.lblProjectFiles.AutoSize = true;
-            this.lblProjectFiles.Location = new System.Drawing.Point(968, 272);
-            this.lblProjectFiles.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProjectFiles.Location = new System.Drawing.Point(1291, 335);
             this.lblProjectFiles.Name = "lblProjectFiles";
-            this.lblProjectFiles.Size = new System.Drawing.Size(155, 16);
+            this.lblProjectFiles.Size = new System.Drawing.Size(171, 19);
             this.lblProjectFiles.TabIndex = 52;
             this.lblProjectFiles.Text = "Project Files Monitor";
             // 
             // treeProject
             // 
-            this.treeProject.Location = new System.Drawing.Point(972, 338);
+            this.treeProject.Location = new System.Drawing.Point(1296, 416);
+            this.treeProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeProject.Name = "treeProject";
-            this.treeProject.Size = new System.Drawing.Size(368, 383);
+            this.treeProject.Size = new System.Drawing.Size(489, 470);
             this.treeProject.TabIndex = 0;
             // 
             // lblConnectedTo
             // 
             this.lblConnectedTo.AutoSize = true;
-            this.lblConnectedTo.Location = new System.Drawing.Point(968, 18);
-            this.lblConnectedTo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblConnectedTo.Location = new System.Drawing.Point(1291, 22);
             this.lblConnectedTo.Name = "lblConnectedTo";
-            this.lblConnectedTo.Size = new System.Drawing.Size(163, 16);
+            this.lblConnectedTo.Size = new System.Drawing.Size(182, 19);
             this.lblConnectedTo.TabIndex = 51;
             this.lblConnectedTo.Text = "You are connected to:";
             // 
             // tbxProject
             // 
             this.tbxProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tbxProject.Location = new System.Drawing.Point(972, 303);
+            this.tbxProject.Location = new System.Drawing.Point(1296, 373);
+            this.tbxProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxProject.Name = "tbxProject";
             this.tbxProject.ReadOnly = true;
-            this.tbxProject.Size = new System.Drawing.Size(368, 20);
+            this.tbxProject.Size = new System.Drawing.Size(489, 23);
             this.tbxProject.TabIndex = 1;
             // 
             // linkTarget
             // 
             this.linkTarget.AutoSize = true;
             this.linkTarget.Font = new System.Drawing.Font("Arial", 10F);
-            this.linkTarget.Location = new System.Drawing.Point(968, 158);
+            this.linkTarget.Location = new System.Drawing.Point(1291, 194);
+            this.linkTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkTarget.Name = "linkTarget";
-            this.linkTarget.Size = new System.Drawing.Size(114, 36);
+            this.linkTarget.Size = new System.Drawing.Size(142, 44);
             this.linkTarget.TabIndex = 1;
             this.linkTarget.TabStop = true;
             this.linkTarget.Text = "Target CRM:  {0}\r\n{1}";
@@ -395,9 +410,10 @@
             // 
             this.linkSource.AutoSize = true;
             this.linkSource.Font = new System.Drawing.Font("Arial", 10F);
-            this.linkSource.Location = new System.Drawing.Point(968, 65);
+            this.linkSource.Location = new System.Drawing.Point(1291, 80);
+            this.linkSource.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkSource.Name = "linkSource";
-            this.linkSource.Size = new System.Drawing.Size(123, 36);
+            this.linkSource.Size = new System.Drawing.Size(154, 44);
             this.linkSource.TabIndex = 0;
             this.linkSource.TabStop = true;
             this.linkSource.Text = "Source CRM:   {0}\r\n{1}";
@@ -409,9 +425,10 @@
             // 
             this.lblProject2.AutoSize = true;
             this.lblProject2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblProject2.Location = new System.Drawing.Point(27, 457);
+            this.lblProject2.Location = new System.Drawing.Point(36, 562);
+            this.lblProject2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProject2.Name = "lblProject2";
-            this.lblProject2.Size = new System.Drawing.Size(798, 85);
+            this.lblProject2.Size = new System.Drawing.Size(930, 100);
             this.lblProject2.TabIndex = 9;
             this.lblProject2.Text = "Steps:\r\n\r\nSet up source connection then select an existing \"<ProjectName>.xml\" fi" +
     "le from project root directory to load.\r\n\r\nOnce project loaded application will " +
@@ -423,10 +440,10 @@
             this.cbxLoadProject.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbxLoadProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxLoadProject.ForeColor = System.Drawing.Color.Navy;
-            this.cbxLoadProject.Location = new System.Drawing.Point(30, 411);
-            this.cbxLoadProject.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxLoadProject.Location = new System.Drawing.Point(40, 506);
+            this.cbxLoadProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxLoadProject.Name = "cbxLoadProject";
-            this.cbxLoadProject.Size = new System.Drawing.Size(159, 20);
+            this.cbxLoadProject.Size = new System.Drawing.Size(178, 23);
             this.cbxLoadProject.TabIndex = 42;
             this.cbxLoadProject.Text = "Load saved Project";
             this.cbxLoadProject.UseVisualStyleBackColor = true;
@@ -436,9 +453,10 @@
             // 
             this.lblProject.AutoSize = true;
             this.lblProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblProject.Location = new System.Drawing.Point(27, 87);
+            this.lblProject.Location = new System.Drawing.Point(36, 107);
+            this.lblProject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProject.Name = "lblProject";
-            this.lblProject.Size = new System.Drawing.Size(764, 272);
+            this.lblProject.Size = new System.Drawing.Size(921, 340);
             this.lblProject.TabIndex = 6;
             this.lblProject.Text = resources.GetString("lblProject.Text");
             // 
@@ -448,10 +466,10 @@
             this.cbxCreateProject.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbxCreateProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxCreateProject.ForeColor = System.Drawing.Color.Navy;
-            this.cbxCreateProject.Location = new System.Drawing.Point(30, 30);
-            this.cbxCreateProject.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxCreateProject.Location = new System.Drawing.Point(40, 37);
+            this.cbxCreateProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxCreateProject.Name = "cbxCreateProject";
-            this.cbxCreateProject.Size = new System.Drawing.Size(476, 36);
+            this.cbxCreateProject.Size = new System.Drawing.Size(536, 42);
             this.cbxCreateProject.TabIndex = 41;
             this.cbxCreateProject.Text = "  Create a new Data Migration Project  based on Saved View and \r\n  Configuration " +
     "Migration package";
@@ -464,10 +482,10 @@
             this.cbxAttachmentsMigration.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbxAttachmentsMigration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxAttachmentsMigration.ForeColor = System.Drawing.Color.Navy;
-            this.cbxAttachmentsMigration.Location = new System.Drawing.Point(30, 598);
-            this.cbxAttachmentsMigration.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxAttachmentsMigration.Location = new System.Drawing.Point(40, 736);
+            this.cbxAttachmentsMigration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxAttachmentsMigration.Name = "cbxAttachmentsMigration";
-            this.cbxAttachmentsMigration.Size = new System.Drawing.Size(586, 20);
+            this.cbxAttachmentsMigration.Size = new System.Drawing.Size(673, 23);
             this.cbxAttachmentsMigration.TabIndex = 43;
             this.cbxAttachmentsMigration.Text = "Copy Attachment (Notes)     Roll back Attchment copy    Synchronize Site Settings" +
     "";
@@ -481,9 +499,10 @@
             this.tabModifyDataBasedOnSavedQueries.Controls.Add(this.groupViewDataFilter);
             this.tabModifyDataBasedOnSavedQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabModifyDataBasedOnSavedQueries.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tabModifyDataBasedOnSavedQueries.Location = new System.Drawing.Point(4, 35);
+            this.tabModifyDataBasedOnSavedQueries.Location = new System.Drawing.Point(4, 38);
+            this.tabModifyDataBasedOnSavedQueries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabModifyDataBasedOnSavedQueries.Name = "tabModifyDataBasedOnSavedQueries";
-            this.tabModifyDataBasedOnSavedQueries.Size = new System.Drawing.Size(1420, 755);
+            this.tabModifyDataBasedOnSavedQueries.Size = new System.Drawing.Size(1896, 935);
             this.tabModifyDataBasedOnSavedQueries.TabIndex = 3;
             this.tabModifyDataBasedOnSavedQueries.Text = "Saved Views filters";
             this.tabModifyDataBasedOnSavedQueries.UseVisualStyleBackColor = true;
@@ -495,11 +514,11 @@
             this.groupViewsAdvanced.Controls.Add(this.treeResultDataFile);
             this.groupViewsAdvanced.Controls.Add(this.treeSorceDataFile);
             this.groupViewsAdvanced.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupViewsAdvanced.Location = new System.Drawing.Point(1172, 0);
-            this.groupViewsAdvanced.Margin = new System.Windows.Forms.Padding(2);
+            this.groupViewsAdvanced.Location = new System.Drawing.Point(1565, 0);
+            this.groupViewsAdvanced.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupViewsAdvanced.Name = "groupViewsAdvanced";
-            this.groupViewsAdvanced.Padding = new System.Windows.Forms.Padding(2);
-            this.groupViewsAdvanced.Size = new System.Drawing.Size(248, 755);
+            this.groupViewsAdvanced.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupViewsAdvanced.Size = new System.Drawing.Size(331, 935);
             this.groupViewsAdvanced.TabIndex = 44;
             this.groupViewsAdvanced.TabStop = false;
             this.groupViewsAdvanced.Text = "Filters and Results PreView";
@@ -508,10 +527,9 @@
             // 
             this.lblSorceDataFile.AutoSize = true;
             this.lblSorceDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblSorceDataFile.Location = new System.Drawing.Point(86, 28);
-            this.lblSorceDataFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSorceDataFile.Location = new System.Drawing.Point(115, 34);
             this.lblSorceDataFile.Name = "lblSorceDataFile";
-            this.lblSorceDataFile.Size = new System.Drawing.Size(68, 13);
+            this.lblSorceDataFile.Size = new System.Drawing.Size(91, 17);
             this.lblSorceDataFile.TabIndex = 50;
             this.lblSorceDataFile.Text = "Original Data";
             // 
@@ -519,29 +537,28 @@
             // 
             this.lblResultDataFile.AutoSize = true;
             this.lblResultDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblResultDataFile.Location = new System.Drawing.Point(56, 371);
-            this.lblResultDataFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblResultDataFile.Location = new System.Drawing.Point(75, 457);
             this.lblResultDataFile.Name = "lblResultDataFile";
-            this.lblResultDataFile.Size = new System.Drawing.Size(138, 13);
+            this.lblResultDataFile.Size = new System.Drawing.Size(183, 17);
             this.lblResultDataFile.TabIndex = 49;
             this.lblResultDataFile.Text = "Processed Records Monitor";
             // 
             // treeResultDataFile
             // 
             this.treeResultDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.treeResultDataFile.Location = new System.Drawing.Point(15, 386);
-            this.treeResultDataFile.Margin = new System.Windows.Forms.Padding(2);
+            this.treeResultDataFile.Location = new System.Drawing.Point(20, 475);
+            this.treeResultDataFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeResultDataFile.Name = "treeResultDataFile";
-            this.treeResultDataFile.Size = new System.Drawing.Size(215, 280);
+            this.treeResultDataFile.Size = new System.Drawing.Size(285, 344);
             this.treeResultDataFile.TabIndex = 46;
             // 
             // treeSorceDataFile
             // 
             this.treeSorceDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.treeSorceDataFile.Location = new System.Drawing.Point(15, 54);
-            this.treeSorceDataFile.Margin = new System.Windows.Forms.Padding(2);
+            this.treeSorceDataFile.Location = new System.Drawing.Point(20, 66);
+            this.treeSorceDataFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeSorceDataFile.Name = "treeSorceDataFile";
-            this.treeSorceDataFile.Size = new System.Drawing.Size(215, 280);
+            this.treeSorceDataFile.Size = new System.Drawing.Size(285, 344);
             this.treeSorceDataFile.TabIndex = 0;
             // 
             // groupViewDataFilter
@@ -574,8 +591,10 @@
             this.groupViewDataFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupViewDataFilter.Enabled = false;
             this.groupViewDataFilter.Location = new System.Drawing.Point(0, 0);
+            this.groupViewDataFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupViewDataFilter.Name = "groupViewDataFilter";
-            this.groupViewDataFilter.Size = new System.Drawing.Size(1420, 755);
+            this.groupViewDataFilter.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupViewDataFilter.Size = new System.Drawing.Size(1896, 935);
             this.groupViewDataFilter.TabIndex = 43;
             this.groupViewDataFilter.TabStop = false;
             this.groupViewDataFilter.Text = "Set Saved Views as Data Filters ";
@@ -584,9 +603,10 @@
             // 
             this.lblTick3.AutoSize = true;
             this.lblTick3.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTick3.Location = new System.Drawing.Point(263, 611);
+            this.lblTick3.Location = new System.Drawing.Point(351, 752);
+            this.lblTick3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTick3.Name = "lblTick3";
-            this.lblTick3.Size = new System.Drawing.Size(8, 18);
+            this.lblTick3.Size = new System.Drawing.Size(10, 23);
             this.lblTick3.TabIndex = 73;
             this.lblTick3.Text = "\r\n";
             // 
@@ -594,9 +614,10 @@
             // 
             this.lblTick2.AutoSize = true;
             this.lblTick2.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTick2.Location = new System.Drawing.Point(263, 506);
+            this.lblTick2.Location = new System.Drawing.Point(351, 623);
+            this.lblTick2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTick2.Name = "lblTick2";
-            this.lblTick2.Size = new System.Drawing.Size(8, 18);
+            this.lblTick2.Size = new System.Drawing.Size(10, 23);
             this.lblTick2.TabIndex = 72;
             this.lblTick2.Text = "\r\n";
             // 
@@ -604,9 +625,10 @@
             // 
             this.lblTick1.AutoSize = true;
             this.lblTick1.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTick1.Location = new System.Drawing.Point(263, 383);
+            this.lblTick1.Location = new System.Drawing.Point(351, 471);
+            this.lblTick1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTick1.Name = "lblTick1";
-            this.lblTick1.Size = new System.Drawing.Size(8, 18);
+            this.lblTick1.Size = new System.Drawing.Size(10, 23);
             this.lblTick1.TabIndex = 71;
             this.lblTick1.Text = "\r\n";
             // 
@@ -614,9 +636,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(283, 614);
+            this.label3.Location = new System.Drawing.Point(377, 756);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 90);
+            this.label3.Size = new System.Drawing.Size(270, 115);
             this.label3.TabIndex = 70;
             this.label3.Text = "Reverse (Exclude Results)\r\n\r\nResults found by the view will be \r\nexcluded from fi" +
     "nal data file\r\n\r\n";
@@ -625,9 +648,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(283, 506);
+            this.label2.Location = new System.Drawing.Point(377, 623);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(261, 108);
+            this.label2.Size = new System.Drawing.Size(336, 138);
             this.label2.TabIndex = 69;
             this.label2.Text = "Add Lookup Fields to import\r\n\r\nIf a lookup field added to column set and\r\nit pres" +
     "ents in data file then record will be \r\nkept fo import\r\n\r\n";
@@ -636,9 +660,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(283, 383);
+            this.label1.Location = new System.Drawing.Point(377, 471);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(548, 90);
+            this.label1.Size = new System.Drawing.Size(699, 115);
             this.label1.TabIndex = 68;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -646,18 +671,20 @@
             // 
             this.lblViewsTrans.AutoSize = true;
             this.lblViewsTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblViewsTrans.Location = new System.Drawing.Point(283, 346);
+            this.lblViewsTrans.Location = new System.Drawing.Point(377, 426);
+            this.lblViewsTrans.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblViewsTrans.Name = "lblViewsTrans";
-            this.lblViewsTrans.Size = new System.Drawing.Size(246, 17);
+            this.lblViewsTrans.Size = new System.Drawing.Size(288, 20);
             this.lblViewsTrans.TabIndex = 67;
             this.lblViewsTrans.Text = "Views Transformation  (per view)";
             // 
             // btnSaveModifyViewsFile
             // 
             this.btnSaveModifyViewsFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSaveModifyViewsFile.Location = new System.Drawing.Point(911, 695);
+            this.btnSaveModifyViewsFile.Location = new System.Drawing.Point(1215, 855);
+            this.btnSaveModifyViewsFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSaveModifyViewsFile.Name = "btnSaveModifyViewsFile";
-            this.btnSaveModifyViewsFile.Size = new System.Drawing.Size(200, 27);
+            this.btnSaveModifyViewsFile.Size = new System.Drawing.Size(267, 33);
             this.btnSaveModifyViewsFile.TabIndex = 5;
             this.btnSaveModifyViewsFile.Text = "Modify And Save Data";
             this.btnSaveModifyViewsFile.UseVisualStyleBackColor = true;
@@ -666,9 +693,10 @@
             // btnViewsBack
             // 
             this.btnViewsBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnViewsBack.Location = new System.Drawing.Point(10, 711);
+            this.btnViewsBack.Location = new System.Drawing.Point(13, 875);
+            this.btnViewsBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnViewsBack.Name = "btnViewsBack";
-            this.btnViewsBack.Size = new System.Drawing.Size(200, 27);
+            this.btnViewsBack.Size = new System.Drawing.Size(267, 33);
             this.btnViewsBack.TabIndex = 6;
             this.btnViewsBack.Text = "Return to Project";
             this.btnViewsBack.UseVisualStyleBackColor = true;
@@ -678,10 +706,9 @@
             // 
             this.lblTransformationSettings.AutoSize = true;
             this.lblTransformationSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblTransformationSettings.Location = new System.Drawing.Point(599, 509);
-            this.lblTransformationSettings.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTransformationSettings.Location = new System.Drawing.Point(799, 626);
             this.lblTransformationSettings.Name = "lblTransformationSettings";
-            this.lblTransformationSettings.Size = new System.Drawing.Size(217, 15);
+            this.lblTransformationSettings.Size = new System.Drawing.Size(264, 18);
             this.lblTransformationSettings.TabIndex = 66;
             this.lblTransformationSettings.Text = "Selected Query transformation settings";
             // 
@@ -689,10 +716,9 @@
             // 
             this.lblTransformedQueryDisplay.AutoSize = true;
             this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(898, 288);
-            this.lblTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(1197, 354);
             this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
-            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(145, 13);
+            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(197, 17);
             this.lblTransformedQueryDisplay.TabIndex = 63;
             this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
             // 
@@ -700,10 +726,10 @@
             // 
             this.cbxExcludeFromResult.AutoSize = true;
             this.cbxExcludeFromResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxExcludeFromResult.Location = new System.Drawing.Point(602, 604);
-            this.cbxExcludeFromResult.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxExcludeFromResult.Location = new System.Drawing.Point(803, 743);
+            this.cbxExcludeFromResult.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxExcludeFromResult.Name = "cbxExcludeFromResult";
-            this.cbxExcludeFromResult.Size = new System.Drawing.Size(191, 21);
+            this.cbxExcludeFromResult.Size = new System.Drawing.Size(227, 24);
             this.cbxExcludeFromResult.TabIndex = 65;
             this.cbxExcludeFromResult.Text = "Reverse (Exclude Results)";
             this.cbxExcludeFromResult.UseVisualStyleBackColor = true;
@@ -711,19 +737,20 @@
             // 
             // treeTransformedQueryDisplay
             // 
-            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(848, 329);
-            this.treeTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(2);
+            this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(1131, 405);
+            this.treeTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
-            this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(263, 300);
+            this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(349, 368);
             this.treeTransformedQueryDisplay.TabIndex = 62;
             // 
             // cbxExecuteAsListOfLinkedQueries
             // 
             this.cbxExecuteAsListOfLinkedQueries.AutoSize = true;
             this.cbxExecuteAsListOfLinkedQueries.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(602, 553);
+            this.cbxExecuteAsListOfLinkedQueries.Location = new System.Drawing.Point(803, 681);
+            this.cbxExecuteAsListOfLinkedQueries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxExecuteAsListOfLinkedQueries.Name = "cbxExecuteAsListOfLinkedQueries";
-            this.cbxExecuteAsListOfLinkedQueries.Size = new System.Drawing.Size(239, 21);
+            this.cbxExecuteAsListOfLinkedQueries.Size = new System.Drawing.Size(286, 24);
             this.cbxExecuteAsListOfLinkedQueries.TabIndex = 60;
             this.cbxExecuteAsListOfLinkedQueries.Text = "Execute As List Of Linked Queries";
             this.cbxExecuteAsListOfLinkedQueries.UseVisualStyleBackColor = true;
@@ -733,10 +760,10 @@
             // 
             this.cbxCollectAllReferences.AutoSize = true;
             this.cbxCollectAllReferences.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxCollectAllReferences.Location = new System.Drawing.Point(602, 578);
-            this.cbxCollectAllReferences.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxCollectAllReferences.Location = new System.Drawing.Point(803, 711);
+            this.cbxCollectAllReferences.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxCollectAllReferences.Name = "cbxCollectAllReferences";
-            this.cbxCollectAllReferences.Size = new System.Drawing.Size(200, 21);
+            this.cbxCollectAllReferences.Size = new System.Drawing.Size(236, 24);
             this.cbxCollectAllReferences.TabIndex = 61;
             this.cbxCollectAllReferences.Text = "Add Lookup Fields to import";
             this.cbxCollectAllReferences.UseVisualStyleBackColor = true;
@@ -746,9 +773,11 @@
             // 
             this.lstListOfViewsFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstListOfViewsFilters.FormattingEnabled = true;
-            this.lstListOfViewsFilters.Location = new System.Drawing.Point(828, 92);
+            this.lstListOfViewsFilters.ItemHeight = 17;
+            this.lstListOfViewsFilters.Location = new System.Drawing.Point(1104, 113);
+            this.lstListOfViewsFilters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstListOfViewsFilters.Name = "lstListOfViewsFilters";
-            this.lstListOfViewsFilters.Size = new System.Drawing.Size(288, 121);
+            this.lstListOfViewsFilters.Size = new System.Drawing.Size(383, 140);
             this.lstListOfViewsFilters.Sorted = true;
             this.lstListOfViewsFilters.TabIndex = 55;
             this.lstListOfViewsFilters.SelectedIndexChanged += new System.EventHandler(this.lstListOfViewsFilters_SelectedIndexChanged);
@@ -758,10 +787,9 @@
             // 
             this.lblViewsByEntity.AutoSize = true;
             this.lblViewsByEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblViewsByEntity.Location = new System.Drawing.Point(526, 39);
-            this.lblViewsByEntity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblViewsByEntity.Location = new System.Drawing.Point(701, 48);
             this.lblViewsByEntity.Name = "lblViewsByEntity";
-            this.lblViewsByEntity.Size = new System.Drawing.Size(290, 39);
+            this.lblViewsByEntity.Size = new System.Drawing.Size(385, 51);
             this.lblViewsByEntity.TabIndex = 54;
             this.lblViewsByEntity.Text = "List of public Saved User Views available for selected entity.\r\n\r\nDouble click a " +
     "view to add to filtters list";
@@ -770,10 +798,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(296, 28);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(395, 34);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(182, 13);
+            this.label5.Size = new System.Drawing.Size(239, 17);
             this.label5.TabIndex = 53;
             this.label5.Text = "Selecte Entity to see its Saved Views";
             // 
@@ -781,10 +808,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(40, 28);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(53, 34);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(141, 13);
+            this.label6.Size = new System.Drawing.Size(188, 17);
             this.label6.TabIndex = 52;
             this.label6.Text = "List of Entities in Schema file";
             // 
@@ -792,11 +818,12 @@
             // 
             this.lstDefaultSchemaDataByViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstDefaultSchemaDataByViews.FormattingEnabled = true;
-            this.lstDefaultSchemaDataByViews.Location = new System.Drawing.Point(10, 63);
-            this.lstDefaultSchemaDataByViews.Margin = new System.Windows.Forms.Padding(2);
+            this.lstDefaultSchemaDataByViews.ItemHeight = 17;
+            this.lstDefaultSchemaDataByViews.Location = new System.Drawing.Point(13, 78);
+            this.lstDefaultSchemaDataByViews.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstDefaultSchemaDataByViews.Name = "lstDefaultSchemaDataByViews";
             this.lstDefaultSchemaDataByViews.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstDefaultSchemaDataByViews.Size = new System.Drawing.Size(206, 498);
+            this.lstDefaultSchemaDataByViews.Size = new System.Drawing.Size(273, 599);
             this.lstDefaultSchemaDataByViews.Sorted = true;
             this.lstDefaultSchemaDataByViews.TabIndex = 42;
             // 
@@ -804,9 +831,11 @@
             // 
             this.lstViewsPerEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstViewsPerEntity.FormattingEnabled = true;
-            this.lstViewsPerEntity.Location = new System.Drawing.Point(520, 92);
+            this.lstViewsPerEntity.ItemHeight = 17;
+            this.lstViewsPerEntity.Location = new System.Drawing.Point(693, 113);
+            this.lstViewsPerEntity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstViewsPerEntity.Name = "lstViewsPerEntity";
-            this.lstViewsPerEntity.Size = new System.Drawing.Size(289, 173);
+            this.lstViewsPerEntity.Size = new System.Drawing.Size(384, 208);
             this.lstViewsPerEntity.Sorted = true;
             this.lstViewsPerEntity.TabIndex = 51;
             this.lstViewsPerEntity.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstViewsPerEntity_MouseDoubleClick);
@@ -814,9 +843,10 @@
             // btnbtnViews_FromDefaultToSelected
             // 
             this.btnbtnViews_FromDefaultToSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnbtnViews_FromDefaultToSelected.Location = new System.Drawing.Point(232, 128);
+            this.btnbtnViews_FromDefaultToSelected.Location = new System.Drawing.Point(309, 158);
+            this.btnbtnViews_FromDefaultToSelected.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnbtnViews_FromDefaultToSelected.Name = "btnbtnViews_FromDefaultToSelected";
-            this.btnbtnViews_FromDefaultToSelected.Size = new System.Drawing.Size(39, 23);
+            this.btnbtnViews_FromDefaultToSelected.Size = new System.Drawing.Size(52, 28);
             this.btnbtnViews_FromDefaultToSelected.TabIndex = 49;
             this.btnbtnViews_FromDefaultToSelected.Text = " >>";
             this.btnbtnViews_FromDefaultToSelected.UseVisualStyleBackColor = true;
@@ -825,9 +855,10 @@
             // btnViews_ReturnToDefaultFromSelected
             // 
             this.btnViews_ReturnToDefaultFromSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnViews_ReturnToDefaultFromSelected.Location = new System.Drawing.Point(232, 197);
+            this.btnViews_ReturnToDefaultFromSelected.Location = new System.Drawing.Point(309, 242);
+            this.btnViews_ReturnToDefaultFromSelected.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnViews_ReturnToDefaultFromSelected.Name = "btnViews_ReturnToDefaultFromSelected";
-            this.btnViews_ReturnToDefaultFromSelected.Size = new System.Drawing.Size(39, 23);
+            this.btnViews_ReturnToDefaultFromSelected.Size = new System.Drawing.Size(52, 28);
             this.btnViews_ReturnToDefaultFromSelected.TabIndex = 50;
             this.btnViews_ReturnToDefaultFromSelected.Text = " <<";
             this.btnViews_ReturnToDefaultFromSelected.UseVisualStyleBackColor = true;
@@ -837,10 +868,9 @@
             // 
             this.lblListOfViewsFilters.AutoSize = true;
             this.lblListOfViewsFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblListOfViewsFilters.Location = new System.Drawing.Point(845, 39);
-            this.lblListOfViewsFilters.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblListOfViewsFilters.Location = new System.Drawing.Point(1127, 48);
             this.lblListOfViewsFilters.Name = "lblListOfViewsFilters";
-            this.lblListOfViewsFilters.Size = new System.Drawing.Size(214, 39);
+            this.lblListOfViewsFilters.Size = new System.Drawing.Size(282, 51);
             this.lblListOfViewsFilters.TabIndex = 47;
             this.lblListOfViewsFilters.Text = "Select a view to set import settings \r\nor\r\nDouble click a view to remove it from " +
     "the list";
@@ -849,9 +879,11 @@
             // 
             this.lstSelectedSchemaDataByViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstSelectedSchemaDataByViews.FormattingEnabled = true;
-            this.lstSelectedSchemaDataByViews.Location = new System.Drawing.Point(286, 63);
+            this.lstSelectedSchemaDataByViews.ItemHeight = 17;
+            this.lstSelectedSchemaDataByViews.Location = new System.Drawing.Point(381, 78);
+            this.lstSelectedSchemaDataByViews.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstSelectedSchemaDataByViews.Name = "lstSelectedSchemaDataByViews";
-            this.lstSelectedSchemaDataByViews.Size = new System.Drawing.Size(206, 251);
+            this.lstSelectedSchemaDataByViews.Size = new System.Drawing.Size(273, 293);
             this.lstSelectedSchemaDataByViews.Sorted = true;
             this.lstSelectedSchemaDataByViews.TabIndex = 41;
             this.lstSelectedSchemaDataByViews.SelectedIndexChanged += new System.EventHandler(this.lstSelectedSchemaDataByViews_SelectedIndexChanged);
@@ -859,9 +891,10 @@
             // tabPortalsSync
             // 
             this.tabPortalsSync.Controls.Add(this.groupPortalsSync);
-            this.tabPortalsSync.Location = new System.Drawing.Point(4, 35);
+            this.tabPortalsSync.Location = new System.Drawing.Point(4, 38);
+            this.tabPortalsSync.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPortalsSync.Name = "tabPortalsSync";
-            this.tabPortalsSync.Size = new System.Drawing.Size(1420, 755);
+            this.tabPortalsSync.Size = new System.Drawing.Size(1896, 935);
             this.tabPortalsSync.TabIndex = 6;
             this.tabPortalsSync.Text = "Portals 365 Sync";
             this.tabPortalsSync.UseVisualStyleBackColor = true;
@@ -887,19 +920,34 @@
             this.groupPortalsSync.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupPortalsSync.Enabled = false;
             this.groupPortalsSync.Location = new System.Drawing.Point(0, 0);
+            this.groupPortalsSync.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupPortalsSync.Name = "groupPortalsSync";
-            this.groupPortalsSync.Size = new System.Drawing.Size(1420, 755);
+            this.groupPortalsSync.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupPortalsSync.Size = new System.Drawing.Size(1896, 935);
             this.groupPortalsSync.TabIndex = 0;
             this.groupPortalsSync.TabStop = false;
             this.groupPortalsSync.Text = "Synchronize Portals 365 Attachments and Site Settings";
+            // 
+            // btnAttachmentsLogs
+            // 
+            this.btnAttachmentsLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAttachmentsLogs.Location = new System.Drawing.Point(769, 785);
+            this.btnAttachmentsLogs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAttachmentsLogs.Name = "btnAttachmentsLogs";
+            this.btnAttachmentsLogs.Size = new System.Drawing.Size(309, 34);
+            this.btnAttachmentsLogs.TabIndex = 66;
+            this.btnAttachmentsLogs.Text = "Show Logs";
+            this.btnAttachmentsLogs.UseVisualStyleBackColor = false;
+            this.btnAttachmentsLogs.Click += new System.EventHandler(this.btnAttachmentsLogs_Click);
             // 
             // lblSyncStart
             // 
             this.lblSyncStart.AutoSize = true;
             this.lblSyncStart.Font = new System.Drawing.Font("Arial", 13F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lblSyncStart.Location = new System.Drawing.Point(6, 38);
+            this.lblSyncStart.Location = new System.Drawing.Point(8, 47);
+            this.lblSyncStart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSyncStart.Name = "lblSyncStart";
-            this.lblSyncStart.Size = new System.Drawing.Size(216, 21);
+            this.lblSyncStart.Size = new System.Drawing.Size(262, 25);
             this.lblSyncStart.TabIndex = 65;
             this.lblSyncStart.Text = "Check an option to start";
             // 
@@ -907,9 +955,10 @@
             // 
             this.lblPortalSyncTo.AutoSize = true;
             this.lblPortalSyncTo.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblPortalSyncTo.Location = new System.Drawing.Point(949, 53);
+            this.lblPortalSyncTo.Location = new System.Drawing.Point(1265, 65);
+            this.lblPortalSyncTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPortalSyncTo.Name = "lblPortalSyncTo";
-            this.lblPortalSyncTo.Size = new System.Drawing.Size(115, 16);
+            this.lblPortalSyncTo.Size = new System.Drawing.Size(135, 19);
             this.lblPortalSyncTo.TabIndex = 64;
             this.lblPortalSyncTo.Text = "Target CRM: {0}";
             this.lblPortalSyncTo.Visible = false;
@@ -918,18 +967,20 @@
             // 
             this.lblPortalSyncFrom.AutoSize = true;
             this.lblPortalSyncFrom.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblPortalSyncFrom.Location = new System.Drawing.Point(408, 53);
+            this.lblPortalSyncFrom.Location = new System.Drawing.Point(544, 65);
+            this.lblPortalSyncFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPortalSyncFrom.Name = "lblPortalSyncFrom";
-            this.lblPortalSyncFrom.Size = new System.Drawing.Size(116, 16);
+            this.lblPortalSyncFrom.Size = new System.Drawing.Size(137, 19);
             this.lblPortalSyncFrom.TabIndex = 63;
             this.lblPortalSyncFrom.Text = "Source Crm: {0}";
             this.lblPortalSyncFrom.Visible = false;
             // 
             // btnPortalSyncBack
             // 
-            this.btnPortalSyncBack.Location = new System.Drawing.Point(40, 639);
+            this.btnPortalSyncBack.Location = new System.Drawing.Point(53, 786);
+            this.btnPortalSyncBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPortalSyncBack.Name = "btnPortalSyncBack";
-            this.btnPortalSyncBack.Size = new System.Drawing.Size(200, 27);
+            this.btnPortalSyncBack.Size = new System.Drawing.Size(267, 33);
             this.btnPortalSyncBack.TabIndex = 62;
             this.btnPortalSyncBack.Text = "Return to Project";
             this.btnPortalSyncBack.UseVisualStyleBackColor = true;
@@ -941,9 +992,10 @@
             this.cbxSyncSettings.Enabled = false;
             this.cbxSyncSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxSyncSettings.ForeColor = System.Drawing.Color.Navy;
-            this.cbxSyncSettings.Location = new System.Drawing.Point(40, 514);
+            this.cbxSyncSettings.Location = new System.Drawing.Point(53, 633);
+            this.cbxSyncSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxSyncSettings.Name = "cbxSyncSettings";
-            this.cbxSyncSettings.Size = new System.Drawing.Size(195, 20);
+            this.cbxSyncSettings.Size = new System.Drawing.Size(223, 23);
             this.cbxSyncSettings.TabIndex = 61;
             this.cbxSyncSettings.Text = "Sync Portal Site Settings";
             this.cbxSyncSettings.UseVisualStyleBackColor = true;
@@ -952,9 +1004,10 @@
             // btnStartAttachmentsCopy
             // 
             this.btnStartAttachmentsCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStartAttachmentsCopy.Location = new System.Drawing.Point(1146, 639);
+            this.btnStartAttachmentsCopy.Location = new System.Drawing.Point(1528, 786);
+            this.btnStartAttachmentsCopy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStartAttachmentsCopy.Name = "btnStartAttachmentsCopy";
-            this.btnStartAttachmentsCopy.Size = new System.Drawing.Size(232, 28);
+            this.btnStartAttachmentsCopy.Size = new System.Drawing.Size(309, 34);
             this.btnStartAttachmentsCopy.TabIndex = 60;
             this.btnStartAttachmentsCopy.Text = "COPY ATTACHMENTS";
             this.btnStartAttachmentsCopy.UseVisualStyleBackColor = false;
@@ -963,9 +1016,10 @@
             // btnSelectAttachmentsDataFile
             // 
             this.btnSelectAttachmentsDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSelectAttachmentsDataFile.Location = new System.Drawing.Point(411, 170);
+            this.btnSelectAttachmentsDataFile.Location = new System.Drawing.Point(548, 209);
+            this.btnSelectAttachmentsDataFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSelectAttachmentsDataFile.Name = "btnSelectAttachmentsDataFile";
-            this.btnSelectAttachmentsDataFile.Size = new System.Drawing.Size(148, 22);
+            this.btnSelectAttachmentsDataFile.Size = new System.Drawing.Size(197, 27);
             this.btnSelectAttachmentsDataFile.TabIndex = 59;
             this.btnSelectAttachmentsDataFile.Text = "Select Data File";
             this.btnSelectAttachmentsDataFile.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -979,11 +1033,11 @@
             this.groupAttachmentsCopySettings.Controls.Add(this.cbxAttachmentsKeepIDs);
             this.groupAttachmentsCopySettings.Controls.Add(this.cbxIncludeTextNotes);
             this.groupAttachmentsCopySettings.Enabled = false;
-            this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(1005, 170);
-            this.groupAttachmentsCopySettings.Margin = new System.Windows.Forms.Padding(2);
+            this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(1340, 209);
+            this.groupAttachmentsCopySettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupAttachmentsCopySettings.Name = "groupAttachmentsCopySettings";
-            this.groupAttachmentsCopySettings.Padding = new System.Windows.Forms.Padding(2);
-            this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(373, 102);
+            this.groupAttachmentsCopySettings.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(497, 126);
             this.groupAttachmentsCopySettings.TabIndex = 52;
             this.groupAttachmentsCopySettings.TabStop = false;
             this.groupAttachmentsCopySettings.Text = "Copy Settings";
@@ -991,10 +1045,10 @@
             // cbxAttachmentsKeepIDs
             // 
             this.cbxAttachmentsKeepIDs.AutoSize = true;
-            this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(35, 61);
-            this.cbxAttachmentsKeepIDs.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(47, 75);
+            this.cbxAttachmentsKeepIDs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxAttachmentsKeepIDs.Name = "cbxAttachmentsKeepIDs";
-            this.cbxAttachmentsKeepIDs.Size = new System.Drawing.Size(302, 20);
+            this.cbxAttachmentsKeepIDs.Size = new System.Drawing.Size(340, 23);
             this.cbxAttachmentsKeepIDs.TabIndex = 7;
             this.cbxAttachmentsKeepIDs.Text = "Keep List Of Created Notes for rollback";
             this.cbxAttachmentsKeepIDs.UseVisualStyleBackColor = true;
@@ -1003,10 +1057,10 @@
             // cbxIncludeTextNotes
             // 
             this.cbxIncludeTextNotes.AutoSize = true;
-            this.cbxIncludeTextNotes.Location = new System.Drawing.Point(35, 28);
-            this.cbxIncludeTextNotes.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxIncludeTextNotes.Location = new System.Drawing.Point(47, 34);
+            this.cbxIncludeTextNotes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxIncludeTextNotes.Name = "cbxIncludeTextNotes";
-            this.cbxIncludeTextNotes.Size = new System.Drawing.Size(161, 20);
+            this.cbxIncludeTextNotes.Size = new System.Drawing.Size(180, 23);
             this.cbxIncludeTextNotes.TabIndex = 6;
             this.cbxIncludeTextNotes.Text = "Include Text Nodes";
             this.cbxIncludeTextNotes.UseVisualStyleBackColor = true;
@@ -1014,10 +1068,11 @@
             // txtxAttachmentsDataFile
             // 
             this.txtxAttachmentsDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtxAttachmentsDataFile.Location = new System.Drawing.Point(569, 172);
+            this.txtxAttachmentsDataFile.Location = new System.Drawing.Point(759, 212);
+            this.txtxAttachmentsDataFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtxAttachmentsDataFile.Name = "txtxAttachmentsDataFile";
             this.txtxAttachmentsDataFile.ReadOnly = true;
-            this.txtxAttachmentsDataFile.Size = new System.Drawing.Size(349, 20);
+            this.txtxAttachmentsDataFile.Size = new System.Drawing.Size(464, 23);
             this.txtxAttachmentsDataFile.TabIndex = 58;
             this.txtxAttachmentsDataFile.Visible = false;
             // 
@@ -1027,11 +1082,11 @@
             this.groupPortalsSources.Controls.Add(this.label9);
             this.groupPortalsSources.Controls.Add(this.label8);
             this.groupPortalsSources.Controls.Add(this.ddlTargetPortal);
-            this.groupPortalsSources.Location = new System.Drawing.Point(411, 264);
-            this.groupPortalsSources.Margin = new System.Windows.Forms.Padding(2);
+            this.groupPortalsSources.Location = new System.Drawing.Point(548, 325);
+            this.groupPortalsSources.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupPortalsSources.Name = "groupPortalsSources";
-            this.groupPortalsSources.Padding = new System.Windows.Forms.Padding(2);
-            this.groupPortalsSources.Size = new System.Drawing.Size(506, 98);
+            this.groupPortalsSources.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupPortalsSources.Size = new System.Drawing.Size(675, 121);
             this.groupPortalsSources.TabIndex = 56;
             this.groupPortalsSources.TabStop = false;
             this.groupPortalsSources.Visible = false;
@@ -1039,47 +1094,46 @@
             // ddlSourcePortal
             // 
             this.ddlSourcePortal.FormattingEnabled = true;
-            this.ddlSourcePortal.Location = new System.Drawing.Point(160, 20);
-            this.ddlSourcePortal.Margin = new System.Windows.Forms.Padding(2);
+            this.ddlSourcePortal.Location = new System.Drawing.Point(213, 25);
+            this.ddlSourcePortal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ddlSourcePortal.Name = "ddlSourcePortal";
-            this.ddlSourcePortal.Size = new System.Drawing.Size(314, 24);
+            this.ddlSourcePortal.Size = new System.Drawing.Size(417, 27);
             this.ddlSourcePortal.TabIndex = 14;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 65);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(17, 80);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(97, 16);
+            this.label9.Size = new System.Drawing.Size(111, 19);
             this.label9.TabIndex = 17;
             this.label9.Text = "Target Portal";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 23);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(17, 28);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 16);
+            this.label8.Size = new System.Drawing.Size(117, 19);
             this.label8.TabIndex = 15;
             this.label8.Text = "Source Portal";
             // 
             // ddlTargetPortal
             // 
             this.ddlTargetPortal.FormattingEnabled = true;
-            this.ddlTargetPortal.Location = new System.Drawing.Point(160, 62);
-            this.ddlTargetPortal.Margin = new System.Windows.Forms.Padding(2);
+            this.ddlTargetPortal.Location = new System.Drawing.Point(213, 76);
+            this.ddlTargetPortal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ddlTargetPortal.Name = "ddlTargetPortal";
-            this.ddlTargetPortal.Size = new System.Drawing.Size(314, 24);
+            this.ddlTargetPortal.Size = new System.Drawing.Size(417, 27);
             this.ddlTargetPortal.TabIndex = 16;
             // 
             // btnSelectIDsBackup
             // 
             this.btnSelectIDsBackup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSelectIDsBackup.Location = new System.Drawing.Point(411, 428);
+            this.btnSelectIDsBackup.Location = new System.Drawing.Point(548, 527);
+            this.btnSelectIDsBackup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSelectIDsBackup.Name = "btnSelectIDsBackup";
-            this.btnSelectIDsBackup.Size = new System.Drawing.Size(107, 22);
+            this.btnSelectIDsBackup.Size = new System.Drawing.Size(143, 27);
             this.btnSelectIDsBackup.TabIndex = 57;
             this.btnSelectIDsBackup.Text = "Select File";
             this.btnSelectIDsBackup.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1091,10 +1145,11 @@
             // txtAttachmentsIDsBackUpFile
             // 
             this.txtAttachmentsIDsBackUpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtAttachmentsIDsBackUpFile.Location = new System.Drawing.Point(569, 430);
+            this.txtAttachmentsIDsBackUpFile.Location = new System.Drawing.Point(759, 529);
+            this.txtAttachmentsIDsBackUpFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtAttachmentsIDsBackUpFile.Name = "txtAttachmentsIDsBackUpFile";
             this.txtAttachmentsIDsBackUpFile.ReadOnly = true;
-            this.txtAttachmentsIDsBackUpFile.Size = new System.Drawing.Size(349, 20);
+            this.txtAttachmentsIDsBackUpFile.Size = new System.Drawing.Size(464, 23);
             this.txtAttachmentsIDsBackUpFile.TabIndex = 51;
             this.txtAttachmentsIDsBackUpFile.Visible = false;
             // 
@@ -1105,10 +1160,10 @@
             this.cbxBasedOnFiles.Enabled = false;
             this.cbxBasedOnFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxBasedOnFiles.ForeColor = System.Drawing.Color.Navy;
-            this.cbxBasedOnFiles.Location = new System.Drawing.Point(40, 173);
-            this.cbxBasedOnFiles.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxBasedOnFiles.Location = new System.Drawing.Point(53, 213);
+            this.cbxBasedOnFiles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxBasedOnFiles.Name = "cbxBasedOnFiles";
-            this.cbxBasedOnFiles.Size = new System.Drawing.Size(186, 36);
+            this.cbxBasedOnFiles.Size = new System.Drawing.Size(213, 42);
             this.cbxBasedOnFiles.TabIndex = 53;
             this.cbxBasedOnFiles.Text = "Copy Attchments/Notes\r\nBased On Data File";
             this.cbxBasedOnFiles.UseVisualStyleBackColor = true;
@@ -1121,10 +1176,10 @@
             this.cbxFromPortalToPortal.Enabled = false;
             this.cbxFromPortalToPortal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxFromPortalToPortal.ForeColor = System.Drawing.Color.Navy;
-            this.cbxFromPortalToPortal.Location = new System.Drawing.Point(40, 264);
-            this.cbxFromPortalToPortal.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxFromPortalToPortal.Location = new System.Drawing.Point(53, 325);
+            this.cbxFromPortalToPortal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxFromPortalToPortal.Name = "cbxFromPortalToPortal";
-            this.cbxFromPortalToPortal.Size = new System.Drawing.Size(265, 100);
+            this.cbxFromPortalToPortal.Size = new System.Drawing.Size(303, 118);
             this.cbxFromPortalToPortal.TabIndex = 54;
             this.cbxFromPortalToPortal.Text = " Copy Web File\'s Attachments from\r\n    from:   Source, Selected Portal \r\n     to:" +
     "      Target,  Selected Portal \r\n\r\n * Based on Web File\'s names\r\n * Selfcopy is " +
@@ -1139,10 +1194,10 @@
             this.cbxAttachmentsRollback.Enabled = false;
             this.cbxAttachmentsRollback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxAttachmentsRollback.ForeColor = System.Drawing.Color.Navy;
-            this.cbxAttachmentsRollback.Location = new System.Drawing.Point(40, 428);
-            this.cbxAttachmentsRollback.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxAttachmentsRollback.Location = new System.Drawing.Point(53, 527);
+            this.cbxAttachmentsRollback.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxAttachmentsRollback.Name = "cbxAttachmentsRollback";
-            this.cbxAttachmentsRollback.Size = new System.Drawing.Size(227, 20);
+            this.cbxAttachmentsRollback.Size = new System.Drawing.Size(258, 23);
             this.cbxAttachmentsRollback.TabIndex = 55;
             this.cbxAttachmentsRollback.Text = "Roll back Attachments Import";
             this.cbxAttachmentsRollback.UseVisualStyleBackColor = true;
@@ -1151,10 +1206,10 @@
             // tabReplaceIDs
             // 
             this.tabReplaceIDs.Controls.Add(this.groupCopyToolContent);
-            this.tabReplaceIDs.Location = new System.Drawing.Point(4, 35);
-            this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(2);
+            this.tabReplaceIDs.Location = new System.Drawing.Point(4, 38);
+            this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabReplaceIDs.Name = "tabReplaceIDs";
-            this.tabReplaceIDs.Size = new System.Drawing.Size(1420, 755);
+            this.tabReplaceIDs.Size = new System.Drawing.Size(1896, 935);
             this.tabReplaceIDs.TabIndex = 4;
             this.tabReplaceIDs.Text = "Data Duplicator";
             this.tabReplaceIDs.UseVisualStyleBackColor = true;
@@ -1168,28 +1223,30 @@
             this.groupCopyToolContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupCopyToolContent.Enabled = false;
             this.groupCopyToolContent.Location = new System.Drawing.Point(0, 0);
-            this.groupCopyToolContent.Margin = new System.Windows.Forms.Padding(2);
+            this.groupCopyToolContent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupCopyToolContent.Name = "groupCopyToolContent";
-            this.groupCopyToolContent.Padding = new System.Windows.Forms.Padding(2);
-            this.groupCopyToolContent.Size = new System.Drawing.Size(1420, 755);
+            this.groupCopyToolContent.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupCopyToolContent.Size = new System.Drawing.Size(1896, 935);
             this.groupCopyToolContent.TabIndex = 42;
             this.groupCopyToolContent.TabStop = false;
             // 
             // lblDataDouplInfo
             // 
             this.lblDataDouplInfo.AutoSize = true;
-            this.lblDataDouplInfo.Location = new System.Drawing.Point(44, 51);
+            this.lblDataDouplInfo.Location = new System.Drawing.Point(59, 63);
+            this.lblDataDouplInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDataDouplInfo.Name = "lblDataDouplInfo";
-            this.lblDataDouplInfo.Size = new System.Drawing.Size(377, 80);
+            this.lblDataDouplInfo.Size = new System.Drawing.Size(425, 95);
             this.lblDataDouplInfo.TabIndex = 42;
             this.lblDataDouplInfo.Text = "The \"Data Duplicator\" creates exact copy of data file.\r\n\r\nAll entities are gettin" +
     "g new ids.\r\n\r\nReferences are respected and will be updated.";
             // 
             // btnCopyToolBack
             // 
-            this.btnCopyToolBack.Location = new System.Drawing.Point(44, 576);
+            this.btnCopyToolBack.Location = new System.Drawing.Point(59, 709);
+            this.btnCopyToolBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCopyToolBack.Name = "btnCopyToolBack";
-            this.btnCopyToolBack.Size = new System.Drawing.Size(200, 27);
+            this.btnCopyToolBack.Size = new System.Drawing.Size(267, 33);
             this.btnCopyToolBack.TabIndex = 6;
             this.btnCopyToolBack.Text = "Return to Project";
             this.btnCopyToolBack.UseVisualStyleBackColor = true;
@@ -1197,9 +1254,10 @@
             // 
             // btnCopyToolFromModified
             // 
-            this.btnCopyToolFromModified.Location = new System.Drawing.Point(44, 355);
+            this.btnCopyToolFromModified.Location = new System.Drawing.Point(59, 437);
+            this.btnCopyToolFromModified.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCopyToolFromModified.Name = "btnCopyToolFromModified";
-            this.btnCopyToolFromModified.Size = new System.Drawing.Size(644, 75);
+            this.btnCopyToolFromModified.Size = new System.Drawing.Size(859, 92);
             this.btnCopyToolFromModified.TabIndex = 41;
             this.btnCopyToolFromModified.Text = "Create copy of pre-filtered by Saved Views data file with new GUIDs";
             this.btnCopyToolFromModified.UseCompatibleTextRendering = true;
@@ -1208,9 +1266,10 @@
             // 
             // btnCopyToolFromSource
             // 
-            this.btnCopyToolFromSource.Location = new System.Drawing.Point(44, 184);
+            this.btnCopyToolFromSource.Location = new System.Drawing.Point(59, 226);
+            this.btnCopyToolFromSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCopyToolFromSource.Name = "btnCopyToolFromSource";
-            this.btnCopyToolFromSource.Size = new System.Drawing.Size(644, 75);
+            this.btnCopyToolFromSource.Size = new System.Drawing.Size(859, 92);
             this.btnCopyToolFromSource.TabIndex = 40;
             this.btnCopyToolFromSource.Text = "Create copy of original data file with new GUIDs";
             this.btnCopyToolFromSource.UseCompatibleTextRendering = true;
@@ -1231,29 +1290,19 @@
             // 
             this.openFileAttachments.Filter = "XML files (*.xml)|*.xml";
             // 
-            // btnAttachmentsLogs
-            // 
-            this.btnAttachmentsLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btnAttachmentsLogs.Location = new System.Drawing.Point(577, 638);
-            this.btnAttachmentsLogs.Name = "btnAttachmentsLogs";
-            this.btnAttachmentsLogs.Size = new System.Drawing.Size(232, 28);
-            this.btnAttachmentsLogs.TabIndex = 66;
-            this.btnAttachmentsLogs.Text = "Show Logs";
-            this.btnAttachmentsLogs.UseVisualStyleBackColor = false;
-            this.btnAttachmentsLogs.Click += new System.EventHandler(this.btnAttachmentsLogs_Click);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1448, 817);
+            this.ClientSize = new System.Drawing.Size(1931, 1006);
             this.Controls.Add(this.tabsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Migration Management tool";
