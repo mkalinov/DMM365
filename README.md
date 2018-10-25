@@ -1,7 +1,7 @@
 # DMM365
 Data Migration Tool Management for Dynamics 365
 
-Originally created to support Adxstudio portals and Portals365 deployment, the tool upgrted to supports a few algorithms helping  advanced/granular Data Migration  between Dynamics 365 Customer Engagement (Crm) instances located on the same or different tenants organizations.
+Originally created to support Adxstudio portals and Portals365 deployment, the tool upgraded to support a few algorithms helping  advanced/granular Data Migration  between Dynamics 365 Customer Engagement (Crm) instances located on the same or different tenants organizations.
 
 
 ## Supported Dynamics Crm versions
