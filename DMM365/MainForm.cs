@@ -85,7 +85,7 @@ namespace DMM365
 
             lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
 
-            currentLogPath = Path.Combine(IOHelper.createDirectory(Path.Combine(Environment.CurrentDirectory,"Logs")).FullName, "Log_" + DateTime.Now.ToString().Replace(':', '_') + ".txt");
+            currentLogPath = Path.Combine(IOHelper.createDirectory(Path.Combine(Environment.CurrentDirectory,"Logs")).FullName, "Log_" + DateTime.Now.ToString("yyyy-dd-M__HH-mm-ss") +  ".txt");
             File.Create(currentLogPath);
 
             #region Bindings
@@ -1217,6 +1217,7 @@ namespace DMM365
         private void linkWiki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //to open link to github wiki and blog
+            //https://github.com/mkalinov/DMM365/wiki
         }
 
 

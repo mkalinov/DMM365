@@ -117,32 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblAbout3content.Text" xml:space="preserve">
-    <value>Creates full data file copy with new guids. References are properly updated and saved.
-
-Duplication can be done based on original data file or data file createdby Saved Views migration filters.    
-The douplicator is very usefull in Portals 365 deployment. See Project Wiki for full process description.         </value>
-  </data>
-  <data name="lblAbout2content.Text" xml:space="preserve">
-    <value>Originally this module was created as Portals 365 migration helper. The current addition has option to do it for any entity (active/inactive) which can have attachements.
-
-First section of the tab helps copy attachments (notes) from one crm to anoter. Copy process can base on data file containing entities which attchments need to be copied.
-There is a section dedicated to copy Web Files attachments from portla to portal. Portals can reside in same or differnt instance or tenant. Appropriated credentials are need for 
-source and target connections. The whole process can be rolled back if you have marked settings to save newly created Attachment IDs in separate file. 
-
-Site Settings sync section will help to synchronise Site Settings entities from source Portal to target Portal.        
-         </value>
-  </data>
-  <data name="lblAbout1content.Text" xml:space="preserve">
-    <value>Saved views as Data Migration filters
-
-Use Saved vies created in crm to modify Configuration Migration tool data files. You can manage data migration granularity based on field valies, dates of modification/creation etc.
-The tool does not create views, they must be pre-creadted. You also should connect to crm with apprpriated user to be able to read saved views.
-DMM365 queries crm using fetch xml from saved views then edits data files leaving only records those match query results. You can select one or more queries.
-Once selected query you can transform its fetch with  trransformation settings. See more in "Saved Views filters" tab.
-          
-         </value>
-  </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Selecting the option will take you "Portals 365 sync" tab.
 
@@ -162,10 +136,39 @@ and "Copy Web File attchments". These two are didicated support Portals 365 depl
 
 4.  Once prompted, select location of "zip" package created with Configuration Manager in the first step.
 
-5   Project folders will be created in the  select directory and you will be redirect to Modify Data tab. 
+5   Project folders will be created in the  select directory and you will be redirect to Saved Views filters tab. 
      Configure Save views as filters form migration. 
+     Data Duplicator tab becomes functional as well.
 
 6.  Use configuration Migration tool to import created package to target crm instance.</value>
+  </data>
+  <data name="lblAbout3content.Text" xml:space="preserve">
+    <value>This feature is avilable once project created or loaded.
+Prepares a compleate copy of data file with new guids. References are properly updated and saved.
+Result is a package ready for import by Configuration Migration tool.
+
+Duplication can be done based on original data file or data file createdby Saved Views migration filters.    
+The douplicator is very usefull in Portals 365 deployment. See Project Wiki for full process description.         </value>
+  </data>
+  <data name="lblAbout2content.Text" xml:space="preserve">
+    <value>Originally this module was created as Portals 365 migration helper. It is independent from first two features.
+The current addition copies (synchronizes) attachments for any entity (active/inactive) which can have attachements.
+
+First section of the tab helps copy attachments (notes) from one crm to anoter. Copy process can base on data file containing entities which attchments need to be copied.
+There is a section dedicated to copy Web Files attachments from portla to portal. Portals can reside in same or differnt instance or tenant. Appropriated credentials are need for 
+source and target connections. The whole process can be rolled back if you have marked settings to save newly created Attachment IDs in separate file. 
+
+Site Settings sync section will help to synchronise Site Settings entities from source Portal to target Portal.        
+         </value>
+  </data>
+  <data name="lblAbout1content.Text" xml:space="preserve">
+    <value>Saved views as Data Migration filters. 
+
+Use Saved vies created in crm to modify Configuration Migration tool data files. You can manage data migration granularity based on field valies, dates of modification/creation etc.
+The tool does not create views, they must be pre-creadted. You also should connect to crm with apprpriated user to be able to read saved views.
+DMM365 queries crm using fetch xml from saved views then edits data files leaving only records those match query results. You can select one or more queries.
+Once selected query you can transform its fetch with  transformation settings. Result is a Configuration Mogration package for import. 
+See more in "Saved Views filters" tab. </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Execute As List Of Linked Queries
