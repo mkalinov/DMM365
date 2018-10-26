@@ -6,7 +6,7 @@ Originally created to support Adxstudio portals and Portals365 deployment, the t
 
 ## Supported Dynamics Crm versions
 
-8.x (online, on-prem), 9.x (online). Version 9.x on-prem will be tested once became available
+8.x (online, on-prem), 9.x (online).
 
 ## Prerequisites
 
