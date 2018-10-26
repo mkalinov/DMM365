@@ -368,7 +368,7 @@ namespace DMM365
                 {
                     cb.Checked = false;
                 }
-                else moveNextTab(2);
+                else moveNextTab(3);
             }
 
             cbxBasedOnFiles.Enabled = cbxFromPortalToPortal.Enabled = cbxAttachmentsRollback.Enabled = cbxSyncSettings.Enabled = cb.Checked;
@@ -1410,6 +1410,8 @@ namespace DMM365
                 ExecuteAsListOfLinkedQueries = query.ExequteAsSeparateLinkedQueries,
                 ExcludeFromResults = query.ExcludeFromResults
             }).FirstOrDefault(s => s.id == viewid);
+
+            if (ReferenceEquals(allSettings.SelectedUserQueries, null)) allSettings.SelectedUserQueries = new List<selectedQuery>();
 
             if (allSettings.SelectedUserQueries.Contains(userQuery, new selectedQueryEqualityComparer()))
                 allSettings.SelectedUserQueries.RemoveAll(q => q.id == userQuery.id);
