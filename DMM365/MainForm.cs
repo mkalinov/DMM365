@@ -1411,6 +1411,8 @@ namespace DMM365
                 ExcludeFromResults = query.ExcludeFromResults
             }).FirstOrDefault(s => s.id == viewid);
 
+            if (ReferenceEquals(allSettings.SelectedUserQueries, null)) allSettings.SelectedUserQueries = new List<selectedQuery>();
+
             if (allSettings.SelectedUserQueries.Contains(userQuery, new selectedQueryEqualityComparer()))
                 allSettings.SelectedUserQueries.RemoveAll(q => q.id == userQuery.id);
 
