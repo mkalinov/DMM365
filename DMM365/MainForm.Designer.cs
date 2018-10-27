@@ -289,7 +289,7 @@
             this.tabProject.Controls.Add(this.cbxCreateProject);
             this.tabProject.Controls.Add(this.cbxAttachmentsMigration);
             this.tabProject.Location = new System.Drawing.Point(4, 35);
-            this.tabProject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabProject.Margin = new System.Windows.Forms.Padding(2);
             this.tabProject.Name = "tabProject";
             this.tabProject.Size = new System.Drawing.Size(1420, 755);
             this.tabProject.TabIndex = 5;
@@ -310,7 +310,7 @@
             // 
             this.btnTargetConnectionChange.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnTargetConnectionChange.Location = new System.Drawing.Point(1233, 212);
-            this.btnTargetConnectionChange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTargetConnectionChange.Margin = new System.Windows.Forms.Padding(2);
             this.btnTargetConnectionChange.Name = "btnTargetConnectionChange";
             this.btnTargetConnectionChange.Size = new System.Drawing.Size(76, 19);
             this.btnTargetConnectionChange.TabIndex = 54;
@@ -324,7 +324,7 @@
             // 
             this.btnSourcetConnectionChange.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnSourcetConnectionChange.Location = new System.Drawing.Point(1233, 117);
-            this.btnSourcetConnectionChange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSourcetConnectionChange.Margin = new System.Windows.Forms.Padding(2);
             this.btnSourcetConnectionChange.Name = "btnSourcetConnectionChange";
             this.btnSourcetConnectionChange.Size = new System.Drawing.Size(76, 19);
             this.btnSourcetConnectionChange.TabIndex = 53;
@@ -417,7 +417,7 @@
             this.cbxLoadProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxLoadProject.ForeColor = System.Drawing.Color.Navy;
             this.cbxLoadProject.Location = new System.Drawing.Point(30, 411);
-            this.cbxLoadProject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxLoadProject.Margin = new System.Windows.Forms.Padding(2);
             this.cbxLoadProject.Name = "cbxLoadProject";
             this.cbxLoadProject.Size = new System.Drawing.Size(159, 20);
             this.cbxLoadProject.TabIndex = 42;
@@ -442,7 +442,7 @@
             this.cbxCreateProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxCreateProject.ForeColor = System.Drawing.Color.Navy;
             this.cbxCreateProject.Location = new System.Drawing.Point(30, 30);
-            this.cbxCreateProject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxCreateProject.Margin = new System.Windows.Forms.Padding(2);
             this.cbxCreateProject.Name = "cbxCreateProject";
             this.cbxCreateProject.Size = new System.Drawing.Size(476, 36);
             this.cbxCreateProject.TabIndex = 41;
@@ -458,7 +458,7 @@
             this.cbxAttachmentsMigration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxAttachmentsMigration.ForeColor = System.Drawing.Color.Navy;
             this.cbxAttachmentsMigration.Location = new System.Drawing.Point(30, 598);
-            this.cbxAttachmentsMigration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxAttachmentsMigration.Margin = new System.Windows.Forms.Padding(2);
             this.cbxAttachmentsMigration.Name = "cbxAttachmentsMigration";
             this.cbxAttachmentsMigration.Size = new System.Drawing.Size(586, 20);
             this.cbxAttachmentsMigration.TabIndex = 43;
@@ -489,9 +489,9 @@
             this.groupViewsAdvanced.Controls.Add(this.treeSorceDataFile);
             this.groupViewsAdvanced.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupViewsAdvanced.Location = new System.Drawing.Point(1172, 0);
-            this.groupViewsAdvanced.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupViewsAdvanced.Margin = new System.Windows.Forms.Padding(2);
             this.groupViewsAdvanced.Name = "groupViewsAdvanced";
-            this.groupViewsAdvanced.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupViewsAdvanced.Padding = new System.Windows.Forms.Padding(2);
             this.groupViewsAdvanced.Size = new System.Drawing.Size(248, 755);
             this.groupViewsAdvanced.TabIndex = 44;
             this.groupViewsAdvanced.TabStop = false;
@@ -523,7 +523,7 @@
             // 
             this.treeResultDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.treeResultDataFile.Location = new System.Drawing.Point(15, 386);
-            this.treeResultDataFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeResultDataFile.Margin = new System.Windows.Forms.Padding(2);
             this.treeResultDataFile.Name = "treeResultDataFile";
             this.treeResultDataFile.Size = new System.Drawing.Size(215, 280);
             this.treeResultDataFile.TabIndex = 46;
@@ -532,7 +532,7 @@
             // 
             this.treeSorceDataFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.treeSorceDataFile.Location = new System.Drawing.Point(15, 54);
-            this.treeSorceDataFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeSorceDataFile.Margin = new System.Windows.Forms.Padding(2);
             this.treeSorceDataFile.Name = "treeSorceDataFile";
             this.treeSorceDataFile.Size = new System.Drawing.Size(215, 280);
             this.treeSorceDataFile.TabIndex = 0;
@@ -623,19 +623,19 @@
             // 
             this.lblTransformedQueryDisplay.AutoSize = true;
             this.lblTransformedQueryDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(898, 288);
+            this.lblTransformedQueryDisplay.Location = new System.Drawing.Point(935, 288);
             this.lblTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTransformedQueryDisplay.Name = "lblTransformedQueryDisplay";
-            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(145, 13);
+            this.lblTransformedQueryDisplay.Size = new System.Drawing.Size(72, 13);
             this.lblTransformedQueryDisplay.TabIndex = 63;
-            this.lblTransformedQueryDisplay.Text = "Query Transformation Display";
+            this.lblTransformedQueryDisplay.Text = "Query Display";
             // 
             // cbxExcludeFromResult
             // 
             this.cbxExcludeFromResult.AutoSize = true;
             this.cbxExcludeFromResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxExcludeFromResult.Location = new System.Drawing.Point(602, 386);
-            this.cbxExcludeFromResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxExcludeFromResult.Margin = new System.Windows.Forms.Padding(2);
             this.cbxExcludeFromResult.Name = "cbxExcludeFromResult";
             this.cbxExcludeFromResult.Size = new System.Drawing.Size(191, 21);
             this.cbxExcludeFromResult.TabIndex = 65;
@@ -646,7 +646,7 @@
             // treeTransformedQueryDisplay
             // 
             this.treeTransformedQueryDisplay.Location = new System.Drawing.Point(848, 329);
-            this.treeTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeTransformedQueryDisplay.Margin = new System.Windows.Forms.Padding(2);
             this.treeTransformedQueryDisplay.Name = "treeTransformedQueryDisplay";
             this.treeTransformedQueryDisplay.Size = new System.Drawing.Size(263, 300);
             this.treeTransformedQueryDisplay.TabIndex = 62;
@@ -702,7 +702,7 @@
             this.lstDefaultSchemaDataByViews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lstDefaultSchemaDataByViews.FormattingEnabled = true;
             this.lstDefaultSchemaDataByViews.Location = new System.Drawing.Point(10, 63);
-            this.lstDefaultSchemaDataByViews.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstDefaultSchemaDataByViews.Margin = new System.Windows.Forms.Padding(2);
             this.lstDefaultSchemaDataByViews.Name = "lstDefaultSchemaDataByViews";
             this.lstDefaultSchemaDataByViews.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstDefaultSchemaDataByViews.Size = new System.Drawing.Size(206, 485);
@@ -769,7 +769,7 @@
             // 
             this.tabReplaceIDs.Controls.Add(this.groupCopyToolContent);
             this.tabReplaceIDs.Location = new System.Drawing.Point(4, 35);
-            this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabReplaceIDs.Margin = new System.Windows.Forms.Padding(2);
             this.tabReplaceIDs.Name = "tabReplaceIDs";
             this.tabReplaceIDs.Size = new System.Drawing.Size(1420, 755);
             this.tabReplaceIDs.TabIndex = 4;
@@ -785,9 +785,9 @@
             this.groupCopyToolContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupCopyToolContent.Enabled = false;
             this.groupCopyToolContent.Location = new System.Drawing.Point(0, 0);
-            this.groupCopyToolContent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupCopyToolContent.Margin = new System.Windows.Forms.Padding(2);
             this.groupCopyToolContent.Name = "groupCopyToolContent";
-            this.groupCopyToolContent.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupCopyToolContent.Padding = new System.Windows.Forms.Padding(2);
             this.groupCopyToolContent.Size = new System.Drawing.Size(1420, 755);
             this.groupCopyToolContent.TabIndex = 42;
             this.groupCopyToolContent.TabStop = false;
@@ -969,9 +969,9 @@
             this.groupAttachmentsCopySettings.Controls.Add(this.cbxIncludeTextNotes);
             this.groupAttachmentsCopySettings.Enabled = false;
             this.groupAttachmentsCopySettings.Location = new System.Drawing.Point(1005, 170);
-            this.groupAttachmentsCopySettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupAttachmentsCopySettings.Margin = new System.Windows.Forms.Padding(2);
             this.groupAttachmentsCopySettings.Name = "groupAttachmentsCopySettings";
-            this.groupAttachmentsCopySettings.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupAttachmentsCopySettings.Padding = new System.Windows.Forms.Padding(2);
             this.groupAttachmentsCopySettings.Size = new System.Drawing.Size(373, 102);
             this.groupAttachmentsCopySettings.TabIndex = 52;
             this.groupAttachmentsCopySettings.TabStop = false;
@@ -981,7 +981,7 @@
             // 
             this.cbxAttachmentsKeepIDs.AutoSize = true;
             this.cbxAttachmentsKeepIDs.Location = new System.Drawing.Point(35, 61);
-            this.cbxAttachmentsKeepIDs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxAttachmentsKeepIDs.Margin = new System.Windows.Forms.Padding(2);
             this.cbxAttachmentsKeepIDs.Name = "cbxAttachmentsKeepIDs";
             this.cbxAttachmentsKeepIDs.Size = new System.Drawing.Size(302, 20);
             this.cbxAttachmentsKeepIDs.TabIndex = 7;
@@ -993,7 +993,7 @@
             // 
             this.cbxIncludeTextNotes.AutoSize = true;
             this.cbxIncludeTextNotes.Location = new System.Drawing.Point(35, 28);
-            this.cbxIncludeTextNotes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxIncludeTextNotes.Margin = new System.Windows.Forms.Padding(2);
             this.cbxIncludeTextNotes.Name = "cbxIncludeTextNotes";
             this.cbxIncludeTextNotes.Size = new System.Drawing.Size(161, 20);
             this.cbxIncludeTextNotes.TabIndex = 6;
@@ -1017,9 +1017,9 @@
             this.groupPortalsSources.Controls.Add(this.label8);
             this.groupPortalsSources.Controls.Add(this.ddlTargetPortal);
             this.groupPortalsSources.Location = new System.Drawing.Point(411, 264);
-            this.groupPortalsSources.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupPortalsSources.Margin = new System.Windows.Forms.Padding(2);
             this.groupPortalsSources.Name = "groupPortalsSources";
-            this.groupPortalsSources.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupPortalsSources.Padding = new System.Windows.Forms.Padding(2);
             this.groupPortalsSources.Size = new System.Drawing.Size(506, 98);
             this.groupPortalsSources.TabIndex = 56;
             this.groupPortalsSources.TabStop = false;
@@ -1029,7 +1029,7 @@
             // 
             this.ddlSourcePortal.FormattingEnabled = true;
             this.ddlSourcePortal.Location = new System.Drawing.Point(160, 20);
-            this.ddlSourcePortal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ddlSourcePortal.Margin = new System.Windows.Forms.Padding(2);
             this.ddlSourcePortal.Name = "ddlSourcePortal";
             this.ddlSourcePortal.Size = new System.Drawing.Size(314, 24);
             this.ddlSourcePortal.TabIndex = 14;
@@ -1058,7 +1058,7 @@
             // 
             this.ddlTargetPortal.FormattingEnabled = true;
             this.ddlTargetPortal.Location = new System.Drawing.Point(160, 62);
-            this.ddlTargetPortal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ddlTargetPortal.Margin = new System.Windows.Forms.Padding(2);
             this.ddlTargetPortal.Name = "ddlTargetPortal";
             this.ddlTargetPortal.Size = new System.Drawing.Size(314, 24);
             this.ddlTargetPortal.TabIndex = 16;
@@ -1095,7 +1095,7 @@
             this.cbxBasedOnFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxBasedOnFiles.ForeColor = System.Drawing.Color.Navy;
             this.cbxBasedOnFiles.Location = new System.Drawing.Point(40, 173);
-            this.cbxBasedOnFiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxBasedOnFiles.Margin = new System.Windows.Forms.Padding(2);
             this.cbxBasedOnFiles.Name = "cbxBasedOnFiles";
             this.cbxBasedOnFiles.Size = new System.Drawing.Size(186, 36);
             this.cbxBasedOnFiles.TabIndex = 53;
@@ -1111,7 +1111,7 @@
             this.cbxFromPortalToPortal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxFromPortalToPortal.ForeColor = System.Drawing.Color.Navy;
             this.cbxFromPortalToPortal.Location = new System.Drawing.Point(40, 264);
-            this.cbxFromPortalToPortal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxFromPortalToPortal.Margin = new System.Windows.Forms.Padding(2);
             this.cbxFromPortalToPortal.Name = "cbxFromPortalToPortal";
             this.cbxFromPortalToPortal.Size = new System.Drawing.Size(265, 100);
             this.cbxFromPortalToPortal.TabIndex = 54;
@@ -1129,7 +1129,7 @@
             this.cbxAttachmentsRollback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxAttachmentsRollback.ForeColor = System.Drawing.Color.Navy;
             this.cbxAttachmentsRollback.Location = new System.Drawing.Point(40, 428);
-            this.cbxAttachmentsRollback.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxAttachmentsRollback.Margin = new System.Windows.Forms.Padding(2);
             this.cbxAttachmentsRollback.Name = "cbxAttachmentsRollback";
             this.cbxAttachmentsRollback.Size = new System.Drawing.Size(227, 20);
             this.cbxAttachmentsRollback.TabIndex = 55;
