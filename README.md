@@ -33,7 +33,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 This project accepts community contributions through GitHub, following the [inbound=outbound](https://opensource.guide/legal/#does-my-project-need-an-additional-contributor-agreement) model as described in the [GitHub Terms of Service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license):
 
-    Whenever you make a contribution to a repository containing notice of a license, 
+> Whenever you make a contribution to a repository containing notice of a license, 
     you license your contribution under the same terms, and you agree that you have 
     the right to license your contribution under those terms.
 
