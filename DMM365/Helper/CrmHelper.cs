@@ -136,6 +136,7 @@ namespace DMM365.Helper
         #region Execute Query
 
 
+
         internal static List<Guid> getIdsFromViewsExecution(CrmServiceClient service, Dictionary<Guid, queryContainer> viewsContainers)
         {
             List<Guid> result = new List<Guid>();
@@ -177,54 +178,60 @@ namespace DMM365.Helper
             //result ids
             result.AddRange(currentEntitySet.Select(s => s.Id).ToList());
 
+            #region Saved views import simplified. Not in use
+
+
             //looping entities
-            foreach (Entity current in currentEntitySet)
-            {
-                //get all lookups IDs from first level. Aliesed values excepted
-                view.references = getAllReferencesIDs(current);
-                //Add to result if flag is set
-                if (view.CollectAllReferences)
-                {
-                    if (!ReferenceEquals(view.references, null) && view.references.Count > 0)
-                    {
-                        foreach (string k in view.references.Keys)
-                        {
-                            result.Add(view.references[k]);
-                        }
-                    }
-                }
+            //foreach (Entity current in currentEntitySet)
+            //{
+            //    //get all lookups IDs from first level. Aliesed values excepted
+            //    view.references = getAllReferencesIDs(current);
+            //    //Add to result if flag is set
+            //    if (view.CollectAllReferences)
+            //    {
+            //        if (!ReferenceEquals(view.references, null) && view.references.Count > 0)
+            //        {
+            //            foreach (string k in view.references.Keys)
+            //            {
+            //                result.Add(view.references[k]);
+            //            }
+            //        }
+            //    }
 
-                //execute linked expressions
-                if (!ReferenceEquals(view.linkedExpressions, null) && view.linkedExpressions.Count > 0)
-                {
-                    foreach (queryContainer le in view.linkedExpressions)
-                    {
+            //    //execute linked expressions
+            //    if (!ReferenceEquals(view.linkedExpressions, null) && view.linkedExpressions.Count > 0)
+            //    {
+            //        foreach (queryContainer le in view.linkedExpressions)
+            //        {
 
-                        //if link entity is a lookup (M:1) => recursive call
-                        if (le.RelationShipType == relationShipType.Lookup)
-                        {
-                            //if refence not exist then this barnch is empty
-                            if (!view.references.Keys.Contains(le.masterEntityLookUpName)) continue;
-                            //add condition to keep link between parent and sub
-                            ConditionExpression cond = new ConditionExpression(le.primaryKeyName, ConditionOperator.Equal, view.references[le.masterEntityLookUpName]);
-                            le.expression.Criteria.AddCondition(cond);
-                        }
-                        if (le.RelationShipType == relationShipType.Child)
-                        {
-                            //add condition to keep link between parent and sub
-                            ConditionExpression cond = new ConditionExpression(le.masterEntityLookUpName, ConditionOperator.Equal, current.Id);
-                            le.expression.Criteria.AddCondition(cond);
-                        }
+            //            //if link entity is a lookup (M:1) => recursive call
+            //            if (le.RelationShipType == relationShipType.Lookup)
+            //            {
+            //                //if refence not exist then this barnch is empty
+            //                if (!view.references.Keys.Contains(le.masterEntityLookUpName)) continue;
+            //                //add condition to keep link between parent and sub
+            //                ConditionExpression cond = new ConditionExpression(le.primaryKeyName, ConditionOperator.Equal, view.references[le.masterEntityLookUpName]);
+            //                le.expression.Criteria.AddCondition(cond);
+            //            }
+            //            if (le.RelationShipType == relationShipType.Child)
+            //            {
+            //                //add condition to keep link between parent and sub
+            //                ConditionExpression cond = new ConditionExpression(le.masterEntityLookUpName, ConditionOperator.Equal, current.Id);
+            //                le.expression.Criteria.AddCondition(cond);
+            //            }
 
 
-                        //linked entity is a "child", 1:M
-                        le.masterEntityLookUpID = current.Id;
-                        //recursive call
-                        result.AddRange(topLevel(service, le));
-                    }
+            //            //linked entity is a "child", 1:M
+            //            le.masterEntityLookUpID = current.Id;
+            //            //recursive call
+            //            result.AddRange(topLevel(service, le));
+            //        }
 
-                }
-            }
+            //    }
+            //}
+
+            #endregion Saved views import simplified. Not in use
+
 
             return result;
         }

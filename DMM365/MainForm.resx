@@ -117,31 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Selecting the option will take you "Portals 365 sync" tab.
-
-All methods works for for any crm entitiy (able to have attachments) except "Sync Portal Site Settings" 
-and "Copy Web File attchments". These two are didicated support Portals 365 deployment.</value>
-  </data>
-  <data name="lblProject.Text" xml:space="preserve">
-    <value>Steps:
-
-1.  Start with creating configuretion Migration package with Entities records you want to migrate
-     from source cmr instance. The package will contain all records found in source crm.
-
-2.  Check the checkbox above to start new migration project.
-     Choose or create a directory for a new project. Directory name becomes the poject name.
-
-3.  Establish connection to Crm source instance
-
-4.  Once prompted, select location of "zip" package created with Configuration Manager in the first step.
-
-5   Project folders will be created in the  select directory and you will be redirect to Saved Views filters tab. 
-     Configure Save views as filters form migration. 
-     Data Duplicator tab becomes functional as well.
-
-6.  Use configuration Migration tool to import created package to target crm instance.</value>
-  </data>
   <data name="lblAbout3content.Text" xml:space="preserve">
     <value>This feature is avilable once project created or loaded.
 Prepares a compleate copy of data file with new guids. References are properly updated and saved.
@@ -170,12 +145,30 @@ DMM365 queries crm using fetch xml from saved views then edits data files leavin
 Once selected query you can transform its fetch with  transformation settings. Result is a Configuration Mogration package for import. 
 See more in "Saved Views filters" tab. </value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Execute As List Of Linked Queries
+  <data name="label4.Text" xml:space="preserve">
+    <value>Selecting the option will take you "Portals 365 sync" tab.
 
-If there is any linked entites in the fetch then app will transform them to separate query.
-Dependency to main entity will remain as condition. A list of queries, including original,
-will be executed and result will be distincted by ID.</value>
+All methods works for for any crm entitiy (able to have attachments) except "Sync Portal Site Settings" 
+and "Copy Web File attchments". These two are didicated support Portals 365 deployment.</value>
+  </data>
+  <data name="lblProject.Text" xml:space="preserve">
+    <value>Steps:
+
+1.  Start with creating configuretion Migration package with Entities records you want to migrate
+     from source cmr instance. The package will contain all records found in source crm.
+
+2.  Check the checkbox above to start new migration project.
+     Choose or create a directory for a new project. Directory name becomes the poject name.
+
+3.  Establish connection to Crm source instance
+
+4.  Once prompted, select location of "zip" package created with Configuration Manager in the first step.
+
+5   Project folders will be created in the  select directory and you will be redirect to Saved Views filters tab. 
+     Configure Save views as filters form migration. 
+     Data Duplicator tab becomes functional as well.
+
+6.  Use configuration Migration tool to import created package to target crm instance.</value>
   </data>
   <metadata name="folderBrowserDialogLoadProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

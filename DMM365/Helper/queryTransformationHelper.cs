@@ -13,7 +13,33 @@ namespace DMM365.Helper
 {
     internal static class queryTransformationHelper
     {
-        
+
+        internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch,  bool excludeFromResults)
+        {
+            QueryExpression mainQuery = CrmHelper.fetchToQuery(service, fetch);
+            queryContainer root = new queryContainer
+            {
+                isRoot = true,
+                expression = mainQuery,
+                entityLogicalName = mainQuery.EntityName,
+                ExcludeFromResults = excludeFromResults
+            };
+            return root;
+        }
+
+
+        #region Saved views import simplified. Not in use
+
+        /// <summary>
+        /// Depricated
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="listOfEntities_DS"></param>
+        /// <param name="fetch"></param>
+        /// <param name="exequteAsSeparateLinkedQueries"></param>
+        /// <param name="collectAllReferences"></param>
+        /// <param name="excludeFromResults"></param>
+        /// <returns></returns>
         internal static queryContainer transformFetch(CrmServiceClient service, SchemaEntities listOfEntities_DS, string fetch, bool exequteAsSeparateLinkedQueries, bool collectAllReferences, bool excludeFromResults)
         {
             QueryExpression mainQuery = CrmHelper.fetchToQuery(service, fetch);
@@ -144,7 +170,7 @@ namespace DMM365.Helper
                         //recurse to itself
                         List<queryContainer> subQueries = transformLinkEntitiesToQueries(service, listOfEntities_DS, le.LinkEntities, current);
                         if (!ReferenceEquals(subQueries, null) && subQueries.Count > 0)
-                            current.linkedExpressions = subQueries;
+                            result.AddRange(subQueries);
                     }
                     result.Add(current);
                 }
@@ -152,6 +178,9 @@ namespace DMM365.Helper
 
             return result;
         }
+
+        #endregion Saved views import simplified. Not in use
+
 
         private static QueryExpression transformLinkToQueryExpression(LinkEntity le)
         {

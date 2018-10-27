@@ -83,7 +83,7 @@ namespace DMM365
 
             listAuthType_DS = enumToList.Of<Microsoft.Xrm.Tooling.Connector.AuthenticationType>(true);
 
-            lblTick1.Text = lblTick2.Text = lblTick3.Text = "\u2714";
+            lblTick3.Text = "\u2714";
 
             currentLogPath = Path.Combine(IOHelper.createDirectory(Path.Combine(Environment.CurrentDirectory,"Logs")).FullName, "Log_" + DateTime.Now.ToString("yyyy-dd-M__HH-mm-ss") +  ".txt");
             File.Create(currentLogPath);
@@ -1338,13 +1338,13 @@ namespace DMM365
             if (!ReferenceEquals(getView(view.id), null)) deleteView(view.id);
 
             if (ReferenceEquals(allSettings.SelectedUserQueries, null) || ReferenceEquals(allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id), null))
-                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, cbxExecuteAsListOfLinkedQueries.Checked, cbxCollectAllReferences.Checked, cbxExcludeFromResult.Checked));
+                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, cbxExcludeFromResult.Checked));
 
             else
             {
 
                 selectedQuery current = allSettings.SelectedUserQueries.FirstOrDefault(x => x.id == view.id);
-                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch, current.ExecuteAsListOfLinkedQueries, current.CollectAllReferences, current.ExcludeFromResults));
+                viewsContainers.Add(view.id, queryTransformationHelper.transformFetch(crmServiceClientSource, listOfEntities_DS, fetch,  current.ExcludeFromResults));
             }
 
         }
@@ -1374,15 +1374,8 @@ namespace DMM365
             //remove oncheked event
             //transformationSettings_CheckedChanged
             cbxExcludeFromResult.CheckedChanged -= transformationSettings_CheckedChanged;
-            cbxCollectAllReferences.CheckedChanged -= transformationSettings_CheckedChanged;
-            cbxExecuteAsListOfLinkedQueries.CheckedChanged -= transformationSettings_CheckedChanged;
             cbxExcludeFromResult.Checked = current.ExcludeFromResults;
-            cbxCollectAllReferences.Checked = current.CollectAllReferences;
-            cbxExecuteAsListOfLinkedQueries.Checked = current.ExequteAsSeparateLinkedQueries;
             cbxExcludeFromResult.CheckedChanged += transformationSettings_CheckedChanged;
-            cbxCollectAllReferences.CheckedChanged += transformationSettings_CheckedChanged;
-            cbxExecuteAsListOfLinkedQueries.CheckedChanged += transformationSettings_CheckedChanged;
-
 
         }
 
@@ -1392,12 +1385,10 @@ namespace DMM365
             if (ReferenceEquals(lstListOfViewsFilters.SelectedItem, null)) return;
             CrmEntityContainer view = lstListOfViewsFilters.SelectedItem as CrmEntityContainer;
             queryContainer current = getView(view.id);
-            current.CollectAllReferences = cbxCollectAllReferences.Checked;
             current.ExcludeFromResults = cbxExcludeFromResult.Checked;
-            current.ExequteAsSeparateLinkedQueries = cbxExecuteAsListOfLinkedQueries.Checked;
             saveViewToSettings(current, view.id);
+            addView(view);
             loadView(view);
-
         }
 
         private void saveViewToSettings(queryContainer query, Guid viewid)
